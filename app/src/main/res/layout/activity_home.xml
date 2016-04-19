@@ -1,13 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/ll_root"
+    android:background="@drawable/bg1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.wangdao.mutilword.activity.HomeActivity">
+    android:layout_height="match_parent">
+
 
     <TextView
+        android:typeface="monospace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HomeActivity"/>
+        android:padding="10dp"
+        android:text="MultiWords"
+        android:textColor="#9400D3"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:background="@android:color/transparent"
 
-</RelativeLayout>
+        />
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_weight="1"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            style="@style/ImageViewStyle"
+            android:id="@+id/iv_word"
+            android:src="@drawable/word"
+            />
+        <TextView
+            style="@style/TextViewStyle"
+            android:text="背单词"
+            />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:id="@+id/iv_read"
+                android:src="@drawable/read"
+                />
+            <TextView
+                style="@style/TextViewStyle"
+                android:text="美文阅读"
+
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:id="@+id/iv_exam"
+                android:src="@drawable/exam"
+                />
+            <TextView
+                style="@style/TextViewStyle"
+                android:text="测试训练"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:id="@+id/iv_listen"
+                android:src="@drawable/listen"
+                />
+            <TextView
+                style="@style/TextViewStyle"
+                android:text="听力训练"
+
+                />
+        </LinearLayout>
+    </RelativeLayout>
+<!--<FrameLayout
+    android:id="@+id/fl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    >
+
+    <GridView
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/gv_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        ></GridView>
+</FrameLayout>-->
+
+</LinearLayout>

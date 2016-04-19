@@ -21,6 +21,7 @@
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.RetrievePasswordActivity" />
         <activity android:name=".activity.ReadActivity"></activity>
+
     </application>
 
 </manifest>
