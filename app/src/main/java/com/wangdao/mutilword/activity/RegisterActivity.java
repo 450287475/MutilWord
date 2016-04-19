@@ -70,7 +70,7 @@ public class RegisterActivity extends Activity {
             @Override
             public void onSuccess() {
                 Toast.makeText(RegisterActivity.this,"注册成功："+userInfo.getObjectId(),Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                startActivity(new Intent(RegisterActivity.this,HomeActivity.class));
             }
 
             @Override
