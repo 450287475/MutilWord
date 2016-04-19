@@ -1,17 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wangdao.mutilword.MainActivity">
+    tools:context=".activity.MainActivity"
+    android:padding="20dp"
+    android:background="@drawable/initpagebackground">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:id="@+id/iv_initpage_icon"/>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:id="@+id/ll_iv_initpage_phoneinput"
+        android:layout_below="@id/iv_initpage_icon"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ed_initpage_phone"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_iv_initpage_passinput"
+        android:layout_below="@id/ll_iv_initpage_phoneinput"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ed_initpage_password"/>
+    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_initpage_login"
+        android:layout_below="@id/ll_iv_initpage_passinput"
+        android:layout_marginTop="20dp"
+        android:text="登陆"
+        android:onClick="login"
+        android:background="@drawable/bt_background"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_iv_initpage_registerandforget"
+        android:layout_below="@id/bt_initpage_login"
+        android:orientation="horizontal"
+        android:padding="30dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:gravity="center"
+            android:onClick="register"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="忘记密码"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:onClick="forgetPassword"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_initpage_forget"/>
+    </LinearLayout>
 </RelativeLayout>
