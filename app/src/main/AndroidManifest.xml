@@ -10,16 +10,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.wangdao.mutilword.activity.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wangdao.mutilword.activity.RegisterActivity" />
-        <activity android:name="com.wangdao.mutilword.activity.HomeActivity" />
-        <activity android:name="com.wangdao.mutilword.activity.RetrievePasswordActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.RetrievePasswordActivity" />
+        <activity android:name=".activity.ReadActivity"></activity>
     </application>
 
 </manifest>
