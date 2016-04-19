@@ -3,11 +3,13 @@ package com.wangdao.mutilword.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.UserInfo;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -59,9 +61,6 @@ public class RegisterActivity extends Activity {
             userInfo.setUsername(username);
             insertToDB(userInfo);
         }
-
-
-
     }
 
     //将数据插入到数据库
@@ -71,6 +70,16 @@ public class RegisterActivity extends Activity {
             public void onSuccess() {
                 Toast.makeText(RegisterActivity.this,"注册成功："+userInfo.getObjectId(),Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this,HomeActivity.class));
+
+                //将登陆用户信息保存在ApplicationInfo类的UserInfo对象里面
+                String userid = userInfo.getUserid();
+                String username = userInfo.getUsername();
+                String password = userInfo.getPassword();
+                String phone = userInfo.getPhone();
+                String usericon = userInfo.getUsericon();
+                int userpoints = userInfo.getUserpoints();
+                int userrank = userInfo.getUserrank();
+                ApplicationInfo.initUserInfo(userid,username,password,usericon,phone,userrank,userpoints);
             }
 
             @Override

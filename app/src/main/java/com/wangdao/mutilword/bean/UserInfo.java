@@ -14,8 +14,21 @@ public class UserInfo extends BmobObject {
     private int userrank;
     private int userpoints;
 
+    public UserInfo() {
+    }
+
+    public UserInfo(String userid, String username, String password, String usericon, String phone, int userrank, int userpoints) {
+        this.userid = userid;
+        this.username = username;
+        this.password = password;
+        this.usericon = usericon;
+        this.phone = phone;
+        this.userrank = userrank;
+        this.userpoints = userpoints;
+    }
+
     public String getUserid() {
-        return userid;
+        return getObjectId();
     }
 
     public void setUserid(String userid) {
@@ -68,5 +81,18 @@ public class UserInfo extends BmobObject {
 
     public void setUserpoints(int userpoints) {
         this.userpoints = userpoints;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userid='" + userid + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", usericon='" + usericon + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userrank=" + userrank +
+                ", userpoints=" + userpoints +
+                '}';
     }
 }

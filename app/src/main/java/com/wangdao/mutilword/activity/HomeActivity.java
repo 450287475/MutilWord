@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.wangdao.mutilword.R;
-import com.wangdao.mutilword.bean.Word_info;
-import com.wangdao.mutilword.dao.WordDao;
 
-import java.util.ArrayList;
-
+import  View.ExplosionField;
 
 public class HomeActivity extends Activity {
 
@@ -18,10 +16,13 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-    }
+        //设置监听点击的图标
+        ExplosionField explosionField = new ExplosionField(HomeActivity.this);
 
-    public void go(View view) {
-        startActivity(new Intent(this,ChooseWordTypeActivity.class));
+        explosionField.addListener(findViewById(R.id.ll_root));
 
     }
+}
+
+
 }

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.UserInfo;
 
 
@@ -34,7 +35,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Bmob.initialize(this, "d8aca0c0e17c711bfb65e82127887c2c");
-
         ed_initpage_phone = (EditText) findViewById(R.id.ed_initpage_phone);
         ed_initpage_password = (EditText) findViewById(R.id.ed_initpage_password);
         ed_initpage_savepassword = (CheckBox) findViewById(R.id.ed_initpage_savepassword);
@@ -46,10 +46,10 @@ public class MainActivity extends Activity {
     private void judgIsLogin() {
         //先判断是否登陆过
         SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
-        String username = sharedPreferences.getString("username", "");
+        boolean isRememberInf = sharedPreferences.getBoolean("rememberInf", false);
 
         //没有登陆。显示登陆界面
-        if (username.isEmpty()){
+        if (!isRememberInf){
 
         }
         //登陆过，跳到主页面
@@ -90,43 +90,40 @@ public class MainActivity extends Activity {
                     Toast.makeText(MainActivity.this,"还未注册，请先进行注册",Toast.LENGTH_SHORT).show();
                 }
                 else {
-
                     UserInfo userInfo = list.get(0);
-
                     if (!userInfo.getPassword().equals(password)){
                         Toast.makeText(MainActivity.this,"密码不正确",Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    //将登陆用户信息保存在ApplicationInfo类的UserInfo对象里面
+                    String userid = userInfo.getUserid();
                     String username = userInfo.getUsername();
-                    Log.i(TAG,"查询Username:"+username);
+                    String phone = userInfo.getPhone();
+                    String usericon = userInfo.getUsericon();
+                    int userpoints = userInfo.getUserpoints();
+                    int userrank = userInfo.getUserrank();
 
+                    Log.i(TAG,userInfo.toString());
+                    Log.i(TAG,"userid:"+userid);
+                    ApplicationInfo.initUserInfo(userid,username,password,usericon,phone,userrank,userpoints);
 
-                    //选择记住密码，将登陆信息保存在SharedPreferences里
                     boolean checked = ed_initpage_savepassword.isChecked();
+                    //选择记住密码，保存SharedPreferences里，下次不用再登陆
                     if (checked){
-                        String objectId = userInfo.getObjectId();
-                        String phone = userInfo.getPhone();
-                        String usericon = userInfo.getUsericon();
-                        int userpoints = userInfo.getUserpoints();
-                        int userrank = userInfo.getUserrank();
-
                         SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
-                        editor.putString("username",username);
-                        editor.putString("objectId",objectId);
-                        editor.putString("phone",phone);
-                        editor.putString("usericon",usericon);
-                        editor.putInt("userpoints",userpoints);
-                        editor.putInt("userrank",userrank);
+                        editor.putBoolean("rememberInf",true);
                         editor.commit();
                     }
                     Toast.makeText(MainActivity.this,"欢迎:"+username,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                    finish();
                 }
             }
 
             @Override
             public void onError(int i, String s) {
-                Toast.makeText(MainActivity.this,"登陆失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"登陆失败"+s,Toast.LENGTH_SHORT).show();
             }
         });
     }
