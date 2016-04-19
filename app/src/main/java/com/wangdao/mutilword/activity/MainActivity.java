@@ -2,9 +2,11 @@ package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     private EditText ed_initpage_phone;
     private EditText ed_initpage_password;
+    private CheckBox ed_initpage_savepassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,31 @@ public class MainActivity extends Activity {
 
         ed_initpage_phone = (EditText) findViewById(R.id.ed_initpage_phone);
         ed_initpage_password = (EditText) findViewById(R.id.ed_initpage_password);
+        ed_initpage_savepassword = (CheckBox) findViewById(R.id.ed_initpage_savepassword);
 
+        judgIsLogin();
+
+    }
+
+    private void judgIsLogin() {
+        //先判断是否登陆过
+        SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+        //没有登陆。显示登陆界面
+        if (username.isEmpty()){
+
+        }
+        //登陆过，跳到主页面
+        else {
+            startActivity(new Intent(this,HomeActivity.class));
+            finish();
+        }
     }
 
     //登陆
     public void login(View view){
+
         //验证登陆，登陆成功，则跳到主页面
         String phone=ed_initpage_phone.getText().toString();
         String password=ed_initpage_password.getText().toString();
@@ -48,13 +71,12 @@ public class MainActivity extends Activity {
             Toast.makeText(this,"请输入用户名或密码",Toast.LENGTH_SHORT).show();
             return;
         }
-        validate(phone);
-
-
+        //登陆验证
+        validate(phone,password);
     }
 
     //验证是否时注册用户
-    private void validate(String phone) {
+    private void validate(String phone, final String password) {
         //查找UserInfo表里面id为  XXX  的数据
         BmobQuery<UserInfo> bmobQuery = new BmobQuery();
 
@@ -68,8 +90,35 @@ public class MainActivity extends Activity {
                     Toast.makeText(MainActivity.this,"还未注册，请先进行注册",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    String username = list.get(0).getUsername();
+
+                    UserInfo userInfo = list.get(0);
+
+                    if (!userInfo.getPassword().equals(password)){
+                        Toast.makeText(MainActivity.this,"密码不正确",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String username = userInfo.getUsername();
                     Log.i(TAG,"查询Username:"+username);
+
+
+                    //选择记住密码，将登陆信息保存在SharedPreferences里
+                    boolean checked = ed_initpage_savepassword.isChecked();
+                    if (checked){
+                        String objectId = userInfo.getObjectId();
+                        String phone = userInfo.getPhone();
+                        String usericon = userInfo.getUsericon();
+                        int userpoints = userInfo.getUserpoints();
+                        int userrank = userInfo.getUserrank();
+
+                        SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
+                        editor.putString("username",username);
+                        editor.putString("objectId",objectId);
+                        editor.putString("phone",phone);
+                        editor.putString("usericon",usericon);
+                        editor.putInt("userpoints",userpoints);
+                        editor.putInt("userrank",userrank);
+                        editor.commit();
+                    }
                     Toast.makeText(MainActivity.this,"欢迎:"+username,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this,HomeActivity.class));
                 }
