@@ -8,14 +8,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.activity.ChooseWordTypeActivity;
 import com.wangdao.mutilword.activity.ReadActivity;
 
 import java.util.ArrayList;
@@ -170,7 +169,7 @@ public class ExplosionField extends View {
             case R.id.iv_word:
                 //跳转背单词页面
 
-                getContext().startActivity(new Intent(getContext(), ReadActivity.class));
+                getContext().startActivity(new Intent(getContext(), ChooseWordTypeActivity.class));
                 break;
             case R.id.iv_read:
                 //跳转美文阅读页面
