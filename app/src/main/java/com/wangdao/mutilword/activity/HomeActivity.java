@@ -33,14 +33,12 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
 
     //侧边栏是否打开，打开为ture
     private boolean flag = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         /*ExplosionField explosionField = new ExplosionField(HomeActivity.this);
-
         explosionField.addListener(findViewById(R.id.ll_root));
 */
 
@@ -79,12 +77,12 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
 
         itemHome.setOnClickListener(this);
         itemProfile.setOnClickListener(this);
-        itemCalendar.setOnClickListener(this);
+        itemInterpret.setOnClickListener(this);
         itemSettings.setOnClickListener(this);
 
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemProfile, ResideMenu.DIRECTION_RIGHT);
-        resideMenu.addMenuItem(itemCalendar, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemInterpret, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemSettings, ResideMenu.DIRECTION_RIGHT);
 
         // You can disable a direction by setting ->
