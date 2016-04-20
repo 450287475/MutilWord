@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 21
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.wangdao.mutilword"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -22,12 +22,18 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('libs/android-support-v4.jar')
     compile files('libs/Bmob_Push_V0.8beta_20160315.jar')
     compile files('libs/BmobSDK_V3.4.6_0415.jar')
     compile files('libs/okhttp-2.4.0.jar')
     compile files('libs/okio-1.4.0.jar')
     compile files('libs/org.apache.http.legacy.jar')
+    compile(name: 'folding-cell-1.0.0', ext: 'aar')
     compile files('libs/xUtils-2.6.14.jar')
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }
