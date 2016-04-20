@@ -1,13 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:id="@+id/ll_root"
-    android:background="@drawable/bg1"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_top">
 
-    <TextView
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#2ea3fe"/>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/titlebar_menu_selector"
+                android:id="@+id/title_bar_left_menu"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="7dp"
+                android:text="MultiWords"
+                android:textSize="24sp"
+                android:textColor="#999999"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/titlebar_menu_selector"
+                android:id="@+id/title_bar_right_menu"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dp"/>
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#ebebeb"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/main_fragment"
+        >
+    </FrameLayout>
+
+
+   <!-- <TextView
         android:typeface="monospace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,11 +73,13 @@
         android:gravity="center"
         android:background="@android:color/transparent"
 
-        />
-    <RelativeLayout
+        />-->
+
+
+   <!-- <RelativeLayout
         android:padding="10dp"
         android:layout_weight="1"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
@@ -100,7 +157,7 @@
 
                 />
         </LinearLayout>
-    </RelativeLayout>
+    </RelativeLayout>-->
 <!--<FrameLayout
     android:id="@+id/fl_root"
     android:layout_width="match_parent"

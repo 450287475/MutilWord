@@ -1,4 +1,4 @@
-package View;
+package com.wangdao.mutilword.explosionview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,12 +9,15 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.activity.ChooseWordTypeActivity;
+import com.wangdao.mutilword.activity.ExamActivity;
 import com.wangdao.mutilword.activity.ReadActivity;
 
 import java.util.ArrayList;
@@ -47,6 +50,9 @@ public class ExplosionField extends View {
         attach2Activity((Activity) getContext());
     }
 
+
+
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -54,6 +60,9 @@ public class ExplosionField extends View {
             animator.draw(canvas);
         }
     }
+
+
+
     //爆破图标
     public void explode(final View view) {
         Rect rect = new Rect();
@@ -130,12 +139,15 @@ public class ExplosionField extends View {
             ViewGroup viewGroup = (ViewGroup) view;
             int count = viewGroup.getChildCount();
             for (int i = 0 ; i < count; i++) {
+
                 addListener(viewGroup.getChildAt(i));
+                Log.e(viewGroup.getChildAt(i).toString(),"给第"+i+"个子view添加监听");
 
             }
         } else {
             view.setClickable(true);
             view.setOnClickListener(getOnClickListener());
+            Log.e("原子控件","给view添加监听");
         }
     }
 
@@ -146,9 +158,11 @@ public class ExplosionField extends View {
             onClickListener = new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    ExplosionField.this.explode(v);
-
+                    Log.e("override onclick","已经调用破碎方法");
+//                    ExplosionField.this.explode(v);
+                    //应该图和文字一起爆破，所以应该获取其父view
+                    LinearLayout parent = (LinearLayout) v.getParent();
+                    ExplosionField.this.explode(parent);
 
 
 
@@ -167,22 +181,30 @@ public class ExplosionField extends View {
 
         switch (view.getId()){
             case R.id.iv_word:
+            case R.id.tv_word:
+            case R.id.ll_word:
                 //跳转背单词页面
 
                 getContext().startActivity(new Intent(getContext(), ChooseWordTypeActivity.class));
                 break;
             case R.id.iv_read:
+            case R.id.tv_read:
+            case R.id.ll_read:
                 //跳转美文阅读页面
 
                 getContext().startActivity(new Intent(getContext(), ReadActivity.class));
                 break;
             case R.id.iv_exam:
+            case R.id.tv_exam:
+            case R.id.ll_exam:
                 //跳转测试训练页面
 
 
-                getContext().startActivity(new Intent(getContext(), ReadActivity.class));
+                getContext().startActivity(new Intent(getContext(), ExamActivity.class));
                 break;
             case R.id.iv_listen:
+            case R.id.tv_listen:
+            case R.id.ll_listen:
                 //跳转听力页面
 
 

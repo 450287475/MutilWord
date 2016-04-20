@@ -1,4 +1,4 @@
-package View;
+package com.wangdao.mutilword.explosionview;
 
 import android.animation.ValueAnimator;
 import android.graphics.Bitmap;

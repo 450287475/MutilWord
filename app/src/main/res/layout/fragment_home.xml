@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/ll_root"
+                android:background="@drawable/bg1"
+                >
+
+<!--previous
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/ignored_view"
+            android:gravity="center">
+
+        <ImageView
+                android:layout_width="60dp"
+                android:layout_height="120dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/imageView"
+                android:layout_gravity="center"
+                android:src="@drawable/gesture"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 1. Swipe right/left to open menu"
+                android:id="@+id/textView" android:layout_gravity="center" android:clickable="false"
+                android:textColor="#ffacacac" android:textSize="17sp" android:padding="5dp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_selector"
+                android:textColor="@android:color/white"
+                android:text="2. Click me to open menu"
+                android:textSize="17sp"
+                android:padding="12dp"
+                android:id="@+id/btn_open_menu"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="120dp"
+            android:padding="10dp"
+            android:layout_gravity="bottom"
+            android:id="@+id/ignored_view"
+            android:layout_alignParentBottom="true">
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/frame"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is an ignored view，you can’t use gesture to operate menu here."
+                android:textSize="17sp"
+                android:textColor="#9a9a9a"
+                android:id="@+id/textView1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:padding="5dp"/>
+    </FrameLayout>
+-->
+    <RelativeLayout
+        android:id="@+id/ignore_view"
+        android:padding="10dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:id="@+id/ll_word"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:id="@+id/iv_word"
+                android:src="@drawable/word"
+                />
+            <TextView
+                android:id="@+id/tv_word"
+                style="@style/TextViewStyle"
+                android:text="背单词"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_read"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:id="@+id/iv_read"
+                android:src="@drawable/read"
+                />
+            <TextView
+                android:id="@+id/tv_read"
+                style="@style/TextViewStyle"
+                android:text="美文阅读"
+
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:id="@+id/ll_exam"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:id="@+id/iv_exam"
+                android:src="@drawable/exam"
+                />
+            <TextView
+                android:id="@+id/tv_exam"
+                style="@style/TextViewStyle"
+                android:text="测试训练"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_listen"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:id="@+id/iv_listen"
+                android:src="@drawable/listen"
+                />
+            <TextView
+                android:id="@+id/tv_listen"
+                style="@style/TextViewStyle"
+                android:text="听力训练"
+
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
+

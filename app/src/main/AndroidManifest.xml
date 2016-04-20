@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.wangdao.mutilword.activity.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.HomeActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"/>
         <activity android:name=".activity.RetrievePasswordActivity" />
-        <activity android:name=".activity.ReadActivity"></activity>
-        <activity android:name=".activity.ChooseWordTypeActivity">
-        </activity>
-        <activity android:name=".activity.ReciteWordActivity">
-        </activity>
+        <activity android:name=".activity.ReadActivity" />
+        <activity android:name=".activity.ChooseWordTypeActivity"></activity>
+        <activity android:name=".activity.ReciteWordActivity"></activity>
+        <activity android:name=".activity.ExamActivity"></activity>
     </application>
 
 </manifest>
