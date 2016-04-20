@@ -15,7 +15,7 @@ import com.wangdao.mutilword.R;
 import java.util.ArrayList;
 
 
-public class ExamFragment extends Fragment {
+public class InterpretFragment extends Fragment {
 
     private View parentView;
     private ListView listView;

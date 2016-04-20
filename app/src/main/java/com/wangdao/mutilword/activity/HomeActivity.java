@@ -11,7 +11,7 @@ import android.view.View;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import com.wangdao.mutilword.R;
-import com.wangdao.mutilword.fragment.ExamFragment;
+import com.wangdao.mutilword.fragment.InterpretFragment;
 import com.wangdao.mutilword.fragment.HomeFragment;
 import com.wangdao.mutilword.fragment.ProfileFragment;
 import com.wangdao.mutilword.fragment.SettingsFragment;
@@ -22,8 +22,17 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private HomeActivity mContext;
     private ResideMenuItem itemHome;
     private ResideMenuItem itemProfile;
-    private ResideMenuItem itemCalendar;
+    private ResideMenuItem itemInterpret;
     private ResideMenuItem itemSettings;
+
+    private int currentFragment = 0;
+    private final int FRAGMENT_HOME = 0;
+    private final int FRAGMENT_SETTINGS = 1;
+    private final int FRAGMENT_PROFILE = 2;
+    private final int FRAGMENT_INTERPRET = 3;
+
+    //侧边栏是否打开，打开为ture
+    private boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,17 +73,17 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         // create menu items;
         itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     " 主 页");
         itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "个人中心");
-        itemCalendar = new ResideMenuItem(this, R.drawable.icon_interpret, "查&译");
+        itemInterpret = new ResideMenuItem(this, R.drawable.icon_interpret, "查&译");
         itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, " 设 置");
 
         itemHome.setOnClickListener(this);
         itemProfile.setOnClickListener(this);
-        itemCalendar.setOnClickListener(this);
+        itemInterpret.setOnClickListener(this);
         itemSettings.setOnClickListener(this);
 
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemProfile, ResideMenu.DIRECTION_RIGHT);
-        resideMenu.addMenuItem(itemCalendar, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemInterpret, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemSettings, ResideMenu.DIRECTION_RIGHT);
 
         // You can disable a direction by setting ->
@@ -104,12 +113,16 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View view) {
 
         if (view == itemHome){
+            currentFragment = FRAGMENT_HOME;
             changeFragment(new HomeFragment());
         }else if (view == itemProfile){
+            currentFragment = FRAGMENT_PROFILE;
             changeFragment(new ProfileFragment());
-        }else if (view == itemCalendar){
-            changeFragment(new ExamFragment());
+        }else if (view == itemInterpret){
+            currentFragment = FRAGMENT_INTERPRET;
+            changeFragment(new InterpretFragment());
         }else if (view == itemSettings){
+            currentFragment = FRAGMENT_SETTINGS;
             changeFragment(new SettingsFragment());
         }
 
@@ -120,11 +133,13 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void openMenu() {
             //Toast.makeText(mContext, "Menu is opened!", Toast.LENGTH_SHORT).show();
+            flag = true;
         }
 
         @Override
         public void closeMenu() {
             //Toast.makeText(mContext, "Menu is closed!", Toast.LENGTH_SHORT).show();
+            flag = false;
         }
     };
 
@@ -139,6 +154,34 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
 
     // What good method is to access resideMenu？
     public ResideMenu getResideMenu(){
+
         return resideMenu;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(flag){
+            switch (currentFragment){
+                case FRAGMENT_HOME:
+                    changeFragment(new HomeFragment());
+                    break;
+                case FRAGMENT_SETTINGS:
+                    changeFragment(new SettingsFragment());
+                    break;
+                case FRAGMENT_INTERPRET:
+                    changeFragment(new InterpretFragment());
+                    break;
+                case FRAGMENT_PROFILE:
+                    changeFragment(new ProfileFragment());
+                    break;
+                default:
+                    break;
+            }
+
+            resideMenu.closeMenu();
+        }else{
+            super.onBackPressed();
+        }
+
     }
 }
