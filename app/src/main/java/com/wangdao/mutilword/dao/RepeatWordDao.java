@@ -130,7 +130,7 @@ public class RepeatWordDao {
     public ArrayList<Word_info> getWord(){
         ArrayList<Word_info> word_infos = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = db.query(true, tableName, null, null, null, null, null, null, null);
+        Cursor cursor = db.query(true, tableName, null, null, null, "word", null, null, null);
         while (cursor.moveToNext()){
             int repeat = cursor.getInt(cursor.getColumnIndex("repeat"));
             if(repeat==0){

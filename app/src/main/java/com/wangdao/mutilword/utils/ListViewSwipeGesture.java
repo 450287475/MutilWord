@@ -76,7 +76,7 @@ public class ListViewSwipeGesture implements OnTouchListener {
 
     //Intermediate Usages
     String TextColor="#FFFFFF";      //#FF4444
-    String RangeOneColor="#FFD060";   //"#FFD060"
+    String RangeOneColor="#FF0000";   //"#FFD060"
     String RangeTwoColor="#92C500";
     String singleColor="#FF4444";
 
@@ -145,12 +145,12 @@ public class ListViewSwipeGesture implements OnTouchListener {
         mAnimationTime          =   mListView.getContext().getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
         HalfColor           =   RangeOneColor;          //Green
-        FullColor           =   activity.getResources().getString(R.string.str_orange);         //Orange
+        FullColor           =   activity.getResources().getString(R.string.str_red);         //Orange
         HalfText            =   activity.getResources().getString(R.string.basic_action_1);
         HalfTextFinal         =   activity.getResources().getString(R.string.basic_action_1);
         FullText            =   activity.getResources().getString(R.string.basic_action_2);
         FullTextFinal         =   activity.getResources().getString(R.string.basic_action_2);
-        HalfDrawable        =   activity.getResources().getDrawable( R.drawable.content_discard );
+        HalfDrawable        =   activity.getResources().getDrawable( R.drawable. content_discard);
         FullDrawable        =   activity.getResources().getDrawable(R.drawable.content_discard);
     }
 
