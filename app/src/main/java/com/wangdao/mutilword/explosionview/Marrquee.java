@@ -1,5 +1,6 @@
 package com.wangdao.mutilword.explosionview;
-package view;
+
+import android.widget.TextView;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -10,7 +10,6 @@ import com.wangdao.mutilword.bean.UserInfo;
  * Created by haijun on 2016/4/19.
  */
 public class ApplicationInfo extends Application{
-    private static UserInfo userInfo;
     public static SharedPreferences sp;
     public static SharedPreferences.Editor editor;
     public static Context mContext;

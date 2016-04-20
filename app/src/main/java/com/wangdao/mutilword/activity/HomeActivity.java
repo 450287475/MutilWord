@@ -16,7 +16,7 @@ import com.wangdao.mutilword.fragment.HomeFragment;
 import com.wangdao.mutilword.fragment.ProfileFragment;
 import com.wangdao.mutilword.fragment.SettingsFragment;
 
-public class HomeActivity extends FragmentActivity implements View.OnClickListener{
+public class HomeActivity extends FragmentActivity implements View.OnClickListener {
     //created by yxd for reside menu
     private ResideMenu resideMenu;
     private HomeActivity mContext;
@@ -34,20 +34,16 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         //created by yxd for reside menu
         mContext = this;
         setUpMenu();
-        if( savedInstanceState == null )
+        if (savedInstanceState == null)
             changeFragment(new HomeFragment());
 
         View homefragment = View.inflate(HomeActivity.this, R.layout.fragment_home, null);
-
-
-
-    public void read(View view){
-        startActivity(new Intent(this,ReadActivity.class));
     }
 
 
-
-
+    public void read(View view) {
+        startActivity(new Intent(this, ReadActivity.class));
+    }
 
 
     //create by yxd for reside menu from 45-136
@@ -63,8 +59,8 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         resideMenu.setScaleValue(0.6f);
 
         // create menu items;
-        itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     " 主 页");
-        itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "个人中心");
+        itemHome = new ResideMenuItem(this, R.drawable.icon_home, " 主 页");
+        itemProfile = new ResideMenuItem(this, R.drawable.icon_profile, "个人中心");
         itemCalendar = new ResideMenuItem(this, R.drawable.icon_interpret, "查&译");
         itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, " 设 置");
 
@@ -104,13 +100,13 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
 
-        if (view == itemHome){
+        if (view == itemHome) {
             changeFragment(new HomeFragment());
-        }else if (view == itemProfile){
+        } else if (view == itemProfile) {
             changeFragment(new ProfileFragment());
-        }else if (view == itemCalendar){
+        } else if (view == itemCalendar) {
             changeFragment(new ExamFragment());
-        }else if (view == itemSettings){
+        } else if (view == itemSettings) {
             changeFragment(new SettingsFragment());
         }
 
@@ -129,7 +125,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         }
     };
 
-    private void changeFragment(Fragment targetFragment){
+    private void changeFragment(Fragment targetFragment) {
         resideMenu.clearIgnoredViewList();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -139,6 +135,8 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     }
 
     // What good method is to access resideMenu？
-    public ResideMenu getResideMenu(){
+    public ResideMenu getResideMenu() {
         return resideMenu;
     }
+
+}

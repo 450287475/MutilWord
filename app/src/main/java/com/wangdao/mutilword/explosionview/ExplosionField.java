@@ -1,5 +1,6 @@
 package com.wangdao.mutilword.explosionview;
-package view;
+
+import android.graphics.Canvas;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

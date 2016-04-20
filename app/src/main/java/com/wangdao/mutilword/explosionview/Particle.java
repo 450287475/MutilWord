@@ -1,5 +1,4 @@
 package com.wangdao.mutilword.explosionview;
-package view;
 
 import android.graphics.Point;
 import android.graphics.Rect;

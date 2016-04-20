@@ -27,7 +27,6 @@
         <activity android:name=".activity.ChooseWordTypeActivity"></activity>
         <activity android:name=".activity.ReciteWordActivity"></activity>
         <activity android:name=".activity.ExamActivity"></activity>
-        <activity android:name=".activity.ChooseWordTypeActivity"></activity>
         <activity android:name=".activity.ShowArticleDetailActivity" />
 
         <activity android:name=".activity.PersonalCenterActivity">

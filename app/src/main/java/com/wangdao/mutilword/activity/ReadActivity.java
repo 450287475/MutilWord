@@ -121,14 +121,17 @@ public class ReadActivity extends Activity {
         bmobQuery.findObjects(this, new FindListener<ArticleList>() {
             @Override
             public void onSuccess(List<ArticleList> list) {
-                for (int i=0;i<list.size();i++){
-                    if (list.get(i).getLocation().equals("top")){
-                        articleListListTop.add(list.get(i));
-                    }
-                    else if (list.get(i).getLocation().equals("content")){
-                        articleListListContent.add(list.get(i));
+                if (list!=null){
+                    for (int i=0;i<list.size();i++){
+                        if ("top".equals(list.get(i).getLocation())){
+                            articleListListTop.add(list.get(i));
+                        }
+                        else if ("content".equals(list.get(i).getLocation())){
+                            articleListListContent.add(list.get(i));
+                        }
                     }
                 }
+
 
                 //根据id去查找对应的用户收藏信息表
                 userInfo = ApplicationInfo.userInfo;
