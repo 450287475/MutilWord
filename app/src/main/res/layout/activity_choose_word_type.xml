@@ -6,21 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.wangdao.mutilword.activity.ChooseWordTypeActivity">
+
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_choosewordtype_cet4"
-        android:text="四级单词"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_choosewordtype_cet6"
-        android:text="六级单词"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_choosewordtype_master"
-        android:text="考研单词"/>
+        android:id="@+id/rotateleft"
+        style="@style/my_btn"
+        android:text="开始背单词"
+        />
     <ListView android:id="@+id/lv_chooseWordType_wordlist"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"

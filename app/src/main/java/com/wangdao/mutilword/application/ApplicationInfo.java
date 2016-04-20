@@ -1,6 +1,7 @@
 package com.wangdao.mutilword.application;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.wangdao.mutilword.bean.UserInfo;
@@ -12,12 +13,14 @@ public class ApplicationInfo extends Application{
     private static UserInfo userInfo;
     public static SharedPreferences sp;
     public static SharedPreferences.Editor editor;
+    public static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
         sp = getSharedPreferences("userinfo", MODE_PRIVATE);
         editor = sp.edit();
+        mContext = this;
     }
 
     //初始化用户数据
