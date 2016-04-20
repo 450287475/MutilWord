@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.wangdao.mutilword.R;
 
-import View.ExplosionField;
+import view.ExplosionField;
 
 public class HomeActivity extends Activity {
 
@@ -28,6 +28,9 @@ public class HomeActivity extends Activity {
     public void read(View view){
         startActivity(new Intent(this,ReadActivity.class));
     }
+
+
+
 
 
 }

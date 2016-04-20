@@ -10,7 +10,7 @@ import cn.bmob.v3.Bmob;
  * Created by haijun on 2016/4/19.
  */
 public class ApplicationInfo extends Application{
-    private static UserInfo userInfo;
+    public static UserInfo userInfo;
 
     @Override
     public void onCreate() {

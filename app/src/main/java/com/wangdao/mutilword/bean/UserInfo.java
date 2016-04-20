@@ -28,7 +28,7 @@ public class UserInfo extends BmobObject {
     }
 
     public String getUserid() {
-        return getObjectId();
+        return userid;
     }
 
     public void setUserid(String userid) {

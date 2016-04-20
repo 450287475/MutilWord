@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
     android:padding="20dp"
-    android:background="@drawable/initpagebackground">
+    android:background="@drawable/initpagebackground"
+    tools:context=".activity.MainActivity">
 
     <ImageView
         android:layout_width="70dp"
@@ -104,4 +104,5 @@
             android:layout_height="wrap_content"
             android:id="@+id/iv_initpage_forget"/>
     </LinearLayout>
+
 </RelativeLayout>

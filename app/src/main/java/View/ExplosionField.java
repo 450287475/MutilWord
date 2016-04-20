@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

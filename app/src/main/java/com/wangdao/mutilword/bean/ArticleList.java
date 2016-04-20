@@ -13,6 +13,8 @@ public class ArticleList extends BmobObject {
     private int count;
     private String image;
     private String articleurl;
+    private String location;
+
 
     public String getId() {
         return id;
@@ -60,5 +62,25 @@ public class ArticleList extends BmobObject {
 
     public void setArticleurl(String articleurl) {
         this.articleurl = articleurl;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "ArticleList{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", type='" + type + '\'' +
+                ", count=" + count +
+                ", image='" + image + '\'' +
+                ", articleurl='" + articleurl + '\'' +
+                '}';
     }
 }

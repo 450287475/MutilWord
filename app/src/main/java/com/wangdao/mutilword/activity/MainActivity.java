@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -16,10 +17,12 @@ import com.wangdao.mutilword.bean.UserInfo;
 
 
 import java.util.List;
+import java.util.logging.Handler;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.GetListener;
 
 
 public class MainActivity extends Activity {
@@ -47,6 +50,7 @@ public class MainActivity extends Activity {
         //先判断是否登陆过
         SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
         boolean isRememberInf = sharedPreferences.getBoolean("rememberInf", false);
+        String objectId = sharedPreferences.getString("objectId", "");
 
         //没有登陆。显示登陆界面
         if (!isRememberInf){
@@ -55,8 +59,38 @@ public class MainActivity extends Activity {
         //登陆过，跳到主页面
         else {
             startActivity(new Intent(this,HomeActivity.class));
-            finish();
+            saveUserInfo(objectId);
+
         }
+    }
+
+    //用户记住密码时，进入软件，获取用户信息，供其他人使用
+    private void saveUserInfo(final String objectId) {
+
+        BmobQuery<UserInfo> bmobQuery = new BmobQuery();
+        Log.i(TAG,"objectId"+objectId);
+
+        bmobQuery.getObject(this, objectId, new GetListener<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo userInfo) {
+                finish();
+                Log.i(TAG,"onSuccess");
+                //将登陆用户信息保存在ApplicationInfo类的UserInfo对象里面
+                String username = userInfo.getUsername();
+                String userid = userInfo.getUserid();
+                String phone = userInfo.getPhone();
+                String password = userInfo.getPassword();
+                String usericon = userInfo.getUsericon();
+                int userpoints = userInfo.getUserpoints();
+                int userrank = userInfo.getUserrank();
+                ApplicationInfo.initUserInfo(userid,username,password,usericon,phone,userrank,userpoints);
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 
     //登陆
@@ -113,6 +147,7 @@ public class MainActivity extends Activity {
                     if (checked){
                         SharedPreferences.Editor editor = getSharedPreferences("userinfo", MODE_PRIVATE).edit();
                         editor.putBoolean("rememberInf",true);
+                        editor.putString("objectId",userInfo.getObjectId());
                         editor.commit();
                     }
                     Toast.makeText(MainActivity.this,"欢迎:"+username,Toast.LENGTH_SHORT).show();
