@@ -3,6 +3,7 @@
     package="com.wangdao.mutilword">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,8 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.RetrievePasswordActivity" />
-        <activity android:name=".activity.ReadActivity"></activity>
+        <activity android:name=".activity.ReadActivity" />
+        <activity android:name=".activity.ShowArticleDetailActivity"></activity>
     </application>
 
 </manifest>
