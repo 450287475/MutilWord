@@ -1,15 +1,17 @@
 package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ramotion.foldingcell.FoldingCell;
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.Word_info;
+import com.wangdao.mutilword.constant.Constant;
 import com.wangdao.mutilword.dao.RepeatWordDao;
 import com.wangdao.mutilword.dao.WordDao;
 import com.wangdao.mutilword.utils.IOUtils;
@@ -45,13 +47,29 @@ public class ReciteWordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recite_word);
         //初始化db
-        dbName = "CET_4.db";
-        String oldDbName = "Old_CET_4.db";
+        Intent intent = getIntent();
+        dbName=intent.getStringExtra("db");
+        String oldDbName=intent.getStringExtra("oldDb");
         initAssets(dbName);
-        num = 30;
+        num = ApplicationInfo.sp.getInt("wordNum", 30);
         daoRepeatWord = new RepeatWordDao(this, oldDbName, 1);
-        //往集合里增加num个新单词
-        word_infos = WordDao.selectNoRepeatWord(this, dbName, num);
+        word_infos=new ArrayList<>();
+        //如果离上次背单词已经过去一天了,往集合里增加num个新单词
+        long date = ApplicationInfo.sp.getLong("date", -1);
+        long time = new Date().getTime();
+        long interval = time - date;
+        if(interval>  Constant.oneDay){
+            ApplicationInfo.editor.putLong("date",time).commit();
+            word_infos = WordDao.selectNoRepeatWord(this, dbName, num);
+            for(Word_info word_info:word_infos){
+                //加入到已背的单词库中
+                daoRepeatWord.insert(word_info);
+                //在未背过的数据库中减去
+                WordDao.deleteWord(this,dbName,word_info.getId());
+            }
+            word_infos.clear();
+        }
+
         ArrayList<Word_info> oldWord = daoRepeatWord.getOldWord();
         word_infos.addAll(oldWord);
         initView();
@@ -70,10 +88,18 @@ public class ReciteWordActivity extends Activity {
 
     //初始化控件的数字
     private void initData() {
-        tv_recite_word.setText(word_infos.get(index).getWord());
-        tv_recite_title.setText(word_infos.get(index).getWord());
-        tv_recite_trans.setText(word_infos.get(index).getTrans());
-        tv_recite_remainWord.setText("亲，你还剩"+word_infos.size()+"个单词，加油哦");
+        if(word_infos.size()>0) {
+            tv_recite_word.setText(word_infos.get(index).getWord());
+            tv_recite_title.setText(word_infos.get(index).getWord());
+            tv_recite_trans.setText(word_infos.get(index).getTrans());
+            tv_recite_remainWord.setText("亲，你还剩"+word_infos.size()+"个单词，加油哦");
+        }else {
+            tv_recite_word.setText("今天的单词量已经完成");
+            tv_recite_title.setText("今天的单词量已经完成");
+            tv_recite_trans.setText("");
+            tv_recite_remainWord.setText("");
+        }
+
 
         fc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,13 +118,13 @@ public class ReciteWordActivity extends Activity {
             InputStream inputStream = assets.open(s);
             File file = new File(getFilesDir(), s);
             if (file.exists()) {
-                Toast.makeText(ReciteWordActivity.this, "已存在", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(ReciteWordActivity.this, "已存在", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             IOUtils.fisWriteToFos(inputStream, fileOutputStream);
-            Toast.makeText(ReciteWordActivity.this, "复制完成", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(ReciteWordActivity.this, "复制完成", Toast.LENGTH_SHORT).show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,19 +150,10 @@ public class ReciteWordActivity extends Activity {
     private void remenberNextWord() {
         if(index<word_infos.size()){
             Word_info word_info = word_infos.get(index);
-            //如果repeat=0.说明没有加入背过的单词库,则让repeat次数=1,更新背诵的时间,加入数据库
-            if (word_info.getRepeat()==0){
-                word_info.setRepeat(1);
-                word_info.setDate(new Date().getTime());
-                daoRepeatWord.insert(word_info);
-            }else {
-                //如果repeat=1.说明加入背过的单词库,让repeat次数+1,更新背诵的时间,更新数据库
-                int repeat = word_info.getRepeat() + 1;
-                long time = new Date().getTime();
-                daoRepeatWord.update(word_info.getId(),repeat,time);
-            }
-            //在未背过的数据库中减去,要背的单词集合 word_infos中减去
-            WordDao.deleteWord(this,dbName,word_info.getId());
+            int repeat = word_info.getRepeat() + 1;
+            long time = new Date().getTime();
+            daoRepeatWord.update(word_info.getId(),repeat,time);
+           //要背的单词集合 word_infos中减去
             word_infos.remove(index);
             //更新tv,因为上一句集合数减少了1,为了防止index越界,要重新判断
             if(index<word_infos.size()) {
@@ -145,8 +162,9 @@ public class ReciteWordActivity extends Activity {
                 tv_recite_trans.setText(word_infos.get(index).getTrans());
             }else {
                 if(index==0){
-                    tv_recite_word.setText("恭喜你完成了此次背诵");
-                    tv_recite_title.setText("恭喜你完成了此次背诵");
+                    tv_recite_word.setText("今天的单词量已经完成");
+                    tv_recite_title.setText("今天的单词量已经完成");
+                    tv_recite_remainWord.setText("");
                     tv_recite_trans.setText("");
                 }else {
                     index=0;
@@ -159,8 +177,9 @@ public class ReciteWordActivity extends Activity {
             //如果index=0;说明要背的单词集合word_infos的size为0,则完成背诵
             //否则,让index=0;
             if(index==0){
-                tv_recite_word.setText("恭喜你完成了此次背诵");
-                tv_recite_title.setText("恭喜你完成了此次背诵");
+                tv_recite_word.setText("今天的单词量已经完成");
+                tv_recite_title.setText("今天的单词量已经完成");
+                tv_recite_remainWord.setText("");
                 tv_recite_trans.setText("");
             }else {
                 index=0;
@@ -182,7 +201,8 @@ public class ReciteWordActivity extends Activity {
             //折叠后改为 false
             mUnfold=false;
         }else {
-            Toast.makeText(ReciteWordActivity.this, "还没学习呢，学习要专心哦", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(ReciteWordActivity.this, "还没学习呢，学习要专心哦", Toast.LENGTH_SHORT).show();
+            unRemenberNextWord();
             mUnfold=false;
         }
 

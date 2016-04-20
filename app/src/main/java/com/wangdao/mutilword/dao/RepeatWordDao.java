@@ -66,6 +66,8 @@ public class RepeatWordDao {
 
             //判断是否已经到达背诵时间
             switch (repeat){
+                case 0://0表示还没背过,则直接加入集合
+                    break;
                 case 1:
                     if(interval<Constant.fiveMin){
                         continue;
@@ -116,6 +118,31 @@ public class RepeatWordDao {
             String phonetic = cursor.getString(cursor.getColumnIndex("phonetic"));
             int id = cursor.getInt(cursor.getColumnIndex("_id"));
             String tags = cursor.getString(cursor.getColumnIndex("tags"));
+            System.out.println(new Word_info(word, trans, phonetic, tags, repeat, id, date));
+            word_infos.add(new Word_info(word, trans, phonetic, tags, repeat, id, date));
+        }
+        cursor.close();
+        db.close();
+        return word_infos;
+    }
+
+    //取出所有背过的单词
+    public ArrayList<Word_info> getWord(){
+        ArrayList<Word_info> word_infos = new ArrayList<>();
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.query(true, tableName, null, null, null, null, null, null, null);
+        while (cursor.moveToNext()){
+            int repeat = cursor.getInt(cursor.getColumnIndex("repeat"));
+            if(repeat==0){
+                continue;
+            }
+            long date = cursor.getLong(cursor.getColumnIndex("date"));
+            String word = cursor.getString(cursor.getColumnIndex("word"));
+            String trans = cursor.getString(cursor.getColumnIndex("trans"));
+            String phonetic = cursor.getString(cursor.getColumnIndex("phonetic"));
+            int id = cursor.getInt(cursor.getColumnIndex("_id"));
+            String tags = cursor.getString(cursor.getColumnIndex("tags"));
+            System.out.println(new Word_info(word, trans, phonetic, tags, repeat, id, date));
             word_infos.add(new Word_info(word, trans, phonetic, tags, repeat, id, date));
         }
         cursor.close();

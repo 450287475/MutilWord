@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.wangdao.mutilword.activity.ChooseWordTypeActivity">
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/_bt_choosewordtype_cet4"
-        android:text="背诵四级单词"/>
+        android:id="@+id/bt_choosewordtype_cet4"
+        android:text="四级单词"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_choosewordtype_cet6"
+        android:text="六级单词"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_choosewordtype_master"
+        android:text="考研单词"/>
+    <ListView android:id="@+id/lv_chooseWordType_wordlist"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:divider="@null"
+              android:listSelector="@android:color/transparent"/>
 </LinearLayout>

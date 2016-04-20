@@ -86,4 +86,16 @@ public class Word_info {
         this.tags = tags;
     }
 
+    @Override
+    public String toString() {
+        return "Word_info{" +
+                "word='" + word + '\'' +
+                ", trans='" + trans + '\'' +
+                ", phonetic='" + phonetic + '\'' +
+                ", tags='" + tags + '\'' +
+                ", repeat=" + repeat +
+                ", id=" + id +
+                ", date=" + date +
+                '}';
+    }
 }
