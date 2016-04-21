@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,9 +14,7 @@ import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.UserInfo;
 
-
 import java.util.List;
-import java.util.logging.Handler;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
@@ -71,6 +68,7 @@ public class MainActivity extends Activity {
         Log.i(TAG,"objectId"+objectId);
 
         bmobQuery.getObject(this, objectId, new GetListener<UserInfo>() {
+
             @Override
             public void onSuccess(UserInfo userInfo) {
                 finish();

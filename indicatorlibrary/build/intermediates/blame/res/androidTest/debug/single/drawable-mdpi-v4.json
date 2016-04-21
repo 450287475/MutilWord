@@ -46,5 +46,13 @@
     {
         "merged": "C:\\Users\\haijun\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\vpi__tab_selected_holo.9.png",
         "source": "C:\\Users\\haijun\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\vpi__tab_selected_holo.9.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\vpi__tab_unselected_focused_holo.9.png",
+        "source": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\vpi__tab_unselected_focused_holo.9.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\vpi__tab_selected_pressed_holo.9.png",
+        "source": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\vpi__tab_selected_pressed_holo.9.png"
     }
 ]

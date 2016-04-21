@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
+        "source": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
+    },
+    {
         "merged": "C:\\Users\\haijun\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
         "source": "C:\\Users\\haijun\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
     },
@@ -14,5 +18,13 @@
     {
         "merged": "G:\\develop\\studioworkspace\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
         "source": "G:\\develop\\studioworkspace\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
+    },
+    {
+        "merged": "C:\\Users\\haijun\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
+        "source": "C:\\Users\\haijun\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
+        "source": "D:\\AndroidStudioProjects\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
     }
 ]
