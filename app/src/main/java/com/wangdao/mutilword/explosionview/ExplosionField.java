@@ -1,7 +1,5 @@
 package com.wangdao.mutilword.explosionview;
 
-import android.graphics.Canvas;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
@@ -19,7 +17,7 @@ import android.widget.LinearLayout;
 
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.activity.ChooseWordTypeActivity;
-import com.wangdao.mutilword.activity.ExamActivity;
+import com.wangdao.mutilword.activity.ExamHomeActivity;
 import com.wangdao.mutilword.activity.ReadActivity;
 
 import java.util.ArrayList;
@@ -162,7 +160,7 @@ public class ExplosionField extends View {
                 public void onClick(View v) {
                     Log.e("override onclick","已经调用破碎方法");
 //                    ExplosionField.this.explode(v);
-                    //应该图和文字一起爆破，所以应该获取其父view
+                    //yxd:应该图和文字一起爆破，所以应该获取其父view
                     LinearLayout parent = (LinearLayout) v.getParent();
                     ExplosionField.this.explode(parent);
 
@@ -202,7 +200,7 @@ public class ExplosionField extends View {
                 //跳转测试训练页面
 
 
-                getContext().startActivity(new Intent(getContext(), ExamActivity.class));
+                getContext().startActivity(new Intent(getContext(), ExamHomeActivity.class));
                 break;
             case R.id.iv_listen:
             case R.id.tv_listen:

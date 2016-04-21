@@ -74,4 +74,21 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <!-- yxd测试模块 所有标题栏的样式 -->
+    <style name="TitlebarStyle" parent="android:Theme.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:windowTitleSize">@dimen/comm_titlebar_height</item>
+        <item name="android:windowTitleBackgroundStyle">@style/TitlebarBackgroud</item>
+    </style>
+
+    <style name="TitlebarBackgroud">
+        <item name="android:background">@color/titlebar_bg</item>
+    </style>
+
+    <style name="NoBiaoti" parent="android:Theme.Holo.Light.NoActionBar"></style>
+    <!-- 以上为测试模块 -->
+
 </resources>

@@ -13,4 +13,13 @@
 
     <color name="btn_press_color">#FFa5281b</color>
     <color name="btn_unpress_color">#FFc0392b</color>
+
+    <!--模拟测试模块-->
+    <color name="select_default">#969fa5</color>
+    <color name="select_right">#48daa9</color>
+    <color name="select_error">#eb6161</color>
+    <color name="select_select">#c6c6c6</color>
+    <color name="select_answered">#60adde</color>
+
+    <color name="right_answer">#009100</color>
 </resources>

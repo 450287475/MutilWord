@@ -15,6 +15,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         System.out.println("~~~~~");
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
     }
     //需要处理点击事件的or有子控件如viewpager不需要触发侧边栏的功能，请参考HomeFragment中的代码
 
