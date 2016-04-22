@@ -3,7 +3,6 @@ package com.wangdao.mutilword.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -65,21 +64,33 @@ public class RegisterActivity extends Activity {
 
     //将数据插入到数据库
     private void insertToDB(final UserInfo userInfo) {
+
         userInfo.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(RegisterActivity.this,"注册成功："+userInfo.getObjectId(),Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegisterActivity.this,HomeActivity.class));
+                Toast.makeText(RegisterActivity.this, "注册成功：" + userInfo.getObjectId(), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
 
                 //将登陆用户信息保存在ApplicationInfo类的UserInfo对象里面
+                String objectId = userInfo.getObjectId();
                 String userid = userInfo.getUserid();
                 String username = userInfo.getUsername();
                 String password = userInfo.getPassword();
+                String autograph = userInfo.getAutograph();
                 String phone = userInfo.getPhone();
                 String usericon = userInfo.getUsericon();
+                int collectedArticle = userInfo.getCollectedArticle();
+                int collectedWord = userInfo.getCollectedWord();
+                int exchangeAwarded = userInfo.getExchangeAwarded();
+                int exchangeAward = userInfo.getExchangeAward();
+                int articleCount = userInfo.getArticleCount();
+                int wordCount = userInfo.getWordCount();
                 int userpoints = userInfo.getUserpoints();
                 int userrank = userInfo.getUserrank();
-                ApplicationInfo.initUserInfo(userid,username,password,usericon,phone,userrank,userpoints);
+
+                ApplicationInfo.initUserInfo(objectId,userid, username, password, usericon, phone, autograph,
+                        collectedArticle, collectedWord, exchangeAwarded, exchangeAward, articleCount, wordCount,
+                        userrank, userpoints);
             }
 
             @Override

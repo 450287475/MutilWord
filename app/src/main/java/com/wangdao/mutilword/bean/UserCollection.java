@@ -9,6 +9,8 @@ public class UserCollection extends BmobObject {
     private String userId;
     private String type;
     private String articleUrl;
+    private String title;
+
 
     public String getUserId() {
         return userId;
@@ -32,6 +34,14 @@ public class UserCollection extends BmobObject {
 
     public void setArticleUrl(String articleUrl) {
         this.articleUrl = articleUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override

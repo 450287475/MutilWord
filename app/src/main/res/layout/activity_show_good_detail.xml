@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ShowGoodDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="#890">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品详情"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_showgood_name"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="名称"/>
+   <LinearLayout
+       android:padding="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="已兑换"/>
+       <TextView
+           android:id="@+id/tv_showgood_changedcount"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="10个"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="50dp"
+           android:text="还有"/>
+       <TextView
+           android:id="@+id/tv_showgood_leftcount"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="5个"/>
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/iv_showgood_image"
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:src="@drawable/gooditem_back"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bt_background_good"
+            android:layout_alignParentBottom="true"
+            android:onClick="startChanged"
+            android:text="兑换"/>
+    </RelativeLayout>
+
+
+
+   <!-- <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="#777"
+        android:id="@+id/wv_goodsdetail_artical"
+        android:text="xxxx"/>-->
+
+
+
+
+
+</LinearLayout>

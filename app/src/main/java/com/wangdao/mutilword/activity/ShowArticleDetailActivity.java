@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.bean.ArticleList;

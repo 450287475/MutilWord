@@ -2,14 +2,11 @@ package com.wangdao.mutilword.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
@@ -33,7 +30,6 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private final int FRAGMENT_SETTINGS = 1;
     private final int FRAGMENT_PROFILE = 2;
     private final int FRAGMENT_INTERPRET = 3;
-    private boolean hasPressedBack;
 
     //侧边栏是否打开，打开为ture
     private boolean flag = false;
@@ -53,7 +49,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             changeFragment(new HomeFragment());
 
         View homefragment = View.inflate(HomeActivity.this, R.layout.fragment_home, null);
-        //getFragmentManager().findFragmentByTag()
+
 
     }
 
@@ -73,7 +69,6 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         //valid scale factor is between 0.0f and 1.0f. leftmenu'width is 150dip.
         resideMenu.setScaleValue(0.6f);
 
-
         // create menu items;
         itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     " 主 页");
         itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "个人中心");
@@ -90,8 +85,8 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         resideMenu.addMenuItem(itemInterpret, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemSettings, ResideMenu.DIRECTION_RIGHT);
 
-        // 这条语句可以禁用指定方向的侧边栏
-        //resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_RIGHT);
+        // You can disable a direction by setting ->
+        // resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_RIGHT);
 
         findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +101,6 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             }
         });
     }
-
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -157,14 +151,12 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 .commit();
     }
 
-
+    // What good method is to access resideMenu？
     public ResideMenu getResideMenu(){
 
         return resideMenu;
     }
 
-
-    //解决在侧边栏opened状态下，按返回键退出应用的bug，现直接回到之前的页面
     @Override
     public void onBackPressed() {
         if(flag){
@@ -190,28 +182,5 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             super.onBackPressed();
         }
 
-    }
-
-
-    //主页面按back键提示再按一次退出
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && (!resideMenu.isOpened())) {
-            if (hasPressedBack) {
-                finish();
-                return true;
-            }
-            hasPressedBack = true;
-            Toast.makeText(this, "再按一次退出MutiWords!", Toast.LENGTH_LONG).show();
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    hasPressedBack = false;
-                }
-            }, 3000);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

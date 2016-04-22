@@ -28,7 +28,6 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.GetListener;
 
 
 public class ReadActivity extends Activity {
@@ -68,7 +67,7 @@ public class ReadActivity extends Activity {
 
     }
 
-    class ReadPageAdapter extends PagerAdapter{
+    class ReadPageAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -238,7 +237,7 @@ public class ReadActivity extends Activity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             final ArticleList article = articleListListContent.get(position);
-            View inflate = View.inflate(ReadActivity.this,R.layout.list_article_item,null);
+            View inflate = View.inflate(ReadActivity.this, R.layout.list_article_item,null);
             ImageView iv_readlist_artcileimage = (ImageView) inflate.findViewById(R.id.iv_readlist_artcileimage);
             TextView tv_readlist_title = (TextView) inflate.findViewById(R.id.tv_readlist_title);
             TextView tv_readlist_type = (TextView) inflate.findViewById(R.id.tv_readlist_type);

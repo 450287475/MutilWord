@@ -2,9 +2,9 @@ package com.wangdao.mutilword.bean.interpretBean;
 
 public class Sent {
 
-	private String orig;   //ԭ��
-	private String pronUrl;  //������ַ
-	private String trans;    //����
+	private String orig;
+	private String pronUrl;
+	private String trans;
 	
 	public String getOrig() {
 		return orig;

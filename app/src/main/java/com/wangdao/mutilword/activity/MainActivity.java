@@ -68,20 +68,29 @@ public class MainActivity extends Activity {
         Log.i(TAG,"objectId"+objectId);
 
         bmobQuery.getObject(this, objectId, new GetListener<UserInfo>() {
-
             @Override
             public void onSuccess(UserInfo userInfo) {
                 finish();
                 Log.i(TAG,"onSuccess");
                 //将登陆用户信息保存在ApplicationInfo类的UserInfo对象里面
-                String username = userInfo.getUsername();
                 String userid = userInfo.getUserid();
-                String phone = userInfo.getPhone();
+                String username = userInfo.getUsername();
                 String password = userInfo.getPassword();
+                String autograph = userInfo.getAutograph();
+                String phone = userInfo.getPhone();
                 String usericon = userInfo.getUsericon();
+                int collectedArticle = userInfo.getCollectedArticle();
+                int collectedWord = userInfo.getCollectedWord();
+                int exchangeAwarded = userInfo.getExchangeAwarded();
+                int exchangeAward = userInfo.getExchangeAward();
+                int articleCount = userInfo.getArticleCount();
+                int wordCount = userInfo.getWordCount();
                 int userpoints = userInfo.getUserpoints();
                 int userrank = userInfo.getUserrank();
-                ApplicationInfo.initUserInfo(userid,username,password,usericon,phone,userrank,userpoints);
+
+                ApplicationInfo.initUserInfo(objectId,userid,username,password,usericon,phone,autograph,
+                        collectedArticle,collectedWord,exchangeAwarded,exchangeAward,articleCount,wordCount,
+                        userrank,userpoints);
             }
 
             @Override
@@ -129,16 +138,27 @@ public class MainActivity extends Activity {
                     }
 
                     //将登陆用户信息保存在ApplicationInfo类的UserInfo对象里面
+                    String objectId = userInfo.getObjectId();
                     String userid = userInfo.getUserid();
                     String username = userInfo.getUsername();
+                    String autograph = userInfo.getAutograph();
                     String phone = userInfo.getPhone();
                     String usericon = userInfo.getUsericon();
+                    int collectedArticle = userInfo.getCollectedArticle();
+                    int collectedWord = userInfo.getCollectedWord();
+                    int exchangeAwarded = userInfo.getExchangeAwarded();
+                    int exchangeAward = userInfo.getExchangeAward();
+                    int articleCount = userInfo.getArticleCount();
+                    int wordCount = userInfo.getWordCount();
                     int userpoints = userInfo.getUserpoints();
                     int userrank = userInfo.getUserrank();
 
+                    ApplicationInfo.initUserInfo(objectId,userid,username,password,usericon,phone,autograph,
+                            collectedArticle,collectedWord,exchangeAwarded,exchangeAward,articleCount,wordCount,
+                            userrank,userpoints);
+
                     Log.i(TAG,userInfo.toString());
                     Log.i(TAG,"userid:"+userid);
-                    ApplicationInfo.initUserInfo(userid,username,password,usericon,phone,userrank,userpoints);
 
                     boolean checked = ed_initpage_savepassword.isChecked();
                     //选择记住密码，保存SharedPreferences里，下次不用再登陆

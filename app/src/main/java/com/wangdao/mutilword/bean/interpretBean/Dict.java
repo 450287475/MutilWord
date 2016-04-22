@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Dict {
 
-	private String key;   //ԭ��
-	private String ps;    //��¼
-	private String pron;  //������ַ
-	private String pos;    //��������
-	private String acceptation;  //����
-	private List<Sent> sents;   //����
+	private String key;
+	private String ps;
+	private String pron;
+	private String pos;
+	private String acceptation;
+	private List<Sent> sents;
 	
 	
 	public String getKey() {

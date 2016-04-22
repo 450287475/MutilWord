@@ -21,10 +21,16 @@ public class ApplicationInfo extends Application{
         sp = getSharedPreferences("userinfo", MODE_PRIVATE);
         editor = sp.edit();
         mContext = this;
+
     }
 
     //初始化用户数据
-    public static void initUserInfo(String userid, String username, String password, String usericon, String phone, int userrank, int userpoints){
-        userInfo = new UserInfo(userid,username, password, usericon, phone, userrank, userpoints);
+    public static void initUserInfo(String objectId,String userid, String username, String password, String usericon, String phone,String autograph,
+                                    int collectedArticle, int collectedWord, int exchangeAwarded, int exchangeAward, int articleCount,
+                                    int wordCount, int userrank, int userpoints){
+        userInfo = new UserInfo(objectId,userid,username, password, usericon, phone, autograph,
+                collectedArticle,collectedWord,exchangeAwarded,exchangeAward,articleCount,wordCount,
+                userrank, userpoints);
+
     }
 }
