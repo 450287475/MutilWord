@@ -1248,6 +1248,7 @@ public class ExamActivity extends Activity implements OnClickListener, OnItemCli
 
 		case R.id.forward:
 			if (i >= list.size() - 1) {
+				Toast.makeText(this, "MutiWords:这已经是最后一题了！", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			answer.setText("");

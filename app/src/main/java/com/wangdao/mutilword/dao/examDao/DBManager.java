@@ -72,7 +72,7 @@ public class DBManager {
 
 	public ArrayList<CauseInfo> queryExam(String tableName) { 
 		Cursor cursorDan = mDB.query(tableName, null, BaseColumns.COLUMN_TYPES + "=?", new String[] { "单选" }, null, null,
-				"RANDOM() limit 8");
+				"RANDOM() limit 20");
 		Cursor cursorDuo = mDB.query(tableName, null, BaseColumns.COLUMN_TYPES + "=?", new String[] { "多选" }, null, null,
 				"RANDOM() limit 6");
 		Cursor cursorPan = mDB.query(tableName, null, BaseColumns.COLUMN_TYPES + "=?", new String[] { "判断" }, null, null,

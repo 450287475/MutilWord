@@ -49,6 +49,11 @@ public class ResultActivity extends Activity implements OnClickListener {
 	public static String TIME = "time";
 	private String curTime;
 	private String exam_name;
+	private LinearLayout ll_result_exchange;
+	private final int POINT95 = 50;
+	private final int POINT100 = 100;
+	private int currentPoint = 0;
+
 
 	public static void intentToResultActivity(Context context, int time, String name) {
 		Intent intent = new Intent(context, ResultActivity.class);
@@ -64,6 +69,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 		curTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 		setContentView(R.layout.activity_result);
 		resetTitlebar();
+		ll_result_exchange =  (LinearLayout) findViewById(R.id.ll_result_exchange);
 		time = getIntent().getIntExtra(TIME, 0);
 		exam_name = getIntent().getStringExtra(ExamActivity.NAME);
 		score = (TextView) findViewById(R.id.score);
@@ -123,12 +129,30 @@ public class ResultActivity extends Activity implements OnClickListener {
 			dadui.setText("答对：" + intDadui + "题");
 			haoshi.setText("耗时：" + TimeUtils.secToTime(60 * 10 - time));
 			score.setText("得分：" + intDadui * 5 + "分");
-			if (intDadui * 5 >= 90) {
+
+			if(intDadui * 5 >= 80){
 				other.setText("成绩还不错，再接再厉哦！");
-			} else if (intDadui * 5 == 100) {
-				other.setText("您太厉害了，全答对！");
+			}
+			else if (intDadui * 5 >= 95) {
+
+				ll_result_exchange.setVisibility(View.VISIBLE);
+				switch (intDadui * 5 ){
+					case 95:
+						other.setText("成绩惊人！您可兑换积分");
+						currentPoint = POINT95;
+						break;
+					case 100:
+						other.setText("您太厉害了，全答对！赶快去兑换积分吧");
+						currentPoint = POINT100;
+						break;
+				}
+
 			}
 		}
+	}
+
+	public void exchange(View v){
+		//button点击后弹出dialog，输入用户名积分兑换
 	}
 
 	private void resetTitlebar() {

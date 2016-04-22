@@ -1283,6 +1283,8 @@ public class OrderActivity extends Activity implements OnClickListener, OnItemCl
 
 		case R.id.forward:
 			if (i >= list.size() - 1) {
+				Toast.makeText(this, "Mutiword题穷，新题敬请期待。", Toast.LENGTH_LONG).show();
+
 				return;
 			}
 			help.setText("");
