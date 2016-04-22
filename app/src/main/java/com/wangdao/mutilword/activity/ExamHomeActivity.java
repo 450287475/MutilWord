@@ -163,8 +163,9 @@ public class ExamHomeActivity extends Activity implements View.OnClickListener{
                                 CauseInfo myData = new CauseInfo(timu_title, timu_one, timu_tow, timu_three, timu_four, daan_one, daan_tow,
                                         daan_three, daan_four, detail, types, reply);
                                 DBManager.getInstance(ExamHomeActivity.this).insert(AnswerColumns.TABLE_NAME, myData);
-                                mHandler.obtainMessage(MSG_SUCCESS).sendToTarget();
+
                             }
+                            mHandler.obtainMessage(MSG_SUCCESS).sendToTarget();
                         } else {
                             mHandler.obtainMessage(MSG_FAILURE).sendToTarget();
                             Toast.makeText(ExamHomeActivity.this, "数据解析出现异常，请联系管理员", Toast.LENGTH_SHORT).show();
