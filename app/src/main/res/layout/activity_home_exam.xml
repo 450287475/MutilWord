@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical" >
 
         <TextView
@@ -43,24 +43,13 @@
             android:text="模拟考试"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/recommend"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="30dp"
-            android:background="#FFB704"
-            android:gravity="center"
-            android:text="应用推荐"
-            android:textSize="18sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="160dp"
             android:orientation="horizontal" >
 
             <LinearLayout
