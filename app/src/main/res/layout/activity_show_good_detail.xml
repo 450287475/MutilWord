@@ -75,19 +75,4 @@
             android:onClick="startChanged"
             android:text="兑换"/>
     </RelativeLayout>
-
-
-
-   <!-- <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="#777"
-        android:id="@+id/wv_goodsdetail_artical"
-        android:text="xxxx"/>-->
-
-
-
-
-
 </LinearLayout>

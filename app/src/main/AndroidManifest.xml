@@ -59,32 +59,33 @@
         <activity
             android:name=".activity.OrderActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle"></activity>
+            android:theme="@style/TitlebarStyle" />
         <activity
             android:name=".activity.CollectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle"></activity>
+            android:theme="@style/TitlebarStyle" />
         <activity
             android:name=".activity.ErrorActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle"></activity>
+            android:theme="@style/TitlebarStyle" />
         <activity
             android:name=".activity.ExamActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle"></activity>
+            android:theme="@style/TitlebarStyle" />
         <activity
             android:name=".activity.ResultActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle"></activity>
+            android:theme="@style/TitlebarStyle" />
         <activity
             android:name=".activity.ExamErrorActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle"></activity>
+            android:theme="@style/TitlebarStyle" />
         <activity
             android:name=".activity.HisResultActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle"></activity>
-        <activity android:name=".activity.HandlePayActivity"></activity>
+            android:theme="@style/TitlebarStyle" />
+        <activity android:name=".activity.HandlePayActivity" />
+        <activity android:name=".activity.ShowHadGoodDetailActivity"></activity>
     </application>
 
 </manifest>

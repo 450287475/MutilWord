@@ -74,6 +74,7 @@ public class ShowGoodDetailActivity extends Activity {
         goodInfo.setLeftcount(leftcount);
         goodInfo.setPoints(points);
         goodInfo.setMoney(money);
+        goodInfo.setIconurl(iconurl);
 
 
     }
