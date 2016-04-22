@@ -2,11 +2,14 @@ package com.wangdao.mutilword.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
@@ -30,9 +33,9 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private final int FRAGMENT_SETTINGS = 1;
     private final int FRAGMENT_PROFILE = 2;
     private final int FRAGMENT_INTERPRET = 3;
+    private boolean hasPressedBack;
 
-    //侧边栏是否打开，打开为ture
-    private boolean flag = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,13 +135,13 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void openMenu() {
             //Toast.makeText(mContext, "Menu is opened!", Toast.LENGTH_SHORT).show();
-            flag = true;
+
         }
 
         @Override
         public void closeMenu() {
             //Toast.makeText(mContext, "Menu is closed!", Toast.LENGTH_SHORT).show();
-            flag = false;
+
         }
     };
 
@@ -157,9 +160,46 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         return resideMenu;
     }
 
+    //解决在侧边栏opened状态下，按返回键退出应用的bug，现直接回到之前的页面
+    //解决在侧边栏closed状态下，按返回键推出应用的bug
+    //主页面按back键提示再按一次退出
     @Override
-    public void onBackPressed() {
-        if(flag){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && (!resideMenu.isOpened()) && currentFragment == FRAGMENT_HOME) {
+            if (hasPressedBack) {
+                finish();
+                return true;
+            }
+            hasPressedBack = true;
+            Toast.makeText(this, "再按一次退出MutiWords!", Toast.LENGTH_LONG).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hasPressedBack = false;
+                }
+            }, 3000);
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK && (!resideMenu.isOpened()) && currentFragment != FRAGMENT_HOME) {
+            switch (currentFragment) {
+
+                case FRAGMENT_SETTINGS:
+                    currentFragment = FRAGMENT_HOME;
+                    changeFragment(new HomeFragment());
+                    break;
+                case FRAGMENT_INTERPRET:
+                    currentFragment = FRAGMENT_HOME;
+                    changeFragment(new HomeFragment());
+                    break;
+                case FRAGMENT_PROFILE:
+                    currentFragment = FRAGMENT_HOME;
+                    changeFragment(new HomeFragment());
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK && resideMenu.isOpened()) {
             switch (currentFragment){
                 case FRAGMENT_HOME:
                     changeFragment(new HomeFragment());
@@ -176,11 +216,9 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 default:
                     break;
             }
-
             resideMenu.closeMenu();
-        }else{
-            super.onBackPressed();
+            return true;
         }
-
+        return super.onKeyDown(keyCode, event);
     }
 }
