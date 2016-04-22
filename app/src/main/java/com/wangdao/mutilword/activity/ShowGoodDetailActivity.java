@@ -2,6 +2,7 @@ package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.GoodInfo;
 import com.wangdao.mutilword.bean.UserInfo;
 
+import c.b.BP;
+import c.b.PListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class ShowGoodDetailActivity extends Activity {
@@ -29,17 +32,19 @@ public class ShowGoodDetailActivity extends Activity {
     private Intent intent;
     private GoodInfo goodInfo;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_good_detail);
 
+        String APPID = "d8aca0c0e17c711bfb65e82127887c2c";
+        BP.init(this, APPID);
+
         iv_showgood_image = (ImageView) findViewById(R.id.iv_showgood_image);
         tv_showgood_changedcount = (TextView) findViewById(R.id.tv_showgood_changedcount);
         tv_showgood_name = (TextView) findViewById(R.id.tv_showgood_name);
         tv_showgood_leftcount = (TextView) findViewById(R.id.tv_showgood_leftcount);
-
-
         showGood();
     }
 
@@ -74,64 +79,26 @@ public class ShowGoodDetailActivity extends Activity {
     }
 
     private void updateGoodInfo(final GoodInfo goodInfo) {
-
-
-        final int points = goodInfo.getPoints();  //商品需要的积分数
-
-
         new AlertDialog.Builder(this)
                 .setTitle("兑换")
-                .setMessage("确认兑换")
+                .setMessage("确认兑换吗？需要"+goodInfo.getPoints()+"个积分")
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int userpoints = ApplicationInfo.userInfo.getUserpoints(); //用户现有的积分数
+                        //跳到填写填写订单详情页
+                        Intent intent = new Intent(ShowGoodDetailActivity.this,HandlePayActivity.class);
+                        intent.putExtra("objectId",goodInfo.getObjectId());
 
-                        //自己现有的积分不够
-                        if (points>userpoints){
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("goodInfo",goodInfo);
+                        intent.putExtra("bundle",bundle);
 
-                        }
-                        //有足够积分
-                        else {
-                            goodInfo.update(ShowGoodDetailActivity.this, new UpdateListener() {
-                                @Override
-                                public void onSuccess() {
-
-                                    UserInfo userInfo = ApplicationInfo.userInfo;
-                                    //购买成功，积分减少
-                                    int newPoints = userInfo.getUserpoints() - points;
-                                    userInfo.setUserpoints(newPoints);
-                                    userInfo.setExchangeAwarded(userInfo.getExchangeAwarded()+1);
-                                    userInfo.update(ShowGoodDetailActivity.this, new UpdateListener() {
-                                        @Override
-                                        public void onSuccess() {
-                                            Toast.makeText(ShowGoodDetailActivity.this,"兑换成功",Toast.LENGTH_SHORT).show();
-                                        }
-
-                                        @Override
-                                        public void onFailure(int i, String s) {
-                                            Toast.makeText(ShowGoodDetailActivity.this,"领取失败"+s,Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-
-                                }
-
-                                @Override
-                                public void onFailure(int i, String s) {
-                                    Toast.makeText(ShowGoodDetailActivity.this,"失败"+s,Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("取消",null)
                 .show();
-
-
-
-
     }
-
 
     //点击按钮，进行兑换
     public void startChanged(View view){
@@ -144,9 +111,7 @@ public class ShowGoodDetailActivity extends Activity {
         updateGoodInfo(goodInfo);
     }
 
-    public void exchange(){
 
-    }
 }
 
 

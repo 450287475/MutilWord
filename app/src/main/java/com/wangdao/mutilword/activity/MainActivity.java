@@ -57,7 +57,6 @@ public class MainActivity extends Activity {
         else {
             startActivity(new Intent(this,HomeActivity.class));
             saveUserInfo(objectId);
-
         }
     }
 
@@ -95,7 +94,8 @@ public class MainActivity extends Activity {
 
             @Override
             public void onFailure(int i, String s) {
-
+                Toast.makeText(MainActivity.this,"获取用户信息失败",Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
