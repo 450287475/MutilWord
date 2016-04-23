@@ -52,8 +52,6 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             changeFragment(new HomeFragment());
 
         View homefragment = View.inflate(HomeActivity.this, R.layout.fragment_home, null);
-
-
     }
 
     public void goToReWord(View view) {
