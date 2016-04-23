@@ -79,27 +79,19 @@
         android:gravity="center"
         android:padding="15dp"
         android:textSize="20sp" />
-    <LinearLayout
-        android:id="@+id/ll_result_exchange"
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/bt_result_exchange"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:onClick="exchange"
-        android:paddingTop="30dp">
+        android:layout_marginTop="20dp"
+        android:text="兑换积分"
+        android:enabled="false"
+        android:visibility="invisible"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_login"/>
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:src="@drawable/exchange_bg"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="兑换积分"/>
 
-    </LinearLayout>
 
 
 </LinearLayout>

@@ -1,20 +1,27 @@
 package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.ExamBean.CauseInfo;
 import com.wangdao.mutilword.bean.ExamBean.HisResult;
+import com.wangdao.mutilword.bean.UserInfo;
 import com.wangdao.mutilword.dao.examDao.BaseColumns;
 import com.wangdao.mutilword.dao.examDao.CollectColumns;
 import com.wangdao.mutilword.dao.examDao.DBManager;
@@ -26,6 +33,11 @@ import com.wangdao.mutilword.utils.TimeUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 
 /**
@@ -49,7 +61,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 	public static String TIME = "time";
 	private String curTime;
 	private String exam_name;
-	private LinearLayout ll_result_exchange;
+	private Button bt_result_exchange;
 	private final int POINT95 = 50;
 	private final int POINT100 = 100;
 	private int currentPoint = 0;
@@ -69,7 +81,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 		curTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 		setContentView(R.layout.activity_result);
 		resetTitlebar();
-		ll_result_exchange =  (LinearLayout) findViewById(R.id.ll_result_exchange);
+		bt_result_exchange =  (Button) findViewById(R.id.bt_result_exchange);
 		time = getIntent().getIntExtra(TIME, 0);
 		exam_name = getIntent().getStringExtra(ExamActivity.NAME);
 		score = (TextView) findViewById(R.id.score);
@@ -81,6 +93,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 		search = (TextView) findViewById(R.id.search);
 		new QueryTask().execute();
 		search.setOnClickListener(this);
+		bt_result_exchange.setOnClickListener(this);
 	}
 
 	private class QueryTask extends AsyncTask<Void, Void, ArrayList<CauseInfo>> {
@@ -130,12 +143,13 @@ public class ResultActivity extends Activity implements OnClickListener {
 			haoshi.setText("耗时：" + TimeUtils.secToTime(60 * 10 - time));
 			score.setText("得分：" + intDadui * 5 + "分");
 
-			if(intDadui * 5 >= 80){
-				other.setText("成绩还不错，再接再厉哦！");
-			}
-			else if (intDadui * 5 >= 95) {
 
-				ll_result_exchange.setVisibility(View.VISIBLE);
+			 if (intDadui * 5 >= 95) {
+				bt_result_exchange.setVisibility(View.VISIBLE);
+				bt_result_exchange.setEnabled(true);
+				Log.e("resultactivity","已经设置为可兑换");
+
+
 				switch (intDadui * 5 ){
 					case 95:
 						other.setText("成绩惊人！您可兑换积分");
@@ -152,7 +166,8 @@ public class ResultActivity extends Activity implements OnClickListener {
 	}
 
 	public void exchange(View v){
-		//button点击后弹出dialog，输入用户名积分兑换
+		//button点击后弹出dialog，输入用户名兑换积分
+
 	}
 
 	private void resetTitlebar() {
@@ -234,6 +249,68 @@ public class ResultActivity extends Activity implements OnClickListener {
 		case R.id.search:
 			startActivity(new Intent(this, ExamErrorActivity.class));
 			break;
+
+			case R.id.bt_result_exchange:
+				View layout = getLayoutInflater().inflate(R.layout.enter_exchange, null);
+				final Dialog dialog = new Dialog(this);
+				dialog.setTitle("恭喜您:");
+				dialog.show();
+				dialog.getWindow().setContentView(layout);
+				final EditText et_exchange_name = (EditText) layout.findViewById(R.id.et_exchange_name);
+				TextView exchange_confirm = (TextView) layout.findViewById(R.id.exchange_confirm);
+				TextView exchange_cancel = (TextView) layout.findViewById(R.id.exchange_cancel);
+				exchange_confirm.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						if (TextUtils.isEmpty(et_exchange_name.getText().toString().trim())) {
+							Toast.makeText(ResultActivity.this, "请输入您的用户名", Toast.LENGTH_SHORT).show();
+						} else {
+
+							UserInfo userInfo = ApplicationInfo.userInfo;
+							String username = userInfo.getUsername();
+							//ExamActivity.intentToExamActivity(ResultActivity.this, et_exchange_name.getText().toString().trim());
+							BmobQuery<UserInfo> bmobQuery = new BmobQuery<UserInfo>();
+							bmobQuery.addWhereEqualTo("username",username);
+							bmobQuery.findObjects(ResultActivity.this, new FindListener<UserInfo>() {
+								@Override
+								public void onSuccess(List<UserInfo> list) {
+									UserInfo userInfo = list.get(0);
+									int userpoints = userInfo.getUserpoints();
+									Log.e("currentpoint",""+currentPoint);
+									userInfo.setUserpoints(currentPoint+userpoints);
+									userInfo.update(ResultActivity.this, new UpdateListener() {
+										@Override
+										public void onSuccess() {
+											Toast.makeText(ResultActivity.this, "兑换成功", Toast.LENGTH_SHORT).show();
+										}
+
+										@Override
+										public void onFailure(int i, String s) {
+
+										}
+									});
+								}
+
+								@Override
+								public void onError(int i, String s) {
+
+								}
+							});
+
+
+							bt_result_exchange.setEnabled(false);
+						}
+						dialog.dismiss();
+					}
+				});
+
+				exchange_cancel.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
+				break;
 
 		default:
 			break;
