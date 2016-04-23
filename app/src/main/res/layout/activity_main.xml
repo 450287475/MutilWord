@@ -71,7 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_iv_initpage_passinput"
         android:layout_alignParentRight="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,12 +88,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bt_initpage_login"
-        android:layout_below="@id/ll_iv_initpage_passinput"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
         android:text="登陆"
         android:onClick="login"
-        android:background="@drawable/bt_background"/>
+        android:background="@drawable/bt_background"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -136,4 +137,31 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="370dp" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/third_login_weibo"
+            android:onClick="weiboLogin"
+            android:id="@+id/button"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/button_weibo_login"
+            android:layout_marginEnd="25dp" />
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/third_login_qq"
+            android:onClick="qqLogin"
+            android:id="@+id/button_weibo_login"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="127dp" />
+
+
+    </RelativeLayout>
 </RelativeLayout>

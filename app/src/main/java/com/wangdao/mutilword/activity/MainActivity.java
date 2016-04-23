@@ -15,12 +15,18 @@ import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.UserInfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
 
 
 public class MainActivity extends Activity {
@@ -37,12 +43,19 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //初始化 shareSDK
+        ShareSDK.initSDK(this);
+
         Bmob.initialize(this, "d8aca0c0e17c711bfb65e82127887c2c");
         ed_initpage_phone = (EditText) findViewById(R.id.ed_initpage_phone);
         ed_initpage_password = (EditText) findViewById(R.id.ed_initpage_password);
         ed_initpage_savepassword = (CheckBox) findViewById(R.id.ed_initpage_savepassword);
 
         judgIsLogin();
+
+        //初始化 shareSDK
+        ShareSDK.initSDK(this);
+
 
     }
 
@@ -229,6 +242,119 @@ public class MainActivity extends Activity {
                 dialog.dismiss();
             } catch (Exception e) {
             }
+    }
+
+    /*
+     * 使用 sharesdk qq登录
+     * @param view
+     */
+    public void qqLogin(View view) {
+
+
+        final Platform qq = ShareSDK.getPlatform(QQ.NAME);
+        qq.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                System.out.println("授权成功");
+
+
+             /*   //解析部分用户资料字段
+                String id,name,description,profile_image_url;
+                id=res.get("id").toString();//ID
+                name=res.get("name").toString();//用户名
+                description=res.get("description").toString();//描述
+                profile_image_url=res.get("profile_image_url").toString();//头像链接
+                String str="ID: "+id+";\n"+
+                        "用户名： "+name+";\n"+
+                        "描述："+description+";\n"+
+                        "用户头像地址："+profile_image_url;
+                System.out.println("用户资料: "+str);*/
+
+
+                //PlatformDb db = qq.getDb();
+                //System.out.println("打印数据"+hashMap.toString());
+              /*  System.out.println("打印数据"+qq.getDb().getToken());
+                System.out.println("打印数据"+qq.getDb().getUserIcon());
+                System.out.println("打印数据"+qq.getDb().getUserId());
+                System.out.println("打印数据"+qq.getDb().getUserName());*/
+
+
+
+                Log.i(TAG, "用户 getToken()"+qq.getDb().getToken());
+                Log.i(TAG,  "用户 exportData("+ qq.getDb().exportData());
+                Log.i(TAG, "用户ID getPlatformNname()："+qq.getDb().getPlatformNname());
+                Log.i(TAG,  "用户getTokenSecret()："+qq.getDb().getTokenSecret());
+                Log.i(TAG,  "用户性别"+qq.getDb().getUserGender());
+                Log.i(TAG, "用户icon"+qq.getDb().getUserIcon());
+                Log.i(TAG, "用户 getUserId()"+qq.getDb().getUserId());
+                Log.i(TAG,  "用户 getUserName()"+qq.getDb().getUserName());
+                Log.i(TAG,  "用户 getExpiresIn()"+qq.getDb().getExpiresIn() + "");
+                Log.i(TAG,  "用户ID getExpiresTime()"+qq.getDb().getExpiresTime() + "");
+                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+
+                ApplicationInfo.initNickname(qq.getDb().getUserName());
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.i(TAG, "授权失败");
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                Log.i(TAG, "取消授权");
+            }
+        });
+        qq.authorize();
+
+
+    }
+
+    /*
+     * 使用 sharesdk 新浪微博 登录
+     * @param view
+     */
+    public void weiboLogin(View view) {
+        final Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
+        weibo.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            //授权成功
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+
+
+
+               /* Log.d(TAG, weibo.getDb().getToken());
+                Log.d(TAG, weibo.getDb().getToken());
+                Log.d(TAG, weibo.getDb().exportData());
+                Log.d(TAG, weibo.getDb().getPlatformNname());
+                Log.d(TAG, weibo.getDb().getTokenSecret());
+                Log.d(TAG, weibo.getDb().getUserGender());
+                Log.d(TAG, weibo.getDb().getUserIcon());
+                Log.d(TAG, weibo.getDb().getUserId());
+                Log.d(TAG, weibo.getDb().getUserName());
+                Log.d(TAG, weibo.getDb().getExpiresIn() + "");
+                Log.d(TAG, weibo.getDb().getExpiresTime() + "");*/
+
+            }
+
+            @Override
+            //授权失败
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.d(TAG, "授权失败");
+                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+            }
+
+            @Override
+            //授权取消
+            public void onCancel(Platform platform, int i) {
+                Log.i(TAG, "取消授权");
+                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+            }
+        });
+        weibo.authorize();
+        //移除授权
+        //weibo.removeAccount(true);
+
     }
 
 }
