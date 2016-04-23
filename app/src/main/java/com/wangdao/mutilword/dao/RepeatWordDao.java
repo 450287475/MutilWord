@@ -25,10 +25,30 @@ public class RepeatWordDao {
         tableName = dbName.substring(0, dbName.indexOf("."));
     }
 
+    //查询是否已经有相同的单词在数据库里,若有,返回该单词.否则返回null
+    public Word_info isExist(String wordName){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.query(tableName, null, "word=?", new String[]{wordName}, null, null, null);
+        while (cursor.moveToNext()){
+            int repeat = cursor.getInt(cursor.getColumnIndex("repeat"));
+            long date = cursor.getLong(cursor.getColumnIndex("date"));
+            String word = cursor.getString(cursor.getColumnIndex("word"));
+            String trans = cursor.getString(cursor.getColumnIndex("trans"));
+            String phonetic = cursor.getString(cursor.getColumnIndex("phonetic"));
+            int id = cursor.getInt(cursor.getColumnIndex("_id"));
+            String tags = cursor.getString(cursor.getColumnIndex("tags"));
+             cursor.close();
+            db.close();
+            return new Word_info(word, trans, phonetic, tags, repeat, id, date);
+        }
+        cursor.close();
+        db.close();
+        return null;
+    }
+
     //增加背过的单词
     public void insert(Word_info word_info){
         SQLiteDatabase db = helper.getReadableDatabase();
-
         ContentValues contentValues = new ContentValues();
         contentValues.put("word",word_info.getWord());
         contentValues.put("trans",word_info.getTrans());
@@ -69,47 +89,47 @@ public class RepeatWordDao {
                 case 0://0表示还没背过,则直接加入集合
                     break;
                 case 1:
-                    if(interval<Constant.fiveMin){
+                    if(interval< Constant.fiveMin){
                         continue;
                     }
                     break;
                 case 2:
-                    if(interval<Constant.halfHour){
+                    if(interval< Constant.halfHour){
                         continue;
                     }
                     break;
                 case 3:
-                    if(interval<Constant.halfDay){
+                    if(interval< Constant.halfDay){
                         continue;
                     }
                     break;
                 case 4:
-                    if(interval<Constant.oneDay){
+                    if(interval< Constant.oneDay){
                         continue;
                     }
                     break;
                 case 5:
-                    if(interval<Constant.twoDay){
+                    if(interval< Constant.twoDay){
                         continue;
                     }
                     break;
                 case 6:
-                    if(interval<Constant.fourDay){
+                    if(interval< Constant.fourDay){
                         continue;
                     }
                     break;
                 case 7:
-                    if(interval<Constant.sevenDay){
+                    if(interval< Constant.sevenDay){
                         continue;
                     }
                     break;
                 case 8:
-                    if(interval<Constant.halfMonth){
+                    if(interval< Constant.halfMonth){
                         continue;
                     }
                     break;
             }
-            if(repeat>=9&&interval<Constant.halfMonth){
+            if(repeat>=9&&interval< Constant.halfMonth){
                 continue;
             }
             //经过所有判断都没有continue,则将该单词加入集合
@@ -142,7 +162,7 @@ public class RepeatWordDao {
             String phonetic = cursor.getString(cursor.getColumnIndex("phonetic"));
             int id = cursor.getInt(cursor.getColumnIndex("_id"));
             String tags = cursor.getString(cursor.getColumnIndex("tags"));
-            System.out.println(new Word_info(word, trans, phonetic, tags, repeat, id, date));
+         //   System.out.println(new Word_info(word, trans, phonetic, tags, repeat, id, date));
             word_infos.add(new Word_info(word, trans, phonetic, tags, repeat, id, date));
         }
         cursor.close();

@@ -27,8 +27,8 @@ public class UserInfo extends BmobObject implements Parcelable{
     private int articleCount;
     private int wordCount;
 
-    private int userrank;
-    private int userpoints;
+    public int userrank;
+    public int userpoints;
 
     public UserInfo() {
     }

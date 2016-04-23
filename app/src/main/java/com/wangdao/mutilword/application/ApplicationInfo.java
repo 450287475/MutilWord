@@ -2,9 +2,14 @@ package com.wangdao.mutilword.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.wangdao.mutilword.bean.UserInfo;
+import com.wangdao.mutilword.service.NotificationService;
+
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by haijun on 2016/4/19.
@@ -21,7 +26,7 @@ public class ApplicationInfo extends Application{
         sp = getSharedPreferences("userinfo", MODE_PRIVATE);
         editor = sp.edit();
         mContext = this;
-
+        startService(new Intent(this,NotificationService.class));
     }
 
     //初始化用户数据
@@ -31,6 +36,12 @@ public class ApplicationInfo extends Application{
         userInfo = new UserInfo(objectId,userid,username, password, usericon, phone, autograph,
                 collectedArticle,collectedWord,exchangeAwarded,exchangeAward,articleCount,wordCount,
                 userrank, userpoints);
+
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
 
     }
 }

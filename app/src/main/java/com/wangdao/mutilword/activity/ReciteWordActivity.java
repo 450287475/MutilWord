@@ -1,12 +1,22 @@
 package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.ramotion.foldingcell.FoldingCell;
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.application.ApplicationInfo;
@@ -14,12 +24,8 @@ import com.wangdao.mutilword.bean.Word_info;
 import com.wangdao.mutilword.constant.Constant;
 import com.wangdao.mutilword.dao.RepeatWordDao;
 import com.wangdao.mutilword.dao.WordDao;
-import com.wangdao.mutilword.utils.IOUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -42,23 +48,121 @@ public class ReciteWordActivity extends Activity {
     public TextView tv_recite_title;
     public TextView tv_recite_remainWord;
 
+    //最先进来的时候的单词总量
+    private int WORD_TOTAL_NUMBER;
+    private ImageButton bt_reciteword_imagebutton;
+    public ProgressDialog dialog;
+    public String dbFilePath;
+    public String dbURL;
+    public TextView tv_recite_phonetic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recite_word);
+        //改变状态栏的颜色
+        changecolor();
+        initView();
+
         //初始化db
         Intent intent = getIntent();
-        dbName=intent.getStringExtra("db");
-        String oldDbName=intent.getStringExtra("oldDb");
-        initAssets(dbName);
+        dbURL = intent.getStringExtra("dbURL");
+        dbFilePath = intent.getStringExtra("dbFilePath");
+        File file = new File(dbFilePath);
+        dbName= dbFilePath.substring(dbFilePath.lastIndexOf("/")+1);
+        if(!file.exists()){
+            //显示下载弹窗
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setCancelable(true);
+            dialog = progressDialog.show(this,null, "下载单词本中...");
+            //从网络上下载单词本
+            downLoadDb();
+        }else {
+            initData();
+        }
+
+
+    }
+
+
+    //
+    //从网络上下载单词本
+    private void downLoadDb() {
+        HttpUtils httpUtils = new HttpUtils();
+        httpUtils.download(dbURL, //下载地址
+                dbFilePath,//保存路径
+                true, //true表示可以断点重连
+                new RequestCallBack<File>() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                System.out.println("onStart");
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isUploading) {
+                System.out.println(current+":"+current+":"+isUploading);
+                dialog.setMax((int) total);
+                dialog.setProgress((int) current);
+                super.onLoading(total, current, isUploading);
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo<File> responseInfo) {
+                dialog.dismiss();
+                initData();
+                Toast.makeText(ReciteWordActivity.this, "下载完成:"+responseInfo.result.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                System.out.println("onFailure"+s+e.getExceptionCode());
+                dialog.dismiss();
+                Toast.makeText(ReciteWordActivity.this,"onFailure", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    //改变状态栏的颜色
+    private void changecolor() {
+        Window window = this.getWindow();
+       //设置透明状态栏,这样才能让 ContentView 向上
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+       //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+      //设置状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.RED);
+        }
+    }
+
+    //初始化控件
+    private void initView() {
+        index = 0;
+        fc = (FoldingCell) findViewById(R.id.folding_cell);
+        tv_recite_trans = (TextView) findViewById(R.id.tv_recite_trans);
+        tv_recite_word = (TextView) findViewById(R.id.tv_recite_word);
+        tv_recite_phonetic = (TextView) findViewById(R.id.tv_recite_phonetic);
+        tv_recite_title = (TextView) findViewById(R.id.tv_recite_title);
+        tv_recite_remainWord = (TextView) findViewById(R.id.tv_recite_remainWord);
+        bt_reciteword_imagebutton = (ImageButton) findViewById(R.id.bt_reciteword_imagebutton);
+    }
+
+    //初始化控件的数字
+    private void initData() {
+        // 初始化参数
         num = ApplicationInfo.sp.getInt("wordNum", 30);
-        daoRepeatWord = new RepeatWordDao(this, oldDbName, 1);
+        daoRepeatWord = new RepeatWordDao(this, "oldWord.db", 1);
         word_infos=new ArrayList<>();
         //如果离上次背单词已经过去一天了,往集合里增加num个新单词
         long date = ApplicationInfo.sp.getLong("date", -1);
         long time = new Date().getTime();
         long interval = time - date;
-        if(interval>  Constant.oneDay){
+        if(interval>Constant.oneDay){
             ApplicationInfo.editor.putLong("date",time).commit();
             word_infos = WordDao.selectNoRepeatWord(this, dbName, num);
             for(Word_info word_info:word_infos){
@@ -67,37 +171,15 @@ public class ReciteWordActivity extends Activity {
                 //在未背过的数据库中减去
                 WordDao.deleteWord(this,dbName,word_info.getId());
             }
-            word_infos.clear();
         }
 
         ArrayList<Word_info> oldWord = daoRepeatWord.getOldWord();
-        word_infos.addAll(oldWord);
-        initView();
-        initData();
-
-    }
-    //初始化控件
-    private void initView() {
-        index = 0;
-        fc = (FoldingCell) findViewById(R.id.folding_cell);
-        tv_recite_trans = (TextView) findViewById(R.id.tv_recite_trans);
-        tv_recite_word = (TextView) findViewById(R.id.tv_recite_word);
-        tv_recite_title = (TextView) findViewById(R.id.tv_recite_title);
-        tv_recite_remainWord = (TextView) findViewById(R.id.tv_recite_remainWord);
-    }
-
-    //初始化控件的数字
-    private void initData() {
+        word_infos=oldWord;
+        WORD_TOTAL_NUMBER=word_infos.size();
         if(word_infos.size()>0) {
-            tv_recite_word.setText(word_infos.get(index).getWord());
-            tv_recite_title.setText(word_infos.get(index).getWord());
-            tv_recite_trans.setText(word_infos.get(index).getTrans());
-            tv_recite_remainWord.setText("亲，你还剩"+word_infos.size()+"个单词，加油哦");
+            refreshText();
         }else {
-            tv_recite_word.setText("今天的单词量已经完成");
-            tv_recite_title.setText("今天的单词量已经完成");
-            tv_recite_trans.setText("");
-            tv_recite_remainWord.setText("");
+            doneRefreshText();
         }
 
 
@@ -109,26 +191,32 @@ public class ReciteWordActivity extends Activity {
                 mUnfold=!mUnfold;
             }
         });
+
+        //点击小箭头，关闭当前页面
+        bt_reciteword_imagebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
-    //将文件从assets初始化到app中
-    private void initAssets(String s) {
-        AssetManager assets = getAssets();
-        try {
-            InputStream inputStream = assets.open(s);
-            File file = new File(getFilesDir(), s);
-            if (file.exists()) {
-            //    Toast.makeText(ReciteWordActivity.this, "已存在", Toast.LENGTH_SHORT).show();
-                return;
-            }
+    //完成背诵单词时更新页面
+    private void doneRefreshText() {
+        tv_recite_word.setText("今天的单词量已经完成");
+        tv_recite_title.setText("今天的单词量已经完成");
+        tv_recite_trans.setText("");
+        tv_recite_phonetic.setText("");
+        tv_recite_remainWord.setText("");
+    }
 
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            IOUtils.fisWriteToFos(inputStream, fileOutputStream);
-           // Toast.makeText(ReciteWordActivity.this, "复制完成", Toast.LENGTH_SHORT).show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    //更新文本
+    private void refreshText() {
+        tv_recite_word.setText(word_infos.get(index).getWord());
+        tv_recite_title.setText(word_infos.get(index).getWord());
+        tv_recite_trans.setText(word_infos.get(index).getTrans());
+        tv_recite_phonetic.setText("音标:"+word_infos.get(index).getPhonetic());
+        tv_recite_remainWord.setText(word_infos.size()+"/"+WORD_TOTAL_NUMBER);
     }
 
     //记得单词,切换到下一个
@@ -157,39 +245,26 @@ public class ReciteWordActivity extends Activity {
             word_infos.remove(index);
             //更新tv,因为上一句集合数减少了1,为了防止index越界,要重新判断
             if(index<word_infos.size()) {
-                tv_recite_word.setText(word_infos.get(index).getWord());
-                tv_recite_title.setText(word_infos.get(index).getWord());
-                tv_recite_trans.setText(word_infos.get(index).getTrans());
+              refreshText();
             }else {
                 if(index==0){
-                    tv_recite_word.setText("今天的单词量已经完成");
-                    tv_recite_title.setText("今天的单词量已经完成");
-                    tv_recite_remainWord.setText("");
-                    tv_recite_trans.setText("");
+                  doneRefreshText();
                 }else {
                     index=0;
-                    tv_recite_word.setText(word_infos.get(index).getWord());
-                    tv_recite_title.setText(word_infos.get(index).getWord());
-                    tv_recite_trans.setText(word_infos.get(index).getTrans());
+                    refreshText();
                 }
             }
         }else {//index>size
             //如果index=0;说明要背的单词集合word_infos的size为0,则完成背诵
             //否则,让index=0;
             if(index==0){
-                tv_recite_word.setText("今天的单词量已经完成");
-                tv_recite_title.setText("今天的单词量已经完成");
-                tv_recite_remainWord.setText("");
-                tv_recite_trans.setText("");
+                doneRefreshText();
             }else {
                 index=0;
-                tv_recite_word.setText(word_infos.get(index).getWord());
-                tv_recite_title.setText(word_infos.get(index).getWord());
-                tv_recite_trans.setText(word_infos.get(index).getTrans());
+                 refreshText();
             }
         }
         System.out.println("remenber"+word_infos.size());
-        tv_recite_remainWord.setText("亲，你还剩"+word_infos.size()+"个单词，加油哦");
     }
 
     //该单词未记得,显示下一个单词
@@ -216,9 +291,7 @@ public class ReciteWordActivity extends Activity {
         if(index>=word_infos.size()){
             index=0;
         }
-        tv_recite_word.setText(word_infos.get(index).getWord());
-        tv_recite_title.setText(word_infos.get(index).getWord());
-        tv_recite_trans.setText(word_infos.get(index).getTrans());
+          refreshText();
         System.out.println("unRemenber"+word_infos.size());
     }
 }
