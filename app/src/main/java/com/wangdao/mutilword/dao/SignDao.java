@@ -94,6 +94,8 @@ public class SignDao
      * 
      * @return List<Person>
      */
+
+    //获得所有日期的集合
     public List<SignDateInfo> query()
     {
         ArrayList<SignDateInfo> persons = new ArrayList<SignDateInfo>();

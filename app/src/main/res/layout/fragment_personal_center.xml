@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:background="@drawable/usercenterback">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -313,6 +315,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:id="@+id/tv_personcenter_sign"
             android:text="2"/>
     </LinearLayout>
 </LinearLayout>
