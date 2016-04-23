@@ -25,6 +25,7 @@
                 android:gravity="center"
                 android:textColor="#aa564b4b"
                 android:textSize="18sp" />
+
         </RelativeLayout>
 
         <com.wangdao.mutilword.calendar.SignCalendar
@@ -45,6 +46,15 @@
             android:text="签到"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="同步签到日期"
+            android:id="@+id/bt_calendar_sync"
+            android:textSize="18sp"
+            android:background="@drawable/bt_calendar_sync"
+            android:textColor="#aa564b4b"
+            android:layout_margin="10dp"/>
     </LinearLayout>
 
 </RelativeLayout>

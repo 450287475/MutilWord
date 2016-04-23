@@ -294,4 +294,9 @@ public class ReciteWordActivity extends Activity {
           refreshText();
         System.out.println("unRemenber"+word_infos.size());
     }
+
+    //调用发音接口
+    public void sound(View view) {
+
+    }
 }
