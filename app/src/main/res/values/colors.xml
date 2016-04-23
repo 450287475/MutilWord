@@ -23,4 +23,6 @@
 
     <color name="right_answer">#009100</color>
     <color name="exchange_bg">#f0f</color>
+    
+    <color name="statusbar">#081736</color>
 </resources>
