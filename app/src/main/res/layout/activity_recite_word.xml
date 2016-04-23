@@ -12,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp">
 
@@ -33,9 +34,21 @@
             android:gravity="center"
             android:textColor="@android:color/white"
             android:id="@+id/textView"
+            android:layout_marginTop="10dp"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/bt_reciteword_imagebutton"
             android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sound"
+            android:background="#4B637B"
+            android:padding="10dp"
+            android:onClick="sound"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/bt_reciteword_sound" />
     </RelativeLayout>
 
 

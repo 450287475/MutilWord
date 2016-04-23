@@ -10,10 +10,9 @@ import android.widget.Toast;
 
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.application.ApplicationInfo;
-import com.wangdao.mutilword.bean.Word_info;
-import com.wangdao.mutilword.bean.sqlit;
+import com.wangdao.mutilword.bean.ProgressInfo;
+import com.wangdao.mutilword.bean.SignDateInfo;
 import com.wangdao.mutilword.calendar.SignCalendar;
-import com.wangdao.mutilword.dao.RepeatWordDao;
 import com.wangdao.mutilword.dao.SignDao;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +21,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class SignActivity extends Activity {
@@ -34,6 +36,8 @@ public class SignActivity extends Activity {
     SignDao dbManager;
     boolean isinput=false;
     private String date1 = null;//单天日期
+    public Button bt_calendar_sync;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_calendar);
@@ -47,6 +51,7 @@ public class SignActivity extends Activity {
         popupwindow_calendar_month = (TextView) findViewById(R.id.popupwindow_calendar_month);
         btn_signIn = (Button) findViewById(R.id.btn_signIn);
         calendar = (SignCalendar) findViewById(R.id.popupwindow_calendar);
+        bt_calendar_sync = (Button) findViewById(R.id.bt_calendar_sync);
         popupwindow_calendar_month.setText(calendar.getCalendarYear() + "年"
                 + calendar.getCalendarMonth() + "月");
         if (null != date) {
@@ -61,7 +66,78 @@ public class SignActivity extends Activity {
                     R.drawable.calendar_date_focused);
         }
 
-        query();
+        final int signDays = query();
+        bt_calendar_sync.setText("共签到了"+signDays+"天,与云端同步");
+        bt_calendar_sync.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bt_calendar_sync.setText("准备开始同步...");
+                bt_calendar_sync.setEnabled(false);
+                final List<SignDateInfo> signDateInfoList = dbManager.query();
+                final BmobQuery<SignDateInfo> query = new BmobQuery<>();
+                query.addWhereEqualTo("username", ApplicationInfo.userInfo.getUsername());
+                query.setLimit(Integer.MAX_VALUE);
+                query.findObjects(SignActivity.this, new FindListener<SignDateInfo>() {
+                    @Override
+                    public void onSuccess(List<SignDateInfo> list) {
+                        ArrayList<SignDateInfo> insertDbsignDate = new ArrayList<>();
+                        for(SignDateInfo signDateInfo:list){
+                                SignDateInfo isSignInfo = dbManager.isSign(signDateInfo.getDate());
+                                if(isSignInfo!=null){
+                                    signDateInfoList.remove(isSignInfo);
+                                }else {
+                                    insertDbsignDate.add(signDateInfo);
+                                }
+                            }
+                        dbManager.add(insertDbsignDate);
+                        final ProgressInfo progressInfo = new ProgressInfo();
+                        progressInfo.total = signDateInfoList.size();
+                        reFreshSignDate(progressInfo);
+                        for (SignDateInfo signDateInfo:signDateInfoList){
+                            signDateInfo.setUsername(ApplicationInfo.userInfo.getUsername());
+                            signDateInfo.save(SignActivity.this, new SaveListener() {
+                                @Override
+                                public void onSuccess() {
+                                    progressInfo.total--;
+                                    reFreshSignDate(progressInfo);
+                                }
+
+                                @Override
+                                public void onFailure(int i, String s) {
+                                    progressInfo.total--;
+                                    progressInfo.failure++;
+                                    reFreshSignDate(progressInfo);
+                                }
+                            });
+                        }
+
+                    }
+
+                    private void reFreshSignDate(ProgressInfo progressInfo) {
+                        if(progressInfo.total==0){
+                            Toast.makeText(SignActivity.this, "同步完成,同步失败"+progressInfo.failure+"个", Toast.LENGTH_SHORT).show();
+                            List<SignDateInfo> query1 = dbManager.query();
+                            int signDays=query1.size();
+                            bt_calendar_sync.setText("共签到了"+signDays+"天,与云端同步");
+                            bt_calendar_sync.setEnabled(true);
+                        }else {
+                            bt_calendar_sync.setText("正在同步,还有"+progressInfo.total+"天需要同步");
+                        }
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        Toast.makeText(SignActivity.this, "网络异常,请稍后再同步", Toast.LENGTH_SHORT).show();
+                        List<SignDateInfo> query1 = dbManager.query();
+                        int signDays=query1.size();
+                        bt_calendar_sync.setText("共签到了"+signDays+"天,与云端同步");
+                        bt_calendar_sync.setEnabled(true);
+                    }
+                });
+
+            }
+        });
+
         if(isinput){
             btn_signIn.setText("今日已签，明日继续");
             btn_signIn.setBackgroundResource(R.drawable.button_gray);
@@ -70,12 +146,7 @@ public class SignActivity extends Activity {
         btn_signIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                RepeatWordDao dao = new RepeatWordDao(SignActivity.this, "oldWord.db", 1);
-                ArrayList<Word_info> oldWord = dao.getOldWord();
-                if(oldWord.size()!=0){
-                    Toast.makeText(SignActivity.this, "你还没有背完全部单词,请背完再回来签到.加油~", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 Date today= calendar.getThisday();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
            /* calendar.removeAllMarks();
@@ -149,26 +220,28 @@ public class SignActivity extends Activity {
 
     public void add(String date)
     {
-        ArrayList<sqlit> persons = new ArrayList<sqlit>();
+        ArrayList<SignDateInfo> persons = new ArrayList<SignDateInfo>();
 
-        sqlit person1 = new sqlit(date,"true");
+        SignDateInfo person1 = new SignDateInfo(date,"true");
 
         persons.add(person1);
 
         dbManager.add(persons);
     }
 
-    public void query()
+    public int query()
     {
-        List<sqlit> persons = dbManager.query();
-        for (sqlit person : persons)
+        List<SignDateInfo> persons = dbManager.query();
+
+        for (SignDateInfo person : persons)
         {
             list.add(person.date);
             if(date1.equals(person.getDate())){
-               // isinput=true;
+                isinput=true;
             }
         }
         calendar.addMarks(list, 0);
+        return list.size();
     }
 
     @Override

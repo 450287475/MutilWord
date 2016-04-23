@@ -133,18 +133,7 @@ public class ChooseWordTypeActivity extends Activity {
 
         }
 
-        //.withTitle(null)  no title
-        //def
-        //def
-        //.withMessage(null)  no Msg
-        //def
-        //def    | isCancelable(true)
-        //def
-        //def Effectstype.Slidetop
-        //def gone
-        //def gone
-        //.setCustomView(View or ResId,context)
-        //  Toast.makeText(v.getContext(), "i'm btn2", Toast.LENGTH_SHORT).show();
+        //选择单词页
         niftyDialogBuilder = dialogBuilder
                 .withTitle("选择要背的单词本")                                  //.withTitle(null)  no title
                 .withTitleColor("#FFFFFF")                                  //def
@@ -218,9 +207,6 @@ public class ChooseWordTypeActivity extends Activity {
     //同步功能
     public void sync(View view) {
         File oldDbFile = getDatabasePath("oldWord.db");
-        BmobQuery<Bmob_word_info> query = new BmobQuery<>();
-        query.addWhereEqualTo("username", ApplicationInfo.userInfo.getUsername());
-        query.setLimit(Integer.MAX_VALUE);
 
         //初始化弹框
         final ProgressDialog progressDialog = new ProgressDialog(ChooseWordTypeActivity.this);
@@ -231,6 +217,10 @@ public class ChooseWordTypeActivity extends Activity {
         progressDialog.setCancelable(true);
         progressDialog.show();
 
+        //查询
+        BmobQuery<Bmob_word_info> query = new BmobQuery<>();
+        query.addWhereEqualTo("username", ApplicationInfo.userInfo.getUsername());
+        query.setLimit(Integer.MAX_VALUE);
         query.findObjects(this,  new FindListener<Bmob_word_info>() {
 
             public ArrayList<BmobObject> update_word_infos;

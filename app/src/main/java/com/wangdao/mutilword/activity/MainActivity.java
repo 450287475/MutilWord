@@ -1,6 +1,7 @@
 package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ public class MainActivity extends Activity {
     private EditText ed_initpage_phone;
     private EditText ed_initpage_password;
     private CheckBox ed_initpage_savepassword;
+    private ProgressDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +121,7 @@ public class MainActivity extends Activity {
 
     //验证是否时注册用户
     private void validate(String phone, final String password) {
+        showDialog("正在登陆...");
         //查找UserInfo表里面id为  XXX  的数据
         BmobQuery<UserInfo> bmobQuery = new BmobQuery();
 
@@ -125,6 +129,7 @@ public class MainActivity extends Activity {
         bmobQuery.findObjects(this, new FindListener<UserInfo>() {
             @Override
             public void onSuccess(List<UserInfo> list) {
+                hideDialog();
                 //查询到对应的信息，则注册过，跳到主页面
                 if (list.size()==0){
                     //没有查询到对应的信息，则没注册过，提示该用户未注册
@@ -176,6 +181,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onError(int i, String s) {
+                hideDialog();
                 Toast.makeText(MainActivity.this,"登陆失败"+s,Toast.LENGTH_SHORT).show();
             }
         });
@@ -184,13 +190,45 @@ public class MainActivity extends Activity {
     //注册
     public void register(View view){
         //跳到注册页面，注册成功，则跳到主页面
-        startActivity(new Intent(this,RegisterActivity.class));
+        startActivityForResult(new Intent(this,RegisterActivity.class),120);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //注册成功，页面销毁
+        if (resultCode==RESULT_OK && requestCode==120){
+            if (data.getBooleanExtra("registOK",false)) {
+                finish();
+            }
+        }
     }
 
     //忘记密码,进行找回密码
     public void forgetPassword(View view){
         //跳到找回密码页面
         startActivity(new Intent(this,RetrievePasswordActivity.class));
+    }
+
+    void showDialog(String message) {
+        try {
+            if (dialog == null) {
+                dialog = new ProgressDialog(this);
+                dialog.setCancelable(true);
+            }
+            dialog.setMessage(message);
+            dialog.show();
+        } catch (Exception e) {
+            // 在其他线程调用dialog会报错
+        }
+    }
+
+    void hideDialog() {
+        if (dialog != null && dialog.isShowing())
+            try {
+                dialog.dismiss();
+            } catch (Exception e) {
+            }
     }
 
 }
