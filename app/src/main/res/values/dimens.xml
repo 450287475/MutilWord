@@ -4,11 +4,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
 
-
     <!--弹框-->
     <dimen name="dialog_padding">25dp</dimen>
 
-   <!-- 日历-->
+    <!-- 日历-->
     <dimen name="historyscore_tb">10dp</dimen>
 
     <!-- 所有标题栏大小 -->

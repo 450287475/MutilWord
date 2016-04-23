@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.wangdao.mutilword.activity.ChooseWordTypeActivity">
-
-    <Button
+    tools:context="com.wangdao.mutilword.activity.ChooseWordTypeActivity"
+    android:background="@drawable/word_bg"
+    android:weightSum="1"
+    android:gravity="center_vertical">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="50dp"
+    android:layout_marginRight="40dp"
+    android:layout_alignParentRight="true">
+    <TextView
         android:id="@+id/rotateleft"
-        style="@style/my_btn"
         android:text="开始背单词"
-        />
+        android:onClick="dialogShow"
+        style="@style/chooseWordType"/>
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="同步"
-        android:onClick="sync"/>
-    <ListView android:id="@+id/lv_chooseWordType_wordlist"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:divider="@null"
-              android:listSelector="@android:color/transparent"/>
+        android:onClick="sync"
+        android:id="@+id/button"
+       style="@style/chooseWordType"/>
+    <Button
+        android:text="查看单词本"
+        style="@style/chooseWordType"
+        android:onClick="goToWordBook"
+        />
+
 </LinearLayout>
+
+
+    <!-- <ListView android:id="@+id/lv_chooseWordType_wordlist"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:divider="@null"
+               android:listSelector="@android:color/transparent"/>-->
+</RelativeLayout>
