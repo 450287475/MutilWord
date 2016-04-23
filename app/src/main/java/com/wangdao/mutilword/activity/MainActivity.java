@@ -17,7 +17,9 @@ import com.wangdao.mutilword.bean.UserInfo;
 
 import java.util.List;
 
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
@@ -38,6 +40,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Bmob.initialize(this, "d8aca0c0e17c711bfb65e82127887c2c");
+        // 使用推送服务时的初始化操作
+        BmobInstallation.getCurrentInstallation(this).save();
+        // 启动推送服务
+        BmobPush.startWork(this);
+
         ed_initpage_phone = (EditText) findViewById(R.id.ed_initpage_phone);
         ed_initpage_password = (EditText) findViewById(R.id.ed_initpage_password);
         ed_initpage_savepassword = (CheckBox) findViewById(R.id.ed_initpage_savepassword);
