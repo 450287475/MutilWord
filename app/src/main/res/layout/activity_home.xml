@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="">
+    tools:context=".activity.HomeActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="#2ea3fe"/>
+            android:background="@color/statusbar"/>
 
         <FrameLayout
             android:layout_width="fill_parent"
@@ -24,7 +24,7 @@
 
             <Button
                 android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_height="20dp"
                 android:background="@drawable/titlebar_menu_selector"
                 android:id="@+id/title_bar_left_menu"
                 android:layout_gravity="left|center_vertical"
@@ -40,9 +40,9 @@
                 android:layout_gravity="center"/>
 
             <Button
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/titlebar_menu_selector"
+                android:layout_width="30dp"
+                android:layout_height="34dp"
+                android:background="@drawable/ic_right"
                 android:id="@+id/title_bar_right_menu"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="10dp"/>
@@ -50,8 +50,8 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="#ebebeb"/>
+            android:layout_height="3dp"
+            android:background="@color/statusbar"/>
 
     </LinearLayout>
 

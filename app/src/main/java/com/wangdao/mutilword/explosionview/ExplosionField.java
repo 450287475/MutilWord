@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.activity.ChooseWordTypeActivity;
 import com.wangdao.mutilword.activity.ExamHomeActivity;
+import com.wangdao.mutilword.activity.MusicActivity;
 import com.wangdao.mutilword.activity.ReadActivity;
 
 import java.util.ArrayList;
@@ -208,7 +209,7 @@ public class ExplosionField extends View {
                 //跳转听力页面
 
 
-                getContext().startActivity(new Intent(getContext(), ReadActivity.class));
+                getContext().startActivity(new Intent(getContext(), MusicActivity.class));
                 break;
 
         }

@@ -207,7 +207,7 @@ public class ExamActivity extends Activity implements OnClickListener, OnItemCli
 					@Override
 					public void run() {
 						time--;
-						title.setText("模拟考试" + " " + TimeUtils.secToTime(time));
+						title.setText("挑战模式" + " " + TimeUtils.secToTime(time));
 						if (time == 0) {
 							cancel();
 							ResultActivity.intentToResultActivity(ExamActivity.this, 0, exam_name);
