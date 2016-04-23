@@ -28,13 +28,11 @@ public class MyPushMessageReceiver extends BroadcastReceiver {
 
         String message = intent.getStringExtra(PushConstants.EXTRA_PUSH_MESSAGE_STRING);
 
-
         /*推送的数据格式，json格式，alert为标题，articleurl为传递为要显示的网页内容
         {
             "alert": "xxxx",
             "articleurl": "http://xxx"
         }*/
-
 
         Gson gson = new Gson();
         PushInfo pushInfo = gson.fromJson(message, PushInfo.class);
@@ -49,7 +47,6 @@ public class MyPushMessageReceiver extends BroadcastReceiver {
         notification.icon = R.drawable.logo;
         notification.tickerText = "美文:"+alert;
         notification.defaults = Notification.DEFAULT_SOUND;
-
         notification.flags |= Notification.FLAG_AUTO_CANCEL;       //设置notification点击取消
 
         Intent intent1 = new Intent(context, ShowArticleDetailActivity.class);

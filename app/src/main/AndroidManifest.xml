@@ -96,10 +96,7 @@
         <activity android:name=".activity.ShowHadGoodDetailActivity"></activity>
         <activity android:name=".activity.SignActivity">
         </activity>
-        <activity android:name=".activity.MusicActivity"/>
-        <activity android:name=".activity.ShowHadGoodDetailActivity" />
-        <activity android:name=".activity.SignActivity"></activity>
-
+        <activity android:name=".activity.MusicActivity"></activity>
         <service
             android:name="cn.bmob.push.lib.service.PushService"
             android:exported="true"
