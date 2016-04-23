@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,13 +68,13 @@ public class ExamHomeActivity extends Activity implements View.OnClickListener{
         if (TimeUtils.isNetworkAvailable(this)) {
             DBManager.getInstance(this).removeAll(AnswerColumns.TABLE_NAME);
         }
-        setContentView(R.layout.activity_home_exam);
+        setContentView(R.layout.activity_exam_home);
 
         TextView order = (TextView) findViewById(R.id.order);
         TextView simulate = (TextView) findViewById(R.id.simulate);
-        LinearLayout favorite = (LinearLayout) findViewById(R.id.favorite);
-        LinearLayout wrong = (LinearLayout) findViewById(R.id.wrong);
-        LinearLayout history = (LinearLayout) findViewById(R.id.history);
+        TextView favorite = (TextView) findViewById(R.id.favorite);
+        TextView wrong = (TextView) findViewById(R.id.wrong);
+        TextView history = (TextView) findViewById(R.id.history);
 
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);

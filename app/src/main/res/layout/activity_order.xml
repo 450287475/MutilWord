@@ -222,7 +222,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_back"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/navigation_back" />
 
             <TextView
@@ -244,10 +246,13 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_help"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/answer" />
 
             <TextView
+                android:id="@+id/tv_help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -266,8 +271,8 @@
                 android:id="@+id/tv_subjectTop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/subjectBottom"
-                android:layout_marginTop="8dp"
+                android:layout_above="@+id/tv_subjectBottom"
+                android:layout_marginBottom="6dp"
                 android:gravity="center"
                 android:text="16/200"
                 android:textSize="14sp" />
@@ -291,7 +296,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_collect"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/bt_unstar" />
 
             <TextView
@@ -313,7 +320,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_forward"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/navigation_forward" />
 
             <TextView
