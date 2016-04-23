@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="模拟考试是取20题进行考试，满分100分，全对即可获得100积分,对19道可获50积分（积分可以兑换礼品哦！）。"
+            android:text="挑战模式是取20题进行考试，满分100分，全对即可获得100积分,对19道可获50积分（积分可以兑换礼品哦！）。"
             android:textSize="16sp" />
 
         <RelativeLayout

@@ -41,10 +41,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        /*ExplosionField explosionField = new ExplosionField(HomeActivity.this);
-        explosionField.addListener(findViewById(R.id.ll_root));
-*/
-
+        //changecolor();
         //created by yxd for reside menu
         mContext = this;
         setUpMenu();
@@ -52,10 +49,20 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             changeFragment(new HomeFragment());
 
         View homefragment = View.inflate(HomeActivity.this, R.layout.fragment_home, null);
-
-
     }
 
+
+    /*private void changecolor() {
+        Window window = this.getWindow();
+        //设置透明状态栏,这样才能让 ContentView 向上
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //设置状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.RED);
+        }
+    }*/
     public void goToReWord(View view) {
         startActivity(new Intent(this,ChooseWordTypeActivity.class));
     }
@@ -66,7 +73,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         // attach to current activity;
         resideMenu = new ResideMenu(this);
         //resideMenu.setUse3D(true);
-        resideMenu.setBackground(R.drawable.menu_background);
+        resideMenu.setBackground(R.drawable.menu_homebackground_star);
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
         //valid scale factor is between 0.0f and 1.0f. leftmenu'width is 150dip.
@@ -75,7 +82,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         // create menu items;
         itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     " 主 页");
         itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "个人中心");
-        itemInterpret = new ResideMenuItem(this, R.drawable.icon_interpret, "查&译");
+        itemInterpret = new ResideMenuItem(this, R.drawable.ic_interpret, "查&译");
         itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, " 设 置");
 
         itemHome.setOnClickListener(this);

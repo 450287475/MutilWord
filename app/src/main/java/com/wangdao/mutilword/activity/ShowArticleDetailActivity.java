@@ -27,31 +27,37 @@ public class ShowArticleDetailActivity extends Activity {
     }
 
     public void showAtricel(){
+
         Intent intent = getIntent();
         String articleurl = intent.getStringExtra("articleurl");
         wv_showarticle_artical.loadUrl(articleurl);
 
+        Log.i(TAG,"articleurl:"+articleurl);
+
         int count = intent.getIntExtra("count",0);
         String objectId = intent.getStringExtra("objectId");
         Log.i(TAG,"objectId"+objectId);
-        count++;
-        ArticleList articleList = new ArticleList();
-        articleList.setCount(count);
 
-        //更新数据，每次阅读都将阅读量加1
-        articleList.update(this, objectId, new UpdateListener() {
-            @Override
-            public void onSuccess() {
-                //Toast.makeText(ShowArticleDetailActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
-            }
+        if (count==0){ //不用count++
 
-            @Override
-            public void onFailure(int i, String s) {
-                //Toast.makeText(ShowArticleDetailActivity.this,"更新失败",Toast.LENGTH_SHORT).show();
-            }
-        });
+        }
+        else {
+            count++;
+            ArticleList articleList = new ArticleList();
+            articleList.setCount(count);
 
+            //更新数据，每次阅读都将阅读量加1
+            articleList.update(this, objectId, new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    //Toast.makeText(ShowArticleDetailActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
+                }
 
-
+                @Override
+                public void onFailure(int i, String s) {
+                    //Toast.makeText(ShowArticleDetailActivity.this,"更新失败",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
