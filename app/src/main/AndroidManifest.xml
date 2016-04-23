@@ -92,6 +92,7 @@
         <activity android:name=".activity.ShowHadGoodDetailActivity"></activity>
         <activity android:name=".activity.SignActivity">
         </activity>
+        <activity android:name=".activity.MusicActivity"/>
     </application>
 
 </manifest>
