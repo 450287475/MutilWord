@@ -20,6 +20,7 @@ import com.wangdao.mutilword.activity.SignActivity;
 import com.wangdao.mutilword.activity.UserCenterDetailActivity;
 import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.UserInfo;
+import com.wangdao.mutilword.dao.SignDao;
 
 
 public class ProfileFragment extends Fragment {
@@ -39,6 +40,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout rl_personcenter_collected;
     private LinearLayout tv_personcenter_award;
     public LinearLayout ll_personcenter_sign;
+    public TextView tv_personcenter_sign;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class ProfileFragment extends Fragment {
         tv_personcenter_userpoints = (TextView) inflate.findViewById(R.id.tv_personcenter_userpoints);
         tv_personcenter_userrank = (TextView) inflate.findViewById(R.id.tv_personcenter_userrank);
         ll_personcenter_sign = (LinearLayout) inflate.findViewById(R.id.ll_personcenter_sign);
-
+        tv_personcenter_sign = (TextView) inflate.findViewById(R.id.tv_personcenter_sign);
 
         //获取ApplicationInfo里保存的用户信息
         UserInfo userInfo = ApplicationInfo.userInfo;
@@ -96,6 +98,13 @@ public class ProfileFragment extends Fragment {
 
         return inflate;
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        SignDao signDao = new SignDao(getActivity());
+        tv_personcenter_sign.setText(signDao.query().size()+"");
     }
 
     private void HandleOnclick(final UserInfo userInfo) {

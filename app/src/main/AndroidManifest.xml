@@ -13,9 +13,6 @@
 
     <!-- exam need -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
@@ -107,6 +104,8 @@
         <activity android:name=".activity.HandlePayActivity" />
         <activity android:name=".activity.ShowHadGoodDetailActivity"></activity>
         <activity android:name=".activity.SignActivity">
+        </activity>
+        <activity android:name=".activity.WordBookActivity">
         </activity>
         <activity android:name=".activity.MusicActivity"></activity>
         <service
