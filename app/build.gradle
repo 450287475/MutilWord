@@ -35,6 +35,11 @@ dependencies {
     compile project(path: ':indicatorlibrary')
     compile files('libs/android-async-http-1.4.6.jar')
     compile files('libs/BmobPay_v2.6_160411.jar')
+    compile files('libs/ShareSDK-Core-2.7.1.jar')
+    compile files('libs/ShareSDK-QQ-2.7.1.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.7.1.jar')
+    compile files('libs/MobTools-2016.0406.1915.jar')
+    compile files('libs/MobCommons-2016.0406.1915.jar')
     compile files('libs/gson-2.3.1.jar')
 }
 repositories {
