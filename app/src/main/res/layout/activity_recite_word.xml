@@ -2,34 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:folding-cell="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:padding="16dp"
-    android:background="@android:color/holo_blue_dark"
-    >
-
-    <TextView
+    android:background="#4B637B">
+<!--4B637B-->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="快乐背单词"
-        android:textSize="20sp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"/>
+        android:gravity="center_vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/reciteword_return_selector"
+            android:background="#4B637B"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/bt_reciteword_imagebutton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="快乐背单词"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:id="@+id/textView"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/bt_reciteword_imagebutton"
+            android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sound"
+            android:background="#4B637B"
+            android:padding="10dp"
+            android:onClick="sound"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/bt_reciteword_sound" />
+    </RelativeLayout>
+
 
 
     <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/folding_cell"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        folding-cell:animationDuration="1300"
+        folding-cell:additionalFlipsCount="2"
+        folding-cell:backSideColor="#26567B"
         android:layout_weight="1">
         <!--内容布局-->
         <FrameLayout
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
             android:visibility="gone"
             >
             <LinearLayout
@@ -43,16 +79,42 @@
                     android:layout_height="100dp"
                     android:background="@android:color/white"
                     android:text="weapon"
+                    android:textColor="@android:color/black"
                     android:textSize="30sp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    />
+                <!--分割线-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/white"
+                    android:src="@drawable/line" />
+                <!--音标-->
+                <TextView
+                    android:id="@+id/tv_recite_phonetic"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:padding="10dp"
+                    android:background="@android:color/white"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    />
+                <!--分割线-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/white"
+                    android:src="@drawable/line" />
+
                 <!--单词意思-->
                 <TextView
                     android:id="@+id/tv_recite_trans"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:textSize="30sp"
+                    android:textSize="15sp"
                     android:background="@android:color/white"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
                     android:text=" 音标： [ˈwepən]\r\n n. 武器，兵器; \r\n vi. 武装，提供武器;"
                     />
             </LinearLayout>
@@ -74,6 +136,7 @@
                     android:background="@android:color/white"
                     android:text="weapon"
                     android:textSize="30sp"
+                    android:textColor="@android:color/black"
                     android:gravity="center"/>
 
                 <TextView
@@ -96,7 +159,7 @@
         android:textSize="20sp"
         android:gravity="center"
         android:id="@+id/tv_recite_remainWord"
-        android:text="亲，你还剩35个单词，加油哦"/>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -104,18 +167,24 @@
         android:orientation="horizontal"
         android:padding="5dp"
         >
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="记住了"
-            android:onClick="remenber"/>
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="没记住"
-            android:onClick="unRemenber"/>
+            android:background="@drawable/button_reciteword_selector"
+            android:onClick="unRemenber"
+            android:layout_margin="5dp"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_reciteword_selector"
+            android:text="记住了"
+            android:onClick="remenber"
+            android:layout_margin="5dp"/>
+
 
     </LinearLayout>
 </LinearLayout>

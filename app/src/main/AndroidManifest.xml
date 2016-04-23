@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wangdao.mutilword">
+<manifest package="com.wangdao.mutilword"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <!-- exam need -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
     <!-- interpret need -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <!-- bmob pay  sdk permission begin -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -41,37 +41,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.RegisterActivity"/>
         <activity
             android:name=".activity.HomeActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".activity.RetrievePasswordActivity" />
-        <activity android:name=".activity.ReadActivity" />
-        <activity android:name=".activity.ChooseWordTypeActivity" />
-        <activity android:name=".activity.ReciteWordActivity" />
-        <activity android:name=".activity.ExamHomeActivity" />
-        <activity android:name=".activity.ShowArticleDetailActivity" />
-        <activity android:name=".activity.UserCenterDetailActivity" />
-        <activity android:name=".activity.ModifyUserInfoActivity" />
-        <activity android:name=".activity.SeeCollectedArtivleActivity" />
-        <activity android:name=".activity.AwardActivity" />
-        <activity android:name=".activity.ShowGoodDetailActivity" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity android:name=".activity.RetrievePasswordActivity"/>
+        <activity android:name=".activity.ReadActivity"/>
+        <activity android:name=".activity.ChooseWordTypeActivity"/>
+        <activity android:name=".activity.ReciteWordActivity"/>
+        <activity android:name=".activity.ExamHomeActivity"/>
+        <activity android:name=".activity.ShowArticleDetailActivity"/>
+        <activity android:name=".activity.UserCenterDetailActivity"/>
+        <activity android:name=".activity.ModifyUserInfoActivity"/>
+        <activity android:name=".activity.SeeCollectedArtivleActivity"/>
+        <activity android:name=".activity.AwardActivity"/>
+        <activity android:name=".activity.ShowGoodDetailActivity"/>
         <activity
             android:name=".activity.OrderActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle" />
+            android:theme="@style/TitlebarStyle">
+        </activity>
         <activity
             android:name=".activity.CollectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle" />
+            android:theme="@style/TitlebarStyle">
+        </activity>
         <activity
             android:name=".activity.ErrorActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle" />
+            android:theme="@style/TitlebarStyle">
+        </activity>
         <activity
             android:name=".activity.ExamActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TitlebarStyle" />
+            android:theme="@style/TitlebarStyle">
+        </activity>
         <activity
             android:name=".activity.ResultActivity"
             android:screenOrientation="portrait"
@@ -86,6 +90,8 @@
             android:theme="@style/TitlebarStyle" />
         <activity android:name=".activity.HandlePayActivity" />
         <activity android:name=".activity.ShowHadGoodDetailActivity"></activity>
+        <activity android:name=".activity.SignActivity">
+        </activity>
     </application>
 
 </manifest>
