@@ -12,6 +12,11 @@
         style="@style/my_btn"
         android:text="开始背单词"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="同步"
+        android:onClick="sync"/>
     <ListView android:id="@+id/lv_chooseWordType_wordlist"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"

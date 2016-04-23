@@ -296,7 +296,8 @@
         android:layout_height="60dp"
         android:padding="5dp"
         android:background="@drawable/itemback6"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/ll_personcenter_sign">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
