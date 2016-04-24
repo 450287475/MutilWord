@@ -74,7 +74,6 @@ public class ShowLrcView extends TextView
         textSize = getTextSize();
         noCurrentPaint.setTextSize(textSize);
         noCurrentPaint.setTypeface(Typeface.DEFAULT);
-        setText("");
 //        Log.i("ShowLrcView",lrcbeanList.get(index).content+"   "+index);
         if(lrcbeanList!=null&&lrcbeanList.size()!=0)
         {
