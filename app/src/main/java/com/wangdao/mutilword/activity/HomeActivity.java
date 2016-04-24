@@ -176,7 +176,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 Message msg = Message.obtain();
                 HttpURLConnection conn =null;
                 try {
-                    URL url = new URL("http://bmob-cdn-418.b0.upaiyun.com/2016/04/24/581f616a403abad4802c4078b9b8cbc6.json");
+                    URL url = new URL("http://bmob-cdn-418.b0.upaiyun.com/2016/04/24/581f616a403abad4802c4078b9b8cbc6.json.............................................................................");
                     conn = (HttpURLConnection)url.openConnection();
                     conn.setRequestMethod("GET");//设置请求方法
                     conn.setConnectTimeout(5000);//设置连接超时
