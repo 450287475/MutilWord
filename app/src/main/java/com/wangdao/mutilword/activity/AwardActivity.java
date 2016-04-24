@@ -25,8 +25,8 @@ public class AwardActivity extends Activity {
         tv_award_city = (TextView) findViewById(R.id.tv_award_city);
         tv_award_changed = (TextView) findViewById(R.id.tv_award_changed);
 
-        tv_award_city.setBackgroundColor(Color.parseColor("#1874CD"));
-        tv_award_changed.setBackgroundColor(Color.parseColor("#B0E0E6"));
+        tv_award_city.setBackgroundColor(Color.parseColor("#CDAA7D"));
+        tv_award_changed.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
         FragmentManager fragmentManager = getFragmentManager();
         HadAwardFragment hadAwardFragment = (HadAwardFragment) fragmentManager.findFragmentById(R.id.fm_award_had);
@@ -38,8 +38,8 @@ public class AwardActivity extends Activity {
 
     //转到AwardMallFragment
     public void toAwardMall(View view){
-        tv_award_city.setBackgroundColor(Color.parseColor("#1874CD"));
-        tv_award_changed.setBackgroundColor(Color.parseColor("#B0E0E6"));
+        tv_award_city.setBackgroundColor(Color.parseColor("#CDAA7D"));
+        tv_award_changed.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
         FragmentManager fragmentManager = getFragmentManager();
         AwardMallFragment awardMallFragment = (AwardMallFragment) fragmentManager.findFragmentById(R.id.fm_award_mall);
@@ -54,8 +54,8 @@ public class AwardActivity extends Activity {
 
     //转到HadAwardFragment
     public void toHadAward(View view){
-        tv_award_city.setBackgroundColor(Color.parseColor("#B0E0E6"));
-        tv_award_changed.setBackgroundColor(Color.parseColor("#1874CD"));
+        tv_award_city.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        tv_award_changed.setBackgroundColor(Color.parseColor("#CDAA7D"));
         FragmentManager fragmentManager = getFragmentManager();
         AwardMallFragment awardMallFragment = (AwardMallFragment) fragmentManager.findFragmentById(R.id.fm_award_mall);
         HadAwardFragment hadAwardFragment = (HadAwardFragment) fragmentManager.findFragmentById(R.id.fm_award_had);

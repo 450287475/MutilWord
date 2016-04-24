@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="商城商城"
-            android:background="#1874CD"
+            android:background="#0000FF"
             android:onClick="toAwardMall"/>
         <TextView
             android:id="@+id/tv_award_changed"
