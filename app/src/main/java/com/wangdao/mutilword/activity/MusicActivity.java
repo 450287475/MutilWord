@@ -259,7 +259,7 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     {
         if(player!=null)
         {
-            title = "";
+            errorTitle = "";
             if (playerIsPrepared)
             {
                 player.start();
