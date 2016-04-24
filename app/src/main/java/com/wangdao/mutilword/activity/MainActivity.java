@@ -41,9 +41,6 @@ public class MainActivity extends Activity {
     private EditText ed_initpage_password;
     private CheckBox ed_initpage_savepassword;
     private ProgressDialog dialog;
-    private Button button_weibo_login;
-    private Button button_qq_login;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +50,6 @@ public class MainActivity extends Activity {
         ed_initpage_phone = (EditText) findViewById(R.id.ed_initpage_phone);
         ed_initpage_password = (EditText) findViewById(R.id.ed_initpage_password);
         ed_initpage_savepassword = (CheckBox) findViewById(R.id.ed_initpage_savepassword);
-        button_weibo_login = (Button) findViewById(R.id.button_weibo_login);
-        button_qq_login = (Button) findViewById(R.id.button_qq_login);
-
         //初始化 shareSDK
         ShareSDK.initSDK(this);
 

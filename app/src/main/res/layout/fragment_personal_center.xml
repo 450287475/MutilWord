@@ -6,13 +6,13 @@
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:background="@drawable/usercenterback">
+    android:background="@drawable/centerbackground">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="10dp"
         android:id="@+id/rl_personcenter_seeinf"
-        android:background="@drawable/touxiangbp"
+
         >
         <ImageView
             android:id="@+id/iv_personcenter_useriocn"

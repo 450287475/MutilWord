@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/centerdetail_background"
     tools:context="com.wangdao.mutilword.activity.AwardActivity">
 
     <LinearLayout
@@ -27,7 +28,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="商城商城"
-            android:background="#CDAA7D"
+            android:background="#1874CD"
             android:onClick="toAwardMall"/>
         <TextView
             android:id="@+id/tv_award_changed"
