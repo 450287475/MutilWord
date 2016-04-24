@@ -1,5 +1,6 @@
 package com.wangdao.mutilword.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,12 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.utils.DisplayUtils;
 import com.wangdao.mutilword.utils.PrefUtils;
 
 import java.util.ArrayList;
 
-public class GuideActivity extends ActionBarActivity {
-    private static final int[] mImageIds = new int[]{R.drawable.guide1,R.drawable.guide2,R.drawable.guide3,R.drawable.guide4};
+public class GuideActivity extends Activity {
+    private static final int[] mImageIds = new int[]{R.drawable.guide3,R.drawable.guide2,R.drawable.guide1,R.drawable.guide4};
     private ViewPager vp_guide ;
     private ArrayList<ImageView> mImageViewsList ;
 
@@ -27,6 +29,7 @@ public class GuideActivity extends ActionBarActivity {
     private LinearLayout ll_point_group ; //引导圆点的父控件
     private View view_red_point ;//小红点
     private int mPointWidth ;//圆点间的距离
+    private int dip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class GuideActivity extends ActionBarActivity {
                 //更新sp，表示已经展示了新手引导
                 PrefUtils.setBoolean(GuideActivity.this,
                         "is_user_guide_showed", true);
-                startActivity(new Intent(GuideActivity.this, HomeActivity.class));
+                startActivity(new Intent(GuideActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -63,11 +66,12 @@ public class GuideActivity extends ActionBarActivity {
         for (int i=0;i<mImageIds.length;i++ ){
             View point = new View(this);
             point.setBackgroundResource(R.drawable.shape_point_gray);
+            dip = DisplayUtils.dip2px(this, 7);
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(10,10);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dip,dip);
             if (i>0){
                 //设置圆点间隔
-                params.leftMargin = 10 ;
+                params.leftMargin = dip ;
 
             }
             //设置圆点大小
@@ -125,7 +129,7 @@ public class GuideActivity extends ActionBarActivity {
             //设置左边距
             params.leftMargin = len ;
 
-            //重新给小红点设置布局参数
+            //重新给小蓝点设置布局参数
             view_red_point.setLayoutParams(params);
 
         }
