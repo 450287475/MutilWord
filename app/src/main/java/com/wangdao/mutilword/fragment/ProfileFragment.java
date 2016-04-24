@@ -31,10 +31,7 @@ public class ProfileFragment extends Fragment {
     private TextView tv_personcenter_username;
     private TextView tv_personcenter_autograph;
     private TextView tv_personcenter_ariiclecount;
-    private TextView tv_personcenter_wordcount;
     private TextView tv_personcenter_collectedarticlecount;
-    private TextView tv_personcenter_collectedwordcount;
-    private TextView tv_personcenter_exchangeAwarded;
     private TextView tv_personcenter_userpoints;
     private TextView tv_personcenter_userrank;
     private LinearLayout rl_personcenter_collected;
@@ -55,10 +52,7 @@ public class ProfileFragment extends Fragment {
         tv_personcenter_username = (TextView) inflate.findViewById(R.id.tv_personcenter_username);
         tv_personcenter_autograph = (TextView) inflate.findViewById(R.id.tv_personcenter_autograph);
         tv_personcenter_ariiclecount = (TextView) inflate.findViewById(R.id.tv_personcenter_ariiclecount);
-        tv_personcenter_wordcount = (TextView) inflate.findViewById(R.id.tv_personcenter_wordcount);
         tv_personcenter_collectedarticlecount = (TextView) inflate.findViewById(R.id.tv_personcenter_collectedarticlecount);
-        tv_personcenter_collectedwordcount = (TextView) inflate.findViewById(R.id.tv_personcenter_collectedwordcount);
-        tv_personcenter_exchangeAwarded = (TextView) inflate.findViewById(R.id.tv_personcenter_exchangeAwarded);
         tv_personcenter_userpoints = (TextView) inflate.findViewById(R.id.tv_personcenter_userpoints);
         tv_personcenter_userrank = (TextView) inflate.findViewById(R.id.tv_personcenter_userrank);
         ll_personcenter_sign = (LinearLayout) inflate.findViewById(R.id.ll_personcenter_sign);
@@ -86,10 +80,7 @@ public class ProfileFragment extends Fragment {
         tv_personcenter_username.setText(username);
         tv_personcenter_autograph.setText(autograph);
         tv_personcenter_ariiclecount.setText(articleCount+"");
-        tv_personcenter_wordcount.setText(wordCount+"");
         tv_personcenter_collectedarticlecount.setText(collectedArticle+"");
-        tv_personcenter_collectedwordcount.setText(collectedWord+"");
-        tv_personcenter_exchangeAwarded.setText(exchangeAwarded+"");
         tv_personcenter_userpoints.setText(userpoints+"");
         tv_personcenter_userrank.setText(userrank+"");
 
@@ -159,10 +150,7 @@ public class ProfileFragment extends Fragment {
             tv_personcenter_username.setText(userInfoModified.getUsername());
             tv_personcenter_autograph.setText(userInfoModified.getAutograph());
             tv_personcenter_ariiclecount.setText(userInfoModified.getArticleCount()+"");
-            tv_personcenter_wordcount.setText(userInfoModified.getWordCount()+"");
             tv_personcenter_collectedarticlecount.setText(userInfoModified.getCollectedArticle()+"");
-            tv_personcenter_collectedwordcount.setText(userInfoModified.getCollectedWord()+"");
-            tv_personcenter_exchangeAwarded.setText(userInfoModified.getExchangeAwarded()+"");
             tv_personcenter_userpoints.setText(userInfoModified.getUserpoints()+"");
             tv_personcenter_userrank.setText(userInfoModified.getUserrank()+"");
         }

@@ -38,7 +38,9 @@
     <color name="holo_gray_light">#11999999</color>
     <color name="holo_orange_light">#ffffbb33</color>
     <color name="holo_orange_dark">#ffff8800</color>
-
+    <color name="holo_white_gray">#bfcce6</color>
+    <color name="bt_guide">#ff000000</color>
+    <color name="bt_guide_pressed">#44000000</color>
 
 
     <color name="white">#FFFFFF</color>

@@ -9,12 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:gravity="center"
+        android:textColor="@color/holo_white_gray"
         android:text="头像"/>
     <ImageView
         android:id="@+id/iv_itemhead_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/icon"
-        android:background="#999"
+        android:background="#00999999"
         android:layout_alignParentRight="true"/>
 </RelativeLayout>

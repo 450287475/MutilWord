@@ -239,6 +239,10 @@ public class SignActivity extends Activity {
             list.add(person.date);
             if(date1.equals(person.getDate())){
                 isinput=true;
+                btn_signIn.setText("今日已签，明日继续");
+                btn_signIn.setBackgroundResource(R.drawable.button_gray);
+                btn_signIn.setEnabled(false);
+
             }
         }
         calendar.addMarks(list, 0);

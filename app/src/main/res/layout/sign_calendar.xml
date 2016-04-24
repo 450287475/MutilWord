@@ -2,28 +2,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff">
+    android:background="@drawable/centerdetail_background">
 
     <LinearLayout
         android:id="@+id/ll_popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffeeeeee"
+        android:background="#00ffffff"
         android:orientation="vertical" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
-            android:background="#586771" >
-
+            android:background="#88000000" >
+<!--586771-->
             <TextView
                 android:id="@+id/popupwindow_calendar_month"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="#586771"
                 android:gravity="center"
-                android:textColor="#aa564b4b"
+                android:textColor="@color/holo_white_gray"
                 android:textSize="18sp" />
 
         </RelativeLayout>
@@ -44,7 +43,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_sign_bg_selector"
             android:text="签到"
-            android:textColor="@android:color/white"
+            android:textColor="@color/holo_white_gray"
             android:textSize="16sp" />
         <Button
             android:layout_width="match_parent"
@@ -53,7 +52,7 @@
             android:id="@+id/bt_calendar_sync"
             android:textSize="18sp"
             android:background="@drawable/bt_calendar_sync"
-            android:textColor="#aa564b4b"
+            android:textColor="@color/holo_white_gray"
             android:layout_margin="10dp"/>
     </LinearLayout>
 

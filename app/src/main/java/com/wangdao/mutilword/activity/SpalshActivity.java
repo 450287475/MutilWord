@@ -1,47 +1,23 @@
 package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Random;
 
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.wangdao.mutilword.BuildConfig;
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.utils.DisplayUtils;
-import com.wangdao.mutilword.utils.StreamUtils;
 import com.wangdao.mutilword.view.spalshview.MainView;
 import com.wangdao.mutilword.view.spalshview.SplashView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class SpalshActivity extends Activity {
@@ -54,12 +30,10 @@ public class SpalshActivity extends Activity {
     private Handler mHandler = new Handler();
     private SharedPreferences mPrefs;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPrefs = getSharedPreferences("config", MODE_PRIVATE);
-
         // change the DO_XML variable to switch between code and xml
         if(DO_XML){
             // inflate the view from XML and then get a reference to it
@@ -76,9 +50,7 @@ public class SpalshActivity extends Activity {
         // pretend like we are loading data
         startLoadingData();
 
-
     }
-
 
     private void startLoadingData(){
         // finish "loading data" in a random time between 1 and 3 seconds
@@ -88,7 +60,7 @@ public class SpalshActivity extends Activity {
             public void run(){
                 onLoadingDataEnded();
             }
-        }, 3000);  //1000为延时的秒数
+        }, 1000);  //1000为延时的秒数
     }
 
     private void onLoadingDataEnded(){

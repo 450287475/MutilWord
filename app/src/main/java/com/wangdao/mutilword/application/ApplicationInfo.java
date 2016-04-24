@@ -25,6 +25,7 @@ public class ApplicationInfo extends Application{
         sp = getSharedPreferences("userinfo", MODE_PRIVATE);
         editor = sp.edit();
         mContext = this;
+        userInfo=new UserInfo();
         startService(new Intent(this,NotificationService.class));
     }
 

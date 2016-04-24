@@ -1,50 +1,24 @@
 package com.wangdao.mutilword.activity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.fragment.HomeFragment;
 import com.wangdao.mutilword.fragment.InterpretFragment;
 import com.wangdao.mutilword.fragment.ProfileFragment;
 import com.wangdao.mutilword.fragment.SettingsFragment;
-import com.wangdao.mutilword.utils.StreamUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class HomeActivity extends FragmentActivity implements View.OnClickListener{
     //created by yxd for reside menu
@@ -61,68 +35,13 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private final int FRAGMENT_PROFILE = 2;
     private final int FRAGMENT_INTERPRET = 3;
     private boolean hasPressedBack;
-    RelativeLayout mRoot;
-    private SharedPreferences mPrefs;
-    private TextView tv_version;
-    private TextView tv_progress;
-    private String mVersionName;
-    private int mVersionCode;
-    private String mDesc;
-    protected static final int CODE_UPDATE_DIALOG=0;
-    protected static final int CODE_URL_ERROR=1;
-    protected static final int CODE_NET_ERROR=2;
-    protected static final int CODE_JSON_ERROR=3;
-    protected static final int CODE_ENTER_HOME=4;
 
-
-    private String mDownloadUrl;
-
-    private Handler myHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case CODE_UPDATE_DIALOG:
-                    showUpdateDailog();
-                    break;
-                case CODE_URL_ERROR:
-                    Toast.makeText(HomeActivity.this, "url错误", Toast.LENGTH_SHORT).show();
-                    break;
-                case CODE_NET_ERROR:
-                    Toast.makeText(HomeActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
-                    break;
-                case CODE_JSON_ERROR:
-                    Toast.makeText(HomeActivity.this, "json错误", Toast.LENGTH_SHORT).show();
-                    break;
-                case CODE_ENTER_HOME:
-
-                    break;
-
-                default:
-                    break;
-
-
-            }
-            super.handleMessage(msg);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mPrefs = getSharedPreferences("config", MODE_PRIVATE);
-        tv_version = (TextView)findViewById(R.id.tv_version);
-        tv_version.setText("版本号:" + getVersionName());
-        //默认隐藏
-        tv_progress = (TextView)findViewById(R.id.tv_progress);
 
-        //判断是否需要自动更新
-        boolean autoUpdate = mPrefs.getBoolean("auto_update", true);
-        if (autoUpdate){
-            checkVersion();
-        }else {
-            myHandler.sendEmptyMessageDelayed(CODE_ENTER_HOME,2000);//延时2s后发送消息
-        }
         //changecolor();
         //created by yxd for reside menu
         mContext = this;
@@ -133,210 +52,26 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         View homefragment = View.inflate(HomeActivity.this, R.layout.fragment_home, null);
     }
 
-    private  String getVersionName(){
-        PackageManager packageManager = getPackageManager();
-        try {
-            //获取包信息
-            PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
-            int versionCode = packageInfo.versionCode;
-            String versionName = packageInfo.versionName;
-
-            Log.i("versionCode&versionName", versionCode + " " + versionName + " ");
-
-            return versionName ;
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return "";
-
-    }private  int getVersionCode(){
-        PackageManager packageManager = getPackageManager();
-        try {
-            //获取包信息
-            PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
-            int versionCode = packageInfo.versionCode;
-            return versionCode ;
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return -1;
-
-    }
-    /*从服务器获取版本信息进行校验
-   *
-   * */
-    private void checkVersion(){
-        final long startTime = System.currentTimeMillis();
-
-        new Thread(){
-            @Override
-            public void run() {
-                Message msg = Message.obtain();
-                HttpURLConnection conn =null;
-                try {
-                    URL url = new URL("http://bmob-cdn-418.b0.upaiyun.com/2016/04/24/581f616a403abad4802c4078b9b8cbc6.json.............................................................................");
-                    conn = (HttpURLConnection)url.openConnection();
-                    conn.setRequestMethod("GET");//设置请求方法
-                    conn.setConnectTimeout(5000);//设置连接超时
-                    conn.setReadTimeout(5000);//设置响应超时，连接上了，但是服务器迟迟不给响应
-                    conn.connect();//连接服务器
-
-                    int responseCode = conn.getResponseCode();
-                    if (responseCode==200){
-                        InputStream inputStream = conn.getInputStream();
-                        String result = StreamUtils.readFromStream(inputStream);
-                        Log.i("网络返回:",result+"");
-
-                        //解析json
-                        JSONObject jo = new JSONObject(result);
-
-                        mVersionName = jo.getString("versionName");
-                        mVersionCode = jo.getInt("versionCode");
-                        mDesc = jo.getString("description");
-                        mDownloadUrl = jo.getString("downloadUrl");
-
-                        Log.i("版本描述:",mDownloadUrl);
-                        if (mVersionCode>getVersionCode()){
-                            //判断是否有更新
-                            //服务器的VersionCode大于本地的VersionCode
-                            msg.what = CODE_UPDATE_DIALOG;
-                        }else{
-                            //没有版本更新
-                            msg.what=CODE_ENTER_HOME;
-                        }
-
-                    }
-
-
-                } catch (MalformedURLException e) {
-                    //url错误的异常
-                    msg.what= CODE_URL_ERROR;
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    //网络错误的异常
-                    msg.what= CODE_NET_ERROR;
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    //json解析失败
-                    msg.what= CODE_JSON_ERROR;
-                    e.printStackTrace();
-                }finally {
-                    long endTime = System.currentTimeMillis();
-                    //访问网络花费的时间
-                    long timeUsed= endTime-startTime;
-
-                    if (timeUsed<2000){
-                        //强制休眠一段时间，保证闪屏页显示5秒钟
-                        try {
-                            Thread.sleep(2000-timeUsed);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    myHandler.sendMessage(msg);
-
-                    if (conn!=null){
-                        conn.disconnect();
-                    }
-                }
-
-            }
-        }.start();
-
-    }
-    protected void showUpdateDailog(){
-        Activity activity = HomeActivity.this;
-        while (activity.getParent() != null) {
-            activity = activity.getParent();
-        }
-        new AlertDialog.Builder(HomeActivity.this)
-                .setTitle("发现新版本" + mVersionName)
-                .setMessage(mDesc)
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        dialog.dismiss();
-                    }
-                })
-                .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.i("Tag", "立即更新");
-                        download();
-                    }
-                })
-                .setNegativeButton("下次再说", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                    }
-                }).show();
-    }
-    //下载apk文件
-    protected void download(){
-        //判断是否有sdcard
-
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-        {
-
-            tv_progress.setVisibility(View.VISIBLE);//显示进度
-            String target = Environment.getExternalStorageDirectory()+"/updateWords.apk";
-            //XUtils
-            HttpUtils utils = new HttpUtils();
-            utils.download(mDownloadUrl, target, new RequestCallBack<File>() {
-                //下载文件的进度
-                @Override
-                public void onLoading(long total, long current, boolean isUploading) {
-                    super.onLoading(total, current, isUploading);
-                    Log.i("下载进度:", current + "/" + total);
-                    tv_progress.setText("下载进度:"+current*100/total+"%");
-                }
-                //下载成功
-                @Override
-                public void onSuccess(ResponseInfo<File> responseInfo) {
-                    Log.i("下载成功！！！","");
-                    //跳转到系统下载页面
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setDataAndType(Uri.fromFile(responseInfo.result), "application/vnd.android.package-archive");
-                    // startActivity(intent);
-                    startActivityForResult(intent,0);//如果用户取消安装的话，会返回结果
-
-                }
-                //下载失败
-                @Override
-                public void onFailure(HttpException e, String s) {
-                    Toast.makeText(HomeActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }else {
-            Toast.makeText(HomeActivity.this, "您的手机没有SD卡", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        finish();
-        super.onActivityResult(requestCode, resultCode, data);
-
+    protected void onStart() {
+        String username = ApplicationInfo.sp.getString("username", "");
+        ApplicationInfo.userInfo.setUsername(username);
+        int userpoints = ApplicationInfo.sp.getInt("userpoints", -1);
+        ApplicationInfo.userInfo.setUserpoints(userpoints);
+        super.onStart();
     }
 
     /*private void changecolor() {
-        Window window = this.getWindow();
-        //设置透明状态栏,这样才能让 ContentView 向上
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        //设置状态栏颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(Color.RED);
-        }
-    }*/
+                Window window = this.getWindow();
+                //设置透明状态栏,这样才能让 ContentView 向上
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                //设置状态栏颜色
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.setStatusBarColor(Color.RED);
+                }
+            }*/
     public void goToReWord(View view) {
         startActivity(new Intent(this,ChooseWordTypeActivity.class));
     }
@@ -452,7 +187,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 return true;
             }
             hasPressedBack = true;
-            Toast.makeText(this, "再按一次退出MutiWords!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "再按一次退出MutiWords!", Toast.LENGTH_LONG).show();
 
             new Handler().postDelayed(new Runnable() {
                 @Override

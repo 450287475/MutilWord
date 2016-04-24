@@ -5,21 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MusicActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="音乐播放器Demo"/>
+    tools:context=".activity.MusicActivity"
+    android:background="@drawable/music_bg">
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/vp_music_content"/>
-    <!--<com.study.gourdboy.musicdemo.view.ShowLrcView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:id="@+id/slv_music_lrc"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:textColor="#8BFFFFFF"
                 android:text="00:00/00:00"/>
     </LinearLayout>
     <RelativeLayout
@@ -68,6 +61,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="18dp"
             android:id="@+id/tv_music_title"
+            android:textColor="#8BFFFFFF"
             android:text="..."/>
     </RelativeLayout>
 </LinearLayout>

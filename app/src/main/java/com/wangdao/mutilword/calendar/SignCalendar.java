@@ -28,15 +28,23 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public class SignCalendar extends ViewFlipper implements
     GestureDetector.OnGestureListener {
-  public static final int COLOR_BG_WEEK_TITLE = Color.parseColor("#FF4167"); // 星期标题背景颜色
+ /* public static final int COLOR_BG_WEEK_TITLE = Color.parseColor("#FF4167"); // 星期标题背景颜色
   public static final int COLOR_TX_WEEK_TITLE = Color.parseColor("#FFFFFF"); // 星期标题文字颜色
-  public static final int BEFORE_TODAY_BACKGROUND = Color.parseColor("#FFE4E4E4"); // 星期标题文字颜色
+  public static final int BEFORE_TODAY_BACKGROUND = Color.parseColor("#FFE4E4E4"); // 星期标题文字颜色*/
+  public static final int COLOR_BG_WEEK_TITLE = Color.parseColor("#88FF4167"); // 星期标题背景颜色
+  public static final int COLOR_TX_WEEK_TITLE = Color.parseColor("#FFFFFF"); // 星期标题文字颜色
+  public static final int BEFORE_TODAY_BACKGROUND = Color.parseColor("#bfcce6"); // 星期标题文字颜色
   // public static final int COLOR_TX_THIS_MONTH_DAY = Color.parseColor("#aa564b4b"); // 当前月日历数字颜色
-  public static final int COLOR_TX_THIS_MONTH_DAY = Color.parseColor("#000000"); // 当前月日历数字颜色
+ /* public static final int COLOR_TX_THIS_MONTH_DAY = Color.parseColor("#000000"); // 当前月日历数字颜色
   public static final int COLOR_TX_OTHER_MONTH_DAY = Color.parseColor("#ff999999"); // 其他月日历数字颜色
   public static final int COLOR_TX_THIS_DAY = Color.parseColor("#CD2836"); // 当天日历数字颜色
   public static final int COLOR_BG_THIS_DAY = Color.parseColor("#ffcccccc"); // 当天日历背景颜色
-  public static final int COLOR_BG_CALENDAR = Color.parseColor("#ffeeeeee"); // 日历背景色
+  public static final int COLOR_BG_CALENDAR = Color.parseColor("#ffeeeeee"); // 日历背景色*/
+  public static final int COLOR_TX_THIS_MONTH_DAY = Color.parseColor("#ffffff"); // 当前月日历数字颜色
+    public static final int COLOR_TX_OTHER_MONTH_DAY = Color.parseColor("#ff999999"); // 其他月日历数字颜色
+    public static final int COLOR_TX_THIS_DAY = Color.parseColor("#CD2836"); // 当天日历数字颜色
+    public static final int COLOR_BG_THIS_DAY = Color.parseColor("#00cccccc"); // 当天日历背景颜色
+    public static final int COLOR_BG_CALENDAR = Color.parseColor("#00eeeeee"); // 日历背景色
 
   private GestureDetector gd; // 手势监听器
   private Animation push_left_in; // 动画-左进

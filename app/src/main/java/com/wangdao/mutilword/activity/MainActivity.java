@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -107,6 +106,9 @@ public class MainActivity extends Activity {
                 int wordCount = userInfo.getWordCount();
                 int userpoints = userInfo.getUserpoints();
                 int userrank = userInfo.getUserrank();
+                ApplicationInfo.editor.putInt("userpoints",userpoints);
+                ApplicationInfo.editor.putString("username",username);
+                ApplicationInfo.editor.commit();
 
                 ApplicationInfo.initUserInfo(objectId,userid,username,password,usericon,phone,autograph,
                         collectedArticle,collectedWord,exchangeAwarded,exchangeAward,articleCount,wordCount,
@@ -178,6 +180,10 @@ public class MainActivity extends Activity {
                     int userpoints = userInfo.getUserpoints();
                     int userrank = userInfo.getUserrank();
 
+
+                    ApplicationInfo.editor.putInt("userpoints",userpoints);
+                    ApplicationInfo.editor.putString("username",username);
+                    ApplicationInfo.editor.commit();
                     ApplicationInfo.initUserInfo(objectId,userid,username,password,usericon,phone,autograph,
                             collectedArticle,collectedWord,exchangeAwarded,exchangeAward,articleCount,wordCount,
                             userrank,userpoints);
@@ -375,6 +381,9 @@ public class MainActivity extends Activity {
                     if (userInfo != null) {
                         //获取该用户在数据库里保存的信息
                         //保存用户信息，供应用程序访问
+                        ApplicationInfo.editor.putInt("userpoints", userInfo.getUserpoints());
+                        ApplicationInfo.editor.putString("username",userName);
+                        ApplicationInfo.editor.commit();
                         ApplicationInfo.initUserInfo(userInfo.getObjectId(), userid, userName, userInfo.getPassword(),
                                 userInfo.getUsericon(), userInfo.getPhone(), userInfo.getAutograph(),
                                 userInfo.getCollectedArticle(), userInfo.getCollectedWord(), userInfo.getExchangeAwarded(),
@@ -394,6 +403,9 @@ public class MainActivity extends Activity {
                             Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_LONG).show();
 
                             //保存用户信息，供应用程序访问
+                            ApplicationInfo.editor.putInt("userpoints", userInfo.getUserpoints());
+                            ApplicationInfo.editor.putString("username",userName);
+                            ApplicationInfo.editor.commit();
                             ApplicationInfo.initUserInfo(userInfo.getObjectId(), userid, userName, userInfo.getPassword(),
                                     userInfo.getUsericon(), userInfo.getPhone(), userInfo.getAutograph(),
                                     userInfo.getCollectedArticle(), userInfo.getCollectedWord(), userInfo.getExchangeAwarded(),
