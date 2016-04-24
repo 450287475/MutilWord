@@ -120,6 +120,7 @@ public class SignActivity extends Activity {
                             int signDays=query1.size();
                             bt_calendar_sync.setText("共签到了"+signDays+"天,与云端同步");
                             bt_calendar_sync.setEnabled(true);
+                            query();
                         }else {
                             bt_calendar_sync.setText("正在同步,还有"+progressInfo.total+"天需要同步");
                         }

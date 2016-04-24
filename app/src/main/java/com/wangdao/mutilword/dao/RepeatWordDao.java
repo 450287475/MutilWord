@@ -73,6 +73,22 @@ public class RepeatWordDao {
         db.close();
     }
 
+    public void update(String word,int repeat,long date){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("date",date);
+        contentValues.put("repeat",repeat);
+        db.update(tableName,contentValues,"word=?",new String[]{word+""});
+        db.close();
+    }
+
+    //删除单词:
+    public void delete(String word){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        db.delete(tableName,"word=?",new String[]{word});
+        db.close();
+    }
+
     //取出老单词库里需要背诵的单词
     public ArrayList<Word_info> getOldWord(){
         ArrayList<Word_info> word_infos = new ArrayList<>();

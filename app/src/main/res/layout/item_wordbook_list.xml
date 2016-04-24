@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/item_selector">
+    <TextView
+        android:id="@+id/tv_wordbook_title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="QQ"
+        android:textColor="#ffd6d6d6"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/tv_wordbook_content"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="qq"
+        android:textColor="#ffd6d6d6"
+        android:textSize="12sp"/>
+</LinearLayout>

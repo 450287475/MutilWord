@@ -41,6 +41,7 @@ public class WordDao {
         db.delete(tableName,"_id=?",new String[]{id+""});
         db.close();
     }
+
     //改
     //查
 }

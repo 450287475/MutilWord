@@ -22,9 +22,9 @@
         android:onClick="dialogShow"
         style="@style/chooseWordType"/>
     <Button
-        android:text="同步"
+        android:text="同步到云端"
         android:onClick="sync"
-        android:id="@+id/button"
+        android:id="@+id/bt_chooseword_sync"
        style="@style/chooseWordType"/>
     <Button
         android:text="查看单词本"
