@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="75dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自动更新设置"
+        android:textSize="28sp"
+        android:textColor="#000"
+        android:id="@+id/tv_title"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自动更新已经开启"
+        android:layout_below="@id/tv_title"
+        android:textColor="#a000"
+        android:textSize="20sp"
+        android:id="@+id/tv_desc"
+        android:layout_marginTop="3dp"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/jiantou1_pressed"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#a000"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

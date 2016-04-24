@@ -171,6 +171,9 @@
         </activity>
         <activity android:name=".activity.WordTransActivity">
         </activity>
+        <activity android:name=".activity.GuideActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            ></activity>
     </application>
 
 </manifest>
