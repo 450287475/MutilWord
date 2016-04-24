@@ -38,7 +38,10 @@
     <style name="my_btn">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">#00000000</item>
+        <item name="android:background">#32f939</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">#FFFFFF</item>
         <item name="android:onClick">dialogShow</item>
         <item name="android:textSize">20sp</item>
     </style>
@@ -87,6 +90,33 @@
 
     <style name="NoBiaoti" parent="android:Theme.Holo.Light.NoActionBar"></style>
     <!-- 以上为测试模块 -->
+
+    <!--chooseExamPart-->
+    <style name="chooseExamPart">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#a5dff9</item>
+        <item name="android:padding">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/choose_exam_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="chooseExamHistoryPart">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#a5dff9</item>
+        <item name="android:paddingLeft">120dp</item>
+        <item name="android:paddingRight">120dp</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/choose_exam_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
 
 
     <!--chooseWordtype-->
