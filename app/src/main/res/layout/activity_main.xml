@@ -38,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="#FFF"
+            android:hint="手机号"
+            android:textColorHint="#FFFAF0"
             android:id="@+id/ed_initpage_phone"/>
     </LinearLayout>
     <LinearLayout
@@ -63,6 +65,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="#FFF"
+            android:password="true"
+            android:textColorHint="#FFFAF0"
+            android:hint="密码"
             android:background="@drawable/inputtext_background"
             android:id="@+id/ed_initpage_password"/>
     </LinearLayout>
@@ -148,16 +153,16 @@
             android:layout_height="30dp"
             android:background="@drawable/third_login_weibo"
             android:onClick="weiboLogin"
-            android:id="@+id/button"
+            android:id="@+id/button_weibo_login"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/button_weibo_login"
+            android:layout_toStartOf="@+id/button_qq_login"
             android:layout_marginEnd="25dp" />
         <Button
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/third_login_qq"
             android:onClick="qqLogin"
-            android:id="@+id/button_weibo_login"
+            android:id="@+id/button_qq_login"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="127dp" />

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.UserInfo;
+import com.wangdao.mutilword.utils.Md5Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,7 @@ import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -38,12 +41,20 @@ public class MainActivity extends Activity {
     private EditText ed_initpage_password;
     private CheckBox ed_initpage_savepassword;
     private ProgressDialog dialog;
+    private Button button_weibo_login;
+    private Button button_qq_login;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ed_initpage_phone = (EditText) findViewById(R.id.ed_initpage_phone);
+        ed_initpage_password = (EditText) findViewById(R.id.ed_initpage_password);
+        ed_initpage_savepassword = (CheckBox) findViewById(R.id.ed_initpage_savepassword);
+        button_weibo_login = (Button) findViewById(R.id.button_weibo_login);
+        button_qq_login = (Button) findViewById(R.id.button_qq_login);
 
         //初始化 shareSDK
         ShareSDK.initSDK(this);
@@ -54,17 +65,10 @@ public class MainActivity extends Activity {
         // 启动推送服务
         BmobPush.startWork(this);
 
-        ed_initpage_phone = (EditText) findViewById(R.id.ed_initpage_phone);
-        ed_initpage_password = (EditText) findViewById(R.id.ed_initpage_password);
-        ed_initpage_savepassword = (CheckBox) findViewById(R.id.ed_initpage_savepassword);
-
         judgIsLogin();
-
-        //初始化 shareSDK
-        ShareSDK.initSDK(this);
-
-
     }
+
+
 
     private void judgIsLogin() {
         //先判断是否登陆过
@@ -74,7 +78,7 @@ public class MainActivity extends Activity {
 
         //没有登陆。显示登陆界面
         if (!isRememberInf){
-
+            //什么都不做
         }
         //登陆过，跳到主页面
         else {
@@ -117,13 +121,15 @@ public class MainActivity extends Activity {
 
             @Override
             public void onFailure(int i, String s) {
+                //登陆失败，初始化数据为空
+                ApplicationInfo.initUserInfo(objectId,"","","","","","", 0,0,0,0,0,0, 0,0);
                 Toast.makeText(MainActivity.this,"获取用户信息失败",Toast.LENGTH_LONG).show();
                 finish();
             }
         });
     }
 
-    //登陆
+    //登陆按钮响应事件
     public void login(View view){
 
         //验证登陆，登陆成功，则跳到主页面
@@ -140,7 +146,7 @@ public class MainActivity extends Activity {
     }
 
     //验证是否时注册用户
-    private void validate(String phone, final String password) {
+    private void validate(final String phone, final String password) {
         showDialog("正在登陆...");
         //查找UserInfo表里面id为  XXX  的数据
         BmobQuery<UserInfo> bmobQuery = new BmobQuery();
@@ -201,6 +207,8 @@ public class MainActivity extends Activity {
 
             @Override
             public void onError(int i, String s) {
+                //登陆失败，初始化数据为空
+                ApplicationInfo.initUserInfo("","","",password,"",phone,"", 0,0,0,0,0,0, 0,0);
                 hideDialog();
                 Toast.makeText(MainActivity.this,"登陆失败"+s,Toast.LENGTH_SHORT).show();
             }
@@ -256,36 +264,11 @@ public class MainActivity extends Activity {
      * @param view
      */
     public void qqLogin(View view) {
-
-
         final Platform qq = ShareSDK.getPlatform(QQ.NAME);
         qq.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                 System.out.println("授权成功");
-
-
-             /*   //解析部分用户资料字段
-                String id,name,description,profile_image_url;
-                id=res.get("id").toString();//ID
-                name=res.get("name").toString();//用户名
-                description=res.get("description").toString();//描述
-                profile_image_url=res.get("profile_image_url").toString();//头像链接
-                String str="ID: "+id+";\n"+
-                        "用户名： "+name+";\n"+
-                        "描述："+description+";\n"+
-                        "用户头像地址："+profile_image_url;
-                System.out.println("用户资料: "+str);*/
-
-
-                //PlatformDb db = qq.getDb();
-                //System.out.println("打印数据"+hashMap.toString());
-              /*  System.out.println("打印数据"+qq.getDb().getToken());
-                System.out.println("打印数据"+qq.getDb().getUserIcon());
-                System.out.println("打印数据"+qq.getDb().getUserId());
-                System.out.println("打印数据"+qq.getDb().getUserName());*/
-
-
 
                 Log.i(TAG, "用户 getToken()"+qq.getDb().getToken());
                 Log.i(TAG,  "用户 exportData("+ qq.getDb().exportData());
@@ -297,9 +280,11 @@ public class MainActivity extends Activity {
                 Log.i(TAG,  "用户 getUserName()"+qq.getDb().getUserName());
                 Log.i(TAG,  "用户 getExpiresIn()"+qq.getDb().getExpiresIn() + "");
                 Log.i(TAG,  "用户ID getExpiresTime()"+qq.getDb().getExpiresTime() + "");
-                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                //ApplicationInfo.initNickname(qq.getDb().getUserName());
 
-                ApplicationInfo.initNickname(qq.getDb().getUserName());
+                String userName = qq.getDb().getUserName();
+                //将第三方登陆的账号信息保存在服务器端数据库
+                InitthirdLoginData(userName);
             }
 
             @Override
@@ -323,14 +308,15 @@ public class MainActivity extends Activity {
      */
     public void weiboLogin(View view) {
         final Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
+        Log.i(TAG, weibo.toString());
+
         weibo.setPlatformActionListener(new PlatformActionListener() {
             @Override
             //授权成功
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Log.i(TAG, "onComplete");
 
-
-
-               /* Log.d(TAG, weibo.getDb().getToken());
+                Log.d(TAG, weibo.getDb().getToken());
                 Log.d(TAG, weibo.getDb().getToken());
                 Log.d(TAG, weibo.getDb().exportData());
                 Log.d(TAG, weibo.getDb().getPlatformNname());
@@ -340,7 +326,13 @@ public class MainActivity extends Activity {
                 Log.d(TAG, weibo.getDb().getUserId());
                 Log.d(TAG, weibo.getDb().getUserName());
                 Log.d(TAG, weibo.getDb().getExpiresIn() + "");
-                Log.d(TAG, weibo.getDb().getExpiresTime() + "");*/
+                Log.d(TAG, weibo.getDb().getExpiresTime() + "");
+
+                String userName = weibo.getDb().getUserName();
+                //将第三方登陆的账号信息保存在服务器端数据库
+                //InitthirdLoginData(userName);
+
+                //Toast.makeText(MainActivity.this, "登陆失败", Toast.LENGTH_LONG).show();
 
             }
 
@@ -348,20 +340,88 @@ public class MainActivity extends Activity {
             //授权失败
             public void onError(Platform platform, int i, Throwable throwable) {
                 Log.d(TAG, "授权失败");
-                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                Toast.makeText(MainActivity.this, "登陆失败", Toast.LENGTH_LONG).show();
+
             }
 
             @Override
             //授权取消
             public void onCancel(Platform platform, int i) {
                 Log.i(TAG, "取消授权");
-                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                Toast.makeText(MainActivity.this, "取消登陆", Toast.LENGTH_LONG).show();
             }
         });
+
         weibo.authorize();
+
         //移除授权
         //weibo.removeAccount(true);
 
     }
 
+    private void InitthirdLoginData(final String userName) {
+       //第三方数据保存数据库操作
+        final UserInfo userInfo = new UserInfo();
+
+        userInfo.setUsername(userName);
+        //利用第三章用户账号的用户名生成对应的md5码，以作为用户id
+        final String userid = Md5Utils.getMd5Message(userName);
+        userInfo.setUserid(userid);
+
+        BmobQuery<UserInfo> bmobQuery = new BmobQuery<>();
+
+        bmobQuery.addWhereEqualTo("userid",userid);
+        bmobQuery.findObjects(this, new FindListener<UserInfo>() {
+
+            @Override
+            public void onSuccess(List<UserInfo> list) {
+                if (list!=null && list.size()!=0){
+                    final UserInfo userInfo = list.get(0);
+                    //存在该用户，第二次登陆
+                    if (userInfo != null) {
+                        //获取该用户在数据库里保存的信息
+                        //保存用户信息，供应用程序访问
+                        ApplicationInfo.initUserInfo(userInfo.getObjectId(), userid, userName, userInfo.getPassword(),
+                                userInfo.getUsericon(), userInfo.getPhone(), userInfo.getAutograph(),
+                                userInfo.getCollectedArticle(), userInfo.getCollectedWord(), userInfo.getExchangeAwarded(),
+                                userInfo.getExchangeAward(), userInfo.getArticleCount(), userInfo.getWordCount(),
+                                userInfo.getUserrank(), userInfo.getUserpoints());
+                        Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_LONG).show();
+                        finish();
+                        startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                    }
+                }
+                else {
+                    //不存在该用户，是第一次登陆
+                    //保存用户信息到数据库
+                    userInfo.save(MainActivity.this, new SaveListener() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_LONG).show();
+
+                            //保存用户信息，供应用程序访问
+                            ApplicationInfo.initUserInfo(userInfo.getObjectId(), userid, userName, userInfo.getPassword(),
+                                    userInfo.getUsericon(), userInfo.getPhone(), userInfo.getAutograph(),
+                                    userInfo.getCollectedArticle(), userInfo.getCollectedWord(), userInfo.getExchangeAwarded(),
+                                    userInfo.getExchangeAward(), userInfo.getArticleCount(), userInfo.getWordCount(),
+                                    userInfo.getUserrank(), userInfo.getUserpoints());
+                            finish();
+                            startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            Toast.makeText(MainActivity.this, "登陆失败", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                Toast.makeText(MainActivity.this, "登陆失败，请检查网络", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

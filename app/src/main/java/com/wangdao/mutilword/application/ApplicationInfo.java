@@ -16,7 +16,6 @@ public class ApplicationInfo extends Application{
     public static SharedPreferences.Editor editor;
     public static Context mContext;
     public static UserInfo userInfo;
-    public static String nickname;
 
 
 
@@ -36,17 +35,12 @@ public class ApplicationInfo extends Application{
         userInfo = new UserInfo(objectId,userid,username, password, usericon, phone, autograph,
                 collectedArticle,collectedWord,exchangeAwarded,exchangeAward,articleCount,wordCount,
                 userrank, userpoints);
-
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
 
-    }
-
-    public static void initNickname(String name){
-        nickname = name;
     }
 
 }
