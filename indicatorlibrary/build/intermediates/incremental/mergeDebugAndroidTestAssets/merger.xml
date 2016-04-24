@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="debug"><source path="C:\Users\haijun\AndroidStudioProjects\test\MutilWord\indicatorlibrary\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="C:\Users\haijun\AndroidStudioProjects\test\MutilWord\indicatorlibrary\src\androidTest\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="debug"><source path="E:\Lib\MutilWord3\indicatorlibrary\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="E:\Lib\MutilWord3\indicatorlibrary\src\androidTest\assets"/></dataSet></merger>

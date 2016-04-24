@@ -4,7 +4,15 @@
         "source": "C:\\Users\\haijun\\AndroidStudioProjects\\test\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
     },
     {
+        "merged": "E:\\Lib\\MutilWord3\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
+        "source": "E:\\Lib\\MutilWord3\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
+    },
+    {
         "merged": "C:\\Users\\haijun\\AndroidStudioProjects\\test\\MutilWord\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
         "source": "C:\\Users\\haijun\\AndroidStudioProjects\\test\\MutilWord\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
+    },
+    {
+        "merged": "E:\\Lib\\MutilWord3\\indicatorlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
+        "source": "E:\\Lib\\MutilWord3\\indicatorlibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
     }
 ]

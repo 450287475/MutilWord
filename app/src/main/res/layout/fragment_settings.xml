@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+              xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              xmlns:settingitem="http://schemas.android.com/apk/res-auto"
+              android:background="@drawable/setting_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     >
+    <com.wangdao.mutilword.view.SettingItemView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/siv_update"
+        settingitem:itemtitle="自动更新设置"
+        settingitem:desc_on="自动更新已经开启"
+        settingitem:desc_off="自动更新已关闭"
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            style="@style/fragment_text"
-            android:layout_gravity="center"
-            android:id="@+id/textView"/>
+        />
+    <com.wangdao.mutilword.view.SettingItemView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/siv_info"
+        settingitem:itemtitle="推送通知设置"
+        settingitem:desc_on="推送通知已经开启"
+        settingitem:desc_off="推送通知已关闭"
 
+        />
+    <com.wangdao.mutilword.view.SettingClickView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scv_words"
+        />
+
+ </LinearLayout>
 </FrameLayout>
