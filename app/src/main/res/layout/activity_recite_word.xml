@@ -108,9 +108,10 @@
                 <TextView
                     android:id="@+id/tv_recite_trans"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="200dp"
                     android:textSize="15sp"
                     android:background="#33000000"
+                    android:gravity="center"
                     android:textColor="#bfcce6"
                     android:text=" 音标： [ˈwepən]\r\n n. 武器，兵器; \r\n vi. 武装，提供武器;"
                     />

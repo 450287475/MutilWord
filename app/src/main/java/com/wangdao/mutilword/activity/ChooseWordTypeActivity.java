@@ -1,7 +1,6 @@
 package com.wangdao.mutilword.activity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -50,6 +50,7 @@ public class ChooseWordTypeActivity extends Activity {
     public NiftyDialogBuilder niftyDialogBuilder;
     public View view;
     public static boolean flag = false;
+    public Button bt_chooseword_sync;
 
 
     @Override
@@ -66,6 +67,7 @@ public class ChooseWordTypeActivity extends Activity {
     private void initView() {
         //初始化dialog的view
         view = View.inflate(this, R.layout.custom_view, null);
+        bt_chooseword_sync = (Button) findViewById(R.id.bt_chooseword_sync);
         rg_dialog_choose = (RadioGroup) view.findViewById(R.id.rg_dialog_choose);
         rb_dialog_cet4 = (RadioButton) view.findViewById(R.id.rb_dialog_cet4);
         rb_dialog_cet6 = (RadioButton) view.findViewById(R.id.rb_dialog_cet6);
@@ -188,14 +190,18 @@ public class ChooseWordTypeActivity extends Activity {
     public void sync(View view) {
         File oldDbFile = getDatabasePath("oldWord.db");
 
-        //初始化弹框
+       /* //初始化弹框
         final ProgressDialog progressDialog = new ProgressDialog(ChooseWordTypeActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("正在与云端同步单词...");
         progressDialog.setMessage("下载进度....");
         progressDialog.setIndeterminate(false);
         progressDialog.setCancelable(true);
-        progressDialog.show();
+        progressDialog.show();*/
+        //开始同步前的初始化
+        bt_chooseword_sync.setEnabled(false);
+        bt_chooseword_sync.setTextColor(Color.GRAY);
+        bt_chooseword_sync.setText("准备开始同步...");
 
         //查询
         BmobQuery<Bmob_word_info> query = new BmobQuery<>();
@@ -220,7 +226,8 @@ public class ChooseWordTypeActivity extends Activity {
                 progressInfo.total = list.size();//总进度
                 progressInfo.current = 0;//当前进度
                 progressInfo.failure = 0;//同步单词失败的个数
-                progressDialog.setMax(progressInfo.total);
+                bt_chooseword_sync.setText("正在同步..."+progressInfo.current+"/"+progressInfo.total);
+
 
                 //遍历从云端获得的单词.若和本地数据库中的单词相同,则将本地数据库中的该单词用update的方法更新到云端
                 for (final Bmob_word_info bmob_word_info : list) {
@@ -234,8 +241,7 @@ public class ChooseWordTypeActivity extends Activity {
                         //如果从云端获得的单词的最后背诵日期和存在本地单词的最后背诵日期相同,则没有同步的必要.
                         if (exist.getDate() == bmob_word_info.getDate()) {
                             //更新进度条
-                            refreshProgressDialog(progressInfo);
-                            System.out.println("本地数据库和服务器端数据相同" + exist.getWord());
+                            refreshSync(progressInfo);
                             progressInfo.total--;
                             progressInfo.current--;
                             continue;
@@ -246,13 +252,13 @@ public class ChooseWordTypeActivity extends Activity {
                                 @Override
                                 public void onSuccess() {
                                     //更新进度条
-                                    refreshProgressDialog(progressInfo);
+                                    refreshSync(progressInfo);
                                     System.out.println("更新成功" + bmob_word_info.getWord());
                                 }
 
                                 @Override
                                 public void onFailure(int i, String s) {
-                                    refreshProgressDialog(progressInfo);
+                                    refreshSync(progressInfo);
                                     //若更新失败,则failure++;
                                     progressInfo.failure++;
                                     System.out.println("更新成功" + bmob_word_info.getWord());
@@ -262,14 +268,23 @@ public class ChooseWordTypeActivity extends Activity {
                         }
 
                     } else {//单词在本地数据库不存在,则加入本地数据库
-                        refreshProgressDialog(progressInfo);
+                        refreshSync(progressInfo);
                         daoRepeatWord.insert(new Word_info(bmob_word_info.getWord(), bmob_word_info.getTrans(),
                                 bmob_word_info.getPhonetic(), bmob_word_info.getTags(), bmob_word_info.getRepeat(), -1, bmob_word_info.getDate()));
                     }
                 }
+
                 //更新进度条的最大进度
                 progressInfo.total += word_infos_db.size();
-                progressDialog.setMax(progressInfo.total);
+
+                if (progressInfo.total==0){
+                    Toast.makeText(ChooseWordTypeActivity.this, "单词库已经是最新的了,不需要同步", Toast.LENGTH_SHORT).show();
+                    bt_chooseword_sync.setText("同步到云端");
+                    bt_chooseword_sync.setTextColor(0xffbfcce6);
+                    bt_chooseword_sync.setEnabled(true);
+                    return;
+                }
+                bt_chooseword_sync.setText("正在同步..."+progressInfo.current+"/"+progressInfo.total);
 
                 //遍历所有还存在word_infos_db集合中的元素,这些元素代表着云端不存在而本地数据库存在的单词.将这些单词用insert方法加入到云端
                 for (Word_info word_info : word_infos_db) {
@@ -279,13 +294,13 @@ public class ChooseWordTypeActivity extends Activity {
                     bmob_word_info.save(ChooseWordTypeActivity.this, new SaveListener() {
                         @Override
                         public void onSuccess() {
-                            refreshProgressDialog(progressInfo);
+                            refreshSync(progressInfo);
                             System.out.println(bmob_word_info.getWord() + "插入成功");
                         }
 
                         @Override
                         public void onFailure(int i, String s) {
-                            refreshProgressDialog(progressInfo);
+                            refreshSync(progressInfo);
                             progressInfo.failure++;
                             System.out.println(bmob_word_info.getWord() + "插入失败" + s);
                         }
@@ -296,22 +311,27 @@ public class ChooseWordTypeActivity extends Activity {
             }
 
             //更新进度框方法
-            private void refreshProgressDialog(ProgressInfo progressInfo) {
+            private void refreshSync(ProgressInfo progressInfo) {
                 progressInfo.current++;
-                progressDialog.setProgress(progressInfo.current);
+                bt_chooseword_sync.setText(progressInfo.current+"/"+progressInfo.total);
                 if (progressInfo.current == progressInfo.total) {
                     if (progressInfo.failure != 0) {
                         Toast.makeText(ChooseWordTypeActivity.this, "同步完成,还有" + progressInfo.failure + "个单词没同步成功...下次可一起同步", Toast.LENGTH_SHORT);
                     } else {
                         Toast.makeText(ChooseWordTypeActivity.this, "完全同步成功!", Toast.LENGTH_SHORT).show();
                     }
-                    progressDialog.dismiss();
+                    Toast.makeText(ChooseWordTypeActivity.this, "已同步完成,失败"+progressInfo.failure+"个.", Toast.LENGTH_SHORT).show();
+                    bt_chooseword_sync.setText("同步到云端");
+                    bt_chooseword_sync.setTextColor(0xffbfcce6);
+                    bt_chooseword_sync.setEnabled(true);
                 }
             }
 
             @Override
             public void onError(int i, String s) {
-                progressDialog.dismiss();
+                bt_chooseword_sync.setText("同步到云端");
+                bt_chooseword_sync.setEnabled(true);
+                bt_chooseword_sync.setTextColor(0xffbfcce6);
                 Toast.makeText(ChooseWordTypeActivity.this, "网络异常,请稍后更新", Toast.LENGTH_SHORT).show();
                 System.out.println("从云端获取数据失败");
             }
