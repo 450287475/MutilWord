@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.wangdao.mutilword.bean.sqlit;
+import com.wangdao.mutilword.bean.SignDateInfo;
 import com.wangdao.mutilword.db.SignDbHelper;
 
 import java.util.ArrayList;
@@ -25,18 +25,30 @@ public class SignDao
         db = helper.getWritableDatabase();
     }
 
+    //根据日期查询数据库里是否存在该日期
+    public SignDateInfo isSign(String date){
+        Cursor cursor = db.query(SignDbHelper.TABLE_NAME, null, "date1=?", new String[]{date}, null, null, null);
+        while (cursor.moveToNext()){
+            SignDateInfo person = new SignDateInfo();
+            person.date = cursor.getString(cursor.getColumnIndex("date1"));
+            person.isselct = cursor.getString(cursor.getColumnIndex("isselct"));
+            return person;
+        }
+        return null;
+    }
+
     /**
      * add persons
      * 
      * @param persons
      */
-    public void add(List<sqlit> persons)
+    public void add(List<SignDateInfo> persons)
     {
         // 采用事务处理，确保数据完整性
         db.beginTransaction(); // 开始事务
         try
         {
-            for (sqlit person : persons)
+            for (SignDateInfo person : persons)
             {
                 db.execSQL("INSERT INTO " + SignDbHelper.TABLE_NAME
                         + " VALUES(?, ?)", new Object[] { person.date,
@@ -58,7 +70,7 @@ public class SignDao
      * 
      * @param person
      */
-    public void updateAge(sqlit person)
+    public void updateAge(SignDateInfo person)
     {
         ContentValues cv = new ContentValues();
         cv.put("isselct", person.isselct);
@@ -71,7 +83,7 @@ public class SignDao
      * 
      * @param person
      */
-    public void deleteOldPerson(sqlit person)
+    public void deleteOldPerson(SignDateInfo person)
     {
         db.delete(SignDbHelper.TABLE_NAME, "isselct= ?",
                 new String[] { String.valueOf(person.isselct) });
@@ -82,13 +94,15 @@ public class SignDao
      * 
      * @return List<Person>
      */
-    public List<sqlit> query()
+
+    //获得所有日期的集合
+    public List<SignDateInfo> query()
     {
-        ArrayList<sqlit> persons = new ArrayList<sqlit>();
+        ArrayList<SignDateInfo> persons = new ArrayList<SignDateInfo>();
         Cursor c = queryTheCursor();
         while (c.moveToNext())
         {
-        	sqlit person = new sqlit();
+        	SignDateInfo person = new SignDateInfo();
             person.date = c.getString(c.getColumnIndex("date1"));
             person.isselct = c.getString(c.getColumnIndex("isselct"));
             persons.add(person);

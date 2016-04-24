@@ -10,8 +10,8 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,19 +63,21 @@ public class ExamHomeActivity extends Activity implements View.OnClickListener{
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (TimeUtils.isNetworkAvailable(this)) {
             DBManager.getInstance(this).removeAll(AnswerColumns.TABLE_NAME);
         }
-        setContentView(R.layout.activity_home_exam);
-
+        setContentView(R.layout.activity_exam_homenew);
+        //changecolor();
         TextView order = (TextView) findViewById(R.id.order);
         TextView simulate = (TextView) findViewById(R.id.simulate);
-        LinearLayout favorite = (LinearLayout) findViewById(R.id.favorite);
-        LinearLayout wrong = (LinearLayout) findViewById(R.id.wrong);
-        LinearLayout history = (LinearLayout) findViewById(R.id.history);
+        TextView favorite = (TextView) findViewById(R.id.favorite);
+        TextView wrong = (TextView) findViewById(R.id.wrong);
+        TextView history = (TextView) findViewById(R.id.history);
+        Button bt_examhome_back =  (Button) findViewById(R.id.bt_examhome_back);
 
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
@@ -87,8 +89,20 @@ public class ExamHomeActivity extends Activity implements View.OnClickListener{
         favorite.setOnClickListener(this);
         wrong.setOnClickListener(this);
         history.setOnClickListener(this);
+        bt_examhome_back.setOnClickListener(this);
     }
 
+    /*private void changecolor() {
+        Window window = this.getWindow();
+        //设置透明状态栏,这样才能让 ContentView 向上
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //设置状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.RED);
+        }
+    }*/
     //解析题库
     public void parseQuestionBack(String fileName){
         if(isFileExistInData(fileName)){
@@ -269,6 +283,8 @@ public class ExamHomeActivity extends Activity implements View.OnClickListener{
             case R.id.history:
                 startActivity(new Intent(this, HisResultActivity.class));
                 break;
+            case R.id.bt_examhome_back:
+                finish();
 
             default:
                 break;

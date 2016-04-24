@@ -19,6 +19,6 @@ public class Constant {
     public static final String CET4_URL="http://bmob-cdn-418.b0.upaiyun.com/2016/04/21/6bff9c4b40af45ec807d179bfd6cd20d.db";
     public static final String CET6_URL="http://bmob-cdn-418.b0.upaiyun.com/2016/04/21/576873f440513244802c61e9a89a5afb.db";
     public static final String KAOYAN_URL="http://bmob-cdn-418.b0.upaiyun.com/2016/04/21/58febbc440116ac380a9d960dce37286.db";
-
-
+    public static final String SERVER_ADDR = "http://bmob-cdn-418.b0.upaiyun.com";//听力页面
+    public static final String JSON_ADDR = "/2016/04/23/528acb65408d8bfe80024c2cd8854efe.json";//听力页面
 }

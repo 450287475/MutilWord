@@ -7,11 +7,12 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:padding="16dp"
-    android:background="#4B637B">
+    android:background="@drawable/recite_word">
 <!--4B637B-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp">
 
@@ -19,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/reciteword_return_selector"
-            android:background="#4B637B"
+            android:background="#88000000"
             android:padding="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
@@ -31,11 +32,20 @@
             android:text="快乐背单词"
             android:textSize="20sp"
             android:gravity="center"
-            android:textColor="@android:color/white"
+            android:textColor="#ffffff"
             android:id="@+id/textView"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/bt_reciteword_imagebutton"
-            android:layout_alignParentStart="true" />
+            android:layout_centerInParent="true"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sound_recite_word_xml"
+            android:background="#88000000"
+            android:padding="10dp"
+            android:onClick="sound"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/bt_reciteword_sound" />
     </RelativeLayout>
 
 
@@ -46,7 +56,7 @@
         android:layout_height="0dp"
         folding-cell:animationDuration="1300"
         folding-cell:additionalFlipsCount="2"
-        folding-cell:backSideColor="#26567B"
+        folding-cell:backSideColor="#8826567B"
         android:layout_weight="1">
         <!--内容布局-->
         <FrameLayout
@@ -64,44 +74,44 @@
                     android:id="@+id/tv_recite_title"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@android:color/white"
+                    android:background="#33000000"
                     android:text="weapon"
-                    android:textColor="@android:color/black"
+                    android:textColor="#bfcce6"
                     android:textSize="30sp"
                     android:gravity="center"
                     />
                 <!--分割线-->
-                <ImageView
+             <!--   <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/white"
-                    android:src="@drawable/line" />
+                    android:src="@drawable/line" />-->
                 <!--音标-->
                 <TextView
                     android:id="@+id/tv_recite_phonetic"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="50dp"
                     android:padding="10dp"
-                    android:background="@android:color/white"
+                    android:background="#33000000"
                     android:textSize="20sp"
+                    android:textColor="#bfcce6"
                     android:gravity="center"
                     />
                 <!--分割线-->
-                <ImageView
+           <!--     <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/white"
-                    android:src="@drawable/line" />
+                    android:src="@drawable/line" />-->
 
                 <!--单词意思-->
                 <TextView
                     android:id="@+id/tv_recite_trans"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="150dp"
                     android:textSize="15sp"
-                    android:background="@android:color/white"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
+                    android:background="#33000000"
+                    android:textColor="#bfcce6"
                     android:text=" 音标： [ˈwepən]\r\n n. 武器，兵器; \r\n vi. 武装，提供武器;"
                     />
             </LinearLayout>
@@ -120,16 +130,17 @@
                     android:id="@+id/tv_recite_word"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@android:color/white"
+                    android:background="#88000000"
                     android:text="weapon"
                     android:textSize="30sp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:background="@android:color/white"
+                    android:background="#88000000"
+                    android:textColor="#bfcce6"
                     android:text="点击查看释义"
                     android:gravity="center"/>
             </LinearLayout>
@@ -142,9 +153,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:textColor="@android:color/white"
+        android:textColor="#bfcce6"
         android:textSize="20sp"
-        android:gravity="center"
+        android:gravity="right"
+        android:layout_marginRight="5dp"
         android:id="@+id/tv_recite_remainWord"
         />
 
@@ -160,14 +172,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="没记住"
-            android:background="@drawable/button_reciteword_selector"
+            android:textColor="#bfcce6"
+            android:background="@drawable/choose_word_bg"
             android:onClick="unRemenber"
             android:layout_margin="5dp"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_reciteword_selector"
+            android:textColor="#bfcce6"
+            android:background="@drawable/choose_word_bg"
             android:text="记住了"
             android:onClick="remenber"
             android:layout_margin="5dp"/>

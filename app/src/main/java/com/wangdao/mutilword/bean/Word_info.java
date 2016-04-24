@@ -98,4 +98,13 @@ public class Word_info {
                 ", date=" + date +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Word_info word_info = (Word_info) o;
+        if(word.equals(word_info.getWord())){
+            return true;
+        }
+        return false;
+    }
 }

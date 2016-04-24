@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,11 +25,14 @@ import com.ramotion.foldingcell.FoldingCell;
 import com.wangdao.mutilword.R;
 import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.bean.Word_info;
+import com.wangdao.mutilword.bean.interpretBean.Dict;
 import com.wangdao.mutilword.constant.Constant;
 import com.wangdao.mutilword.dao.RepeatWordDao;
 import com.wangdao.mutilword.dao.WordDao;
+import com.wangdao.mutilword.utils.SearchWords;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,6 +62,21 @@ public class ReciteWordActivity extends Activity {
     public String dbFilePath;
     public String dbURL;
     public TextView tv_recite_phonetic;
+    private ReciteWordActivity context;
+
+    private Handler handler = new Handler(){
+
+        private String audioPath;
+
+        @Override
+        public void handleMessage(Message msg) {
+            Dict dict =(Dict)msg.obj ;
+            audioPath =dict.getPron();
+            playAudio(audioPath);
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +84,7 @@ public class ReciteWordActivity extends Activity {
         setContentView(R.layout.activity_recite_word);
         //改变状态栏的颜色
         changecolor();
+        context = ReciteWordActivity.this ;
         initView();
 
         //初始化db
@@ -85,6 +108,16 @@ public class ReciteWordActivity extends Activity {
 
     }
 
+    private void playAudio(String pron) {
+        MediaPlayer mp =null ;
+       try{ mp=MediaPlayer.create(context, Uri.parse(pron));
+            mp.start();
+       }
+       finally {
+           mp=null ;
+       }
+
+    }
 
     //
     //从网络上下载单词本
@@ -293,5 +326,32 @@ public class ReciteWordActivity extends Activity {
         }
           refreshText();
         System.out.println("unRemenber"+word_infos.size());
+    }
+
+    //调用发音接口
+    public void sound(View view) {
+        System.out.println("我被点击了---------------------");
+        String word = tv_recite_word.getText().toString().trim();
+        try {
+            final String words = URLEncoder.encode(word, "GBK");
+            if (words != null && !words.equals("")) {
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Dict dict = SearchWords.transWord(words);
+                        System.out.println(dict.toString() + "------------dict add by lan----------------");
+                        Message msg = handler.obtainMessage();
+                        msg.obj = dict;
+                        handler.sendMessage(msg);
+                    }
+                }).start();
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 }

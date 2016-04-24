@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/statusbar</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -91,4 +91,43 @@
     <style name="NoBiaoti" parent="android:Theme.Holo.Light.NoActionBar"></style>
     <!-- 以上为测试模块 -->
 
+    <!--chooseExamPart-->
+    <style name="chooseExamPart">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#a5dff9</item>
+        <item name="android:padding">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/choose_exam_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="chooseExamHistoryPart">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#a5dff9</item>
+        <item name="android:paddingLeft">120dp</item>
+        <item name="android:paddingRight">120dp</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/choose_exam_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+
+    <!--chooseWordtype-->
+    <style name="chooseWordType">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#bfcce6</item>
+        <item name="android:padding">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/choose_word_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
