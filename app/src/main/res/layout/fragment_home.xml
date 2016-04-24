@@ -94,7 +94,7 @@
             <TextView
                 android:id="@+id/tv_word"
                 style="@style/TextViewStyle"
-                android:text="背单词"
+                android:text="快乐单词"
                 />
         </LinearLayout>
         <LinearLayout
