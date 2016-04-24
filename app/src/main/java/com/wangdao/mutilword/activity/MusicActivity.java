@@ -340,7 +340,7 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                         showLrcViewList.get(0).invalidate();
                         viewPagerAdapter = new ViewPagerAdapter();
                         vp_music_content.setAdapter(viewPagerAdapter);
-                        vp_music_content.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+                        vp_music_content.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
                         {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
