@@ -24,8 +24,9 @@ public class ShowLrcView extends TextView
     private int index;
     private Paint currentPaint;
     private Paint noCurrentPaint;
-    private float textSize = 40;//默认字体大小;
+    private float textSize;//默认字体大小;
     private float textHeight = 45;
+    private float padding = 20;
     private List<LrcContentBean> lrcbeanList = new ArrayList<>();
     private String text;
     public ShowLrcView(Context context)
@@ -66,31 +67,66 @@ public class ShowLrcView extends TextView
         {
             return;
         }
-        currentPaint.setColor(Color.argb(210, 0, 0, 0));
-        noCurrentPaint.setColor(Color.argb(139, 111, 110, 110));
+        currentPaint.setColor(Color.argb(210,251, 248, 29));
+        noCurrentPaint.setColor(Color.argb(139, 255, 255, 255));
         currentPaint.setTextSize(50);
         currentPaint.setTypeface(Typeface.SERIF);
         textSize = getTextSize();
         noCurrentPaint.setTextSize(textSize);
         noCurrentPaint.setTypeface(Typeface.DEFAULT);
-        setText("");
 //        Log.i("ShowLrcView",lrcbeanList.get(index).content+"   "+index);
         if(lrcbeanList!=null&&lrcbeanList.size()!=0)
         {
-            canvas.drawText(lrcbeanList.get(index).content, width / 2, height / 2, currentPaint);
             float tempY = height/2;
-            for(int i=index-1;i>0;i--)
+            float tempDownY = tempY;
+            float tempUpY = tempY;
+            String str = lrcbeanList.get(index).content;
+            int mindex = getMaxIndex(str,textSize);
+//            Log.i("getMaxIndex",str);
+            if(mindex==0)
             {
-                tempY = tempY - textHeight;
-                canvas.drawText(lrcbeanList.get(i).content,width/2,tempY,noCurrentPaint);
+                canvas.drawText(str, width / 2, height / 2, currentPaint);
             }
-            tempY = height/2;
+            else
+            {
+                tempDownY = tempDownY+textHeight;
+                canvas.drawText(str.substring(0,mindex), width / 2, height / 2, currentPaint);
+                canvas.drawText(str.substring(mindex),width/2,tempDownY,currentPaint);
+            }
+            for(int i=index-1;i>=0;i--)
+            {
+                str = lrcbeanList.get(i).content;
+                mindex = getMaxIndex(str,textSize);
+                tempUpY = tempUpY-textHeight;
+                if(mindex==0)
+                {
+                    canvas.drawText(str, width / 2, tempUpY, noCurrentPaint);
+                }
+                else
+                {
+                    canvas.drawText(str.substring(mindex),width/2,tempUpY,noCurrentPaint);
+                    tempUpY = tempUpY-textHeight;
+                    canvas.drawText(str.substring(0,mindex), width / 2, tempUpY, noCurrentPaint);
+                }
+            }
             for(int i=index+1;i<lrcbeanList.size();i++)
             {
-                tempY = tempY + textHeight;
-                canvas.drawText(lrcbeanList.get(i).content,width/2,tempY,noCurrentPaint);
+                str = lrcbeanList.get(i).content;
+                mindex = getMaxIndex(str,textSize);
+                tempDownY = tempDownY+textHeight;
+                if(mindex==0)
+                {
+                    canvas.drawText(str, width / 2, tempDownY, noCurrentPaint);
+                }
+                else
+                {
+                    canvas.drawText(str.substring(0,mindex), width / 2, tempDownY, noCurrentPaint);
+                    tempDownY = tempDownY+textHeight;
+                    canvas.drawText(str.substring(mindex),width/2,tempDownY,noCurrentPaint);
+                }
             }
 //            Log.i("ShowLrcView",lrcbeanList.get(index).content);
+
         }
         else if(text!=null&&!text.isEmpty())
         {
@@ -119,5 +155,38 @@ public class ShowLrcView extends TextView
     public void setStr(String str)
     {
         this.text = str;
+    }
+    private int getMaxIndex(String str,float charwidth)
+    {
+        float textPixel = str.length()*charwidth;
+        float textWidth = width-padding*2;
+        int mindex = 0;
+        if(textPixel>textWidth)
+        {
+            mindex = (int) (textWidth/charwidth);
+            if(str.charAt(mindex)==' ')
+            {
+                return mindex;
+            }
+            else if(str.charAt(mindex)>='a'&&str.charAt(mindex)<='z'||str.charAt(mindex)>='A'&&str.charAt(mindex)<='Z')
+            {
+                for(int i=mindex;i<str.length();i++)
+                {
+                    if(str.charAt(i)==' ')
+                    {
+                        return i;
+                    }
+                    else if(i==str.length()-1)
+                    {
+                        return 0;
+                    }
+                }
+            }
+            else
+            {
+                return mindex;
+            }
+        }
+        return mindex;
     }
 }
