@@ -4,7 +4,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/ll_root"
-                android:background="@drawable/bg_homefragment"
+                android:background="@drawable/background_home"
                 >
 
 <!--previous
@@ -89,7 +89,7 @@
             <ImageView
                 style="@style/ImageViewStyle"
                 android:id="@+id/iv_word"
-                android:src="@drawable/ic_home_niu"
+                android:src="@drawable/word"
                 />
             <TextView
                 android:id="@+id/tv_word"
@@ -107,7 +107,7 @@
             <ImageView
                 style="@style/ImageViewStyle"
                 android:id="@+id/iv_read"
-                android:src="@drawable/ic_home_ji"
+                android:src="@drawable/read"
                 />
             <TextView
                 android:id="@+id/tv_read"
@@ -133,7 +133,7 @@
             <ImageView
                 style="@style/ImageViewStyle"
                 android:id="@+id/iv_exam"
-                android:src="@drawable/ic_home_dog"
+                android:src="@drawable/exam"
                 />
             <TextView
                 android:id="@+id/tv_exam"
@@ -151,7 +151,7 @@
             <ImageView
                 style="@style/ImageViewStyle"
                 android:id="@+id/iv_listen"
-                android:src="@drawable/ic_home_yang"
+                android:src="@drawable/listen"
                 />
             <TextView
                 android:id="@+id/tv_listen"
