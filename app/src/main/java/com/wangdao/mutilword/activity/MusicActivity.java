@@ -76,7 +76,7 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_music);
         lrcBeanList = new ArrayList<>();
         showLrcViewList = new ArrayList<>();
         bt_music_pause = (ImageButton) findViewById(R.id.bt_music_pause);
