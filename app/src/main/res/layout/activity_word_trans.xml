@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:folding-cell="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:clipChildren="false"
+              android:clipToPadding="false"
+              android:background="@drawable/recite_word">
+    <!--4B637B-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="快乐背单词"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:id="@+id/textView"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+
+
+<!--    <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+                                          android:id="@+id/folding_cell"
+                                          android:layout_width="match_parent"
+                                          android:layout_height="0dp"
+                                          folding-cell:animationDuration="1300"
+                                          folding-cell:additionalFlipsCount="2"
+                                          folding-cell:backSideColor="#8826567B"
+                                          android:layout_weight="1">-->
+        <!--内容布局-->
+    <!--    <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            >-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--单词-->
+                <TextView
+                    android:id="@+id/tv_wordtrans_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#33000000"
+                    android:text="weapon"
+                    android:textColor="#bfcce6"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    />
+
+                <!--音标-->
+                <TextView
+                    android:id="@+id/tv_wordtrans_phonetic"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="#33000000"
+                    android:textSize="20sp"
+                    android:textColor="#bfcce6"
+                    android:gravity="center"
+                    />
+
+                <!--单词意思-->
+                <TextView
+                    android:id="@+id/tv_wordtrans_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:textSize="15sp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:background="#33000000"
+                    android:textColor="#bfcce6"
+                    android:text=" 音标： [ˈwepən]\r\n n. 武器，兵器; \r\n vi. 武装，提供武器;"
+                    />
+            </LinearLayout>
+   <!--     </FrameLayout>-->
+        <!--标题布局-->
+       <!-- <FrameLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_wordtrans_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#88000000"
+                    android:text="weapon"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="#88000000"
+                    android:textColor="#bfcce6"
+                    android:text="点击查看释义"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+        </FrameLayout>-->
+
+<!--    </com.ramotion.foldingcell.FoldingCell>-->
+</LinearLayout>
