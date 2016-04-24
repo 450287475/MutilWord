@@ -44,9 +44,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeListener,
-        MediaPlayer.OnPreparedListener,MediaPlayer.OnBufferingUpdateListener,MediaPlayer.OnCompletionListener,MediaPlayer.OnErrorListener
+        MediaPlayer.OnPreparedListener,MediaPlayer.OnBufferingUpdateListener,MediaPlayer.OnCompletionListener
 {
-    //    需要INTERNET权限,gradle里android中加入：useLibrary 'org.apache.http.legacy'
+//    需要INTERNET权限,gradle里android中加入：useLibrary 'org.apache.http.legacy'
     private SeekBar sb_music_time;
     private TextView tv_music_time;
     private TextView tv_music_title;
@@ -66,7 +66,6 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     private int duration;//歌曲的毫秒数
     private List<LrcBean> lrcBeanList;
     private String title;
-    private String errorTitle;
     private ViewPager vp_music_content;
     private List<ShowLrcView> showLrcViewList;
     //    private ShowLrcView slv_music_lrc;
@@ -130,7 +129,6 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                 player.setOnPreparedListener(MusicActivity.this);
                 player.setOnCompletionListener(MusicActivity.this);
                 player.setOnBufferingUpdateListener(MusicActivity.this);
-                player.setOnErrorListener(MusicActivity.this);
             }
             @Override
             public void onFailure(HttpException e, String s)
@@ -139,7 +137,7 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             }
         });
     }
-    //    更新歌词文件并解析
+//    更新歌词文件并解析
     private void initLrcList()
     {
         for(int i=0;i<musicContentList.size();i++)
@@ -259,7 +257,6 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     {
         if(player!=null)
         {
-            errorTitle = "";
             if (playerIsPrepared)
             {
                 player.start();
@@ -279,10 +276,6 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             PLAYER_CURRENT_STATE = PLAYER_PLAYING;
             showPlayButton(false);
         }
-        else
-        {
-            Toast.makeText(MusicActivity.this, "T.T无法播放", Toast.LENGTH_SHORT).show();
-        }
     }
     private void pause()
     {
@@ -294,16 +287,16 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             showPlayButton(true);
         }
     }
-    /*    Runnable mRunable = new Runnable()
+    Runnable mRunable = new Runnable()
+    {
+        @Override
+        public void run()
         {
-            @Override
-            public void run()
-            {
-                showLrcViewList.get(vpIndex).setIndex(lrcIndex());
-                showLrcViewList.get(vpIndex).invalidate();
-                MusicHandler.postDelayed(mRunable,100);
-            }
-        };*/
+            showLrcViewList.get(vpIndex).setIndex(lrcIndex());
+            showLrcViewList.get(vpIndex).invalidate();
+            MusicHandler.postDelayed(mRunable,100);
+        }
+    };
     Handler MusicHandler = new Handler()
     {
         int i =1;
@@ -356,10 +349,9 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                                 seekBarIsRunning = false;
                                 sb_music_time.setProgress(0);
                                 sb_music_time.setSecondaryProgress(0);
+                                rePreparePlayer();
                                 vpIndex = position;
                                 showLrcViewList.get(position).setLrclist(getCurrentLrcList(title));
-                                rePreparePlayer();
-                                errorTitle = "";
                             }
                             @Override
                             public void onPageScrollStateChanged(int state)
@@ -412,7 +404,6 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                                 msg.what = 1;
                                 msg.obj = str;
                                 MusicHandler.sendMessage(msg);
-//                                Log.i("isUpdatingSeekBar","yes");
                             }
                             else
                             {
@@ -442,37 +433,35 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
         int current = 0;
         int index = 0;
         List<LrcContentBean> list = getCurrentLrcList(title);
-        if(list!=null)
+        if(PLAYER_CURRENT_STATE==PLAYER_PLAYING)
         {
-            if (PLAYER_CURRENT_STATE == PLAYER_PLAYING)
+            if (player != null)
             {
-                if (player != null)
+                current = player.getCurrentPosition();
+                if (current < duration)
                 {
-                    current = player.getCurrentPosition();
-                    if (current < duration)
+                    for (int i = 0; i < list.size(); i++)
                     {
-                        for (int i = 0; i < list.size(); i++)
+                        if (i < list.size() - 1)
                         {
-                            if (i < list.size() - 1)
+                            if (current < list.get(i).milliseconds && i == 0)
                             {
-                                if (current < list.get(i).milliseconds && i == 0)
-                                {
-                                    index = i;
-                                }
-                                if (current > list.get(i).milliseconds
-                                        && current < list.get(i + 1).milliseconds)
-                                {
-                                    index = i;
-                                }
+                                index = i;
                             }
-                            if (i == list.size() - 1
-                                    && current > list.get(i).milliseconds)
+                            if (current > list.get(i).milliseconds
+                                    && current < list.get(i + 1).milliseconds)
                             {
                                 index = i;
                             }
                         }
+                        if (i == list.size() - 1
+                                && current > list.get(i).milliseconds)
+                        {
+                            index = i;
+                        }
                     }
                 }
+            }
        /* if(list.size()!=0)
         {
             Log.i("lrcIndex", list.get(index).milliseconds + "   " + list.get(index).content+"   "+current+"  "+duration+"   "   +index);
@@ -481,7 +470,6 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                 Log.i("lrcIndex",list.get(index).milliseconds + "   " + list.get(index).content+"   "+i);
             }*//*
         }*/
-            }
         }
         return index;
     }
@@ -564,21 +552,10 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     @Override
     public void onCompletion(MediaPlayer mp)
     {
-        if(title.equals(errorTitle))
-        {
-            if(player!=null)
-            {
-                player.reset();
-                PLAYER_CURRENT_STATE = PLAYER_STOPPING;
-            }
-        }
-        else
-        {
-            pause();
-        }
         sb_music_time.setProgress(0);
         String str = "00:00/"+timeDuration;
         tv_music_time.setText(str);
+        pause();
     }
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
@@ -596,18 +573,13 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     @Override
     public void onStopTrackingTouch(SeekBar seekBar)
     {
-        if(player!=null&&!title.equals(errorTitle))
+        if(player!=null)
         {
             player.seekTo(seekBar.getProgress());
             if(PLAYER_CURRENT_STATE==PLAYER_PLAYING)
             {
                 updateSeekBar();
             }
-        }
-        else
-        {
-            Toast.makeText(MusicActivity.this, "出错啦！音频无法播放T.T", Toast.LENGTH_SHORT).show();
-            sb_music_time.setProgress(0);
         }
     }
     @Override
@@ -652,22 +624,5 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             ShowLrcView slv = (ShowLrcView) object;
             container.removeView(slv);
         }
-    }
-
-    @Override
-    public boolean onError(MediaPlayer mp, int what, int extra)
-    {
-        if(player!=null)
-        {
-            Log.i("ON_ERROR", "ON ERROR"+"   "+what);
-            Toast.makeText(MusicActivity.this, "获取歌曲失败T.T,下一首也许更好听哦^^", Toast.LENGTH_SHORT).show();
-            errorTitle = title;
-            if (PLAYER_CURRENT_STATE == PLAYER_PLAYING)
-            {
-                PLAYER_CURRENT_STATE = PLAYER_STOPPING;
-                showPlayButton(true);
-            }
-        }
-        return false;
     }
 }

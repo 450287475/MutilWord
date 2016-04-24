@@ -1,16 +1,22 @@
 package com.wangdao.mutilword.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.wangdao.mutilword.R;
+import com.wangdao.mutilword.activity.HomeActivity;
+import com.wangdao.mutilword.activity.MainActivity;
+import com.wangdao.mutilword.application.ApplicationInfo;
 import com.wangdao.mutilword.view.SettingClickView;
 import com.wangdao.mutilword.view.SettingItemView;
 
@@ -22,7 +28,7 @@ public class SettingsFragment extends Fragment {
     private SettingItemView siv_update;
     private SettingItemView siv_info;
     private SettingClickView scv_words;
-    private SettingClickView scv_logout;
+    private Button scv_logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,8 +44,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initLogout() {
-        scv_logout =(SettingClickView)parentView.findViewById(R.id.scv_logout);
-        scv_logout.setTitle("注销用户信息");
+        scv_logout =(Button)parentView.findViewById(R.id.scv_logout);
         scv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +55,12 @@ public class SettingsFragment extends Fragment {
     }
     //注销用户信息
     private void Logout() {
-
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putString("objectId","");
+        edit.putBoolean("rememberInf",false);
+        edit.commit();
+        startActivity(new Intent(getActivity(), MainActivity.class));
     }
 
     final String[] items = new String[]{"30个","40个","50个","60个"};
