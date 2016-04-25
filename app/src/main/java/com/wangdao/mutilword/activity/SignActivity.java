@@ -150,9 +150,7 @@ public class SignActivity extends Activity {
 
                 Date today= calendar.getThisday();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-           /* calendar.removeAllMarks();
-           list.add(df.format(today));
-           calendar.addMarks(list, 0);*/
+
                 //将当前日期标示出来
                 add(df.format(today));
                 //calendar.addMark(today, 0);
@@ -183,32 +181,6 @@ public class SignActivity extends Activity {
                 });
             }
         });
-        //监听所选中的日期
-        //		calendar.setOnCalendarClickListener(new OnCalendarClickListener() {
-        //
-        //			public void onCalendarClick(int row, int col, String dateFormat) {
-        //				int month = Integer.parseInt(dateFormat.substring(
-        //						dateFormat.indexOf("-") + 1,
-        //						dateFormat.lastIndexOf("-")));
-        //
-        //				if (calendar.getCalendarMonth() - month == 1//跨年跳转
-        //						|| calendar.getCalendarMonth() - month == -11) {
-        //					calendar.lastMonth();
-        //
-        //				} else if (month - calendar.getCalendarMonth() == 1 //跨年跳转
-        //						|| month - calendar.getCalendarMonth() == -11) {
-        //					calendar.nextMonth();
-        //
-        //				} else {
-        //					list.add(dateFormat);
-        //					calendar.addMarks(list, 0);
-        //					calendar.removeAllBgColor();
-        //					calendar.setCalendarDayBgColor(dateFormat,
-        //							R.drawable.calendar_date_focused);
-        //					date = dateFormat;//最后返回给全局 date
-        //				}
-        //			}
-        //		});
 
         //监听当前月份
         calendar.setOnCalendarDateChangedListener(new SignCalendar.OnCalendarDateChangedListener() {
