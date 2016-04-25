@@ -104,9 +104,13 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             super.handleMessage(msg);
         }
     };
+    public int setting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setting = getIntent().getIntExtra("setting",-1);
+
         setContentView(R.layout.activity_home);
         mPrefs = getSharedPreferences("config", MODE_PRIVATE);
         tv_version = (TextView)findViewById(R.id.tv_version);
@@ -333,6 +337,9 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         ApplicationInfo.userInfo.setUsername(username);
         int userpoints = ApplicationInfo.sp.getInt("userpoints", -1);
         ApplicationInfo.userInfo.setUserpoints(userpoints);
+        if (setting==1){
+            changeFragment(new ProfileFragment());
+        }
         super.onStart();
     }
 

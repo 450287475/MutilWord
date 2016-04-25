@@ -68,6 +68,14 @@ public class UserCenterDetailActivity extends Activity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("setting",1);
+        startActivity(intent);
+    }
+
     private void initViewData() {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("bundle");

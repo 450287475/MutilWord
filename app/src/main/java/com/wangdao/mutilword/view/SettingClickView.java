@@ -40,8 +40,10 @@ public class SettingClickView extends RelativeLayout {
         View.inflate(getContext(), R.layout.view_setting_click,this);
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_desc = (TextView) findViewById(R.id.tv_desc);
-        tv_title.setTextColor(Color.parseColor("#AEEEEE"));
-        tv_desc.setTextColor(Color.parseColor("#AEEEEE"));
+        tv_title.setTextColor(Color.parseColor("#bfcce6"));
+        tv_desc.setTextColor(Color.parseColor("#bfcce6"));
+        tv_title.setTextSize(22);
+        tv_desc.setTextSize(13);
 
     }
     public void setTitle(String title){

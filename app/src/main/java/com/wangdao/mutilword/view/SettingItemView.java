@@ -54,9 +54,11 @@ public class SettingItemView extends RelativeLayout {
         tv_desc = (TextView) findViewById(R.id.tv_desc);
         cb_status = (CheckBox) findViewById(R.id.cb_status);
 
-        tv_title.setTextColor(Color.parseColor("#AEEEEE"));
-        tv_desc.setTextColor(Color.parseColor("#AEEEEE"));
-        cb_status.setTextColor(Color.parseColor("#AEEEEE"));
+        tv_title.setTextColor(Color.parseColor("#bfcce6"));
+        tv_desc.setTextColor(Color.parseColor("#bfcce6"));
+        cb_status.setTextColor(Color.parseColor("#bfcce6"));
+        tv_title.setTextSize(22);
+        tv_desc.setTextSize(13);
 
        // tv_title.setTextSize(DisplayUtils.dip2px());
 
