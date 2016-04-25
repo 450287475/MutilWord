@@ -4,7 +4,7 @@
               xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               xmlns:settingitem="http://schemas.android.com/apk/res-auto"
-              android:background="@drawable/setting_bg"
+              android:background="@drawable/centerdetail_background"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
  <LinearLayout
@@ -35,12 +35,30 @@
         android:layout_height="wrap_content"
         android:id="@+id/scv_words"
         />
-     <Button
+     <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:id="@+id/scv_logout"
-         android:text="注销"
-         />
+         android:orientation="horizontal">
+         <Button
+             android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="wrap_content"
+             android:id="@+id/scv_logout"
+             android:textSize="28sp"
+             android:textColor="#AEEEEE"
+             android:gravity="left"
+             android:background="@drawable/choose_word_bg"
+             android:text="注销"
+             />
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_gravity="right"
+             android:src="@drawable/jiantou1_pressed"
+             />
+     </LinearLayout>
+
 
  </LinearLayout>
 </FrameLayout>
