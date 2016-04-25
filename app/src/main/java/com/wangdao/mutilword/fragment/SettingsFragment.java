@@ -40,7 +40,7 @@ public class SettingsFragment extends Fragment {
 
     private void initLogout() {
         scv_logout =(SettingClickView)parentView.findViewById(R.id.scv_logout);
-        scv_logout.setTitle("注销用户信息");
+        //scv_logout.setTitle("注销用户信息");
         scv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
