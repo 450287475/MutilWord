@@ -35,10 +35,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/scv_words"
         />
-     <com.wangdao.mutilword.view.SettingClickView
+     <Button
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:id="@+id/scv_logout"
+         android:text="注销"
          />
 
  </LinearLayout>

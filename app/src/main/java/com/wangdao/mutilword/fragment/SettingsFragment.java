@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.wangdao.mutilword.R;
@@ -23,7 +24,7 @@ public class SettingsFragment extends Fragment {
     private SettingItemView siv_update;
     private SettingItemView siv_info;
     private SettingClickView scv_words;
-    private SettingClickView scv_logout;
+    private Button scv_logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initLogout() {
-        scv_logout =(SettingClickView)parentView.findViewById(R.id.scv_logout);
+        scv_logout =(Button)parentView.findViewById(R.id.scv_logout);
         //scv_logout.setTitle("注销用户信息");
         scv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
