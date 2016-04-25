@@ -58,6 +58,8 @@ public class SettingItemView extends RelativeLayout {
         tv_desc.setTextColor(Color.parseColor("#AEEEEE"));
         cb_status.setTextColor(Color.parseColor("#AEEEEE"));
 
+       // tv_title.setTextSize(DisplayUtils.dip2px());
+
         setTitle(mTitle);//设置标题
     }
 
