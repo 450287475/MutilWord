@@ -358,6 +358,7 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                                 sb_music_time.setSecondaryProgress(0);
                                 vpIndex = position;
                                 showLrcViewList.get(position).setLrclist(getCurrentLrcList(title));
+                                showLrcViewList.get(position).invalidate();
                                 rePreparePlayer();
                                 errorTitle = "";
                             }
