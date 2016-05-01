@@ -339,6 +339,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         ApplicationInfo.userInfo.setUserpoints(userpoints);
         if (setting==1){
             changeFragment(new ProfileFragment());
+            setting=-1;
         }
         super.onStart();
     }
