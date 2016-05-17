@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context=".activity.MusicActivity"
     android:background="@drawable/music_bg">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="音乐播放器Demo"/>
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,22 +21,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
-            <SeekBar
-                android:id="@+id/sb_music_time"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:splitTrack="false"
-                android:progressDrawable="@drawable/seekbar_bg"
-                android:thumb="@drawable/seekbar_thumb"
-                android:indeterminate="false"/>
-            <TextView
-                android:id="@+id/tv_music_time"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textColor="#8BFFFFFF"
-                android:text="00:00/00:00"/>
+        <SeekBar
+            android:id="@+id/sb_music_time"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:splitTrack="false"
+            android:maxHeight="1dp"
+            android:minHeight="1dp"
+            android:max="100"
+            android:progressDrawable="@drawable/seekbar_bg"
+            android:thumb="@drawable/seekbar_thumb"
+            android:indeterminate="false"/>
+        <TextView
+            android:id="@+id/tv_music_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="#8BFFFFFF"
+            android:text="00:00/00:00"/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -60,8 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="18dp"
-            android:id="@+id/tv_music_title"
             android:textColor="#8BFFFFFF"
+            android:id="@+id/tv_music_title"
             android:text="..."/>
     </RelativeLayout>
 </LinearLayout>

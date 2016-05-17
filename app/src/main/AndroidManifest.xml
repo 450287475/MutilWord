@@ -102,7 +102,13 @@
         </activity>
         <activity android:name=".activity.WordBookActivity">
         </activity>
-        <activity android:name=".activity.MusicActivity"/>
+        <activity android:name=".activity.MusicActivity"
+                  android:launchMode="singleTask"/>
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
 
         <service
             android:name="cn.bmob.push.lib.service.PushService"

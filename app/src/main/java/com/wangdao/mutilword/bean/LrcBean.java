@@ -7,9 +7,14 @@ import java.util.List;
  */
 public class LrcBean implements Serializable
 {
+    public LrcBean(String url)
+    {
+        this.url = url;
+    }
+    public String url;
     public String title;
     public String singer;
     public String album;
-    public List<LrcContentBean> infos;
+    public List<LrcLineContentBean> infos;
 
 }

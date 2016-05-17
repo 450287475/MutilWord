@@ -4,24 +4,34 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.wangdao.mutilword.bean.UserInfo;
+import com.wangdao.mutilword.service.MusicServiceManager;
 import com.wangdao.mutilword.service.NotificationService;
 
 /**
  * Created by haijun on 2016/4/19.
  */
-public class ApplicationInfo extends Application{
+public class ApplicationInfo extends MultiDexApplication{
     public static SharedPreferences sp;
     public static SharedPreferences.Editor editor;
     public static Context mContext;
     public static UserInfo userInfo;
+    public static MusicServiceManager mMusicServiceManager;
 
-
+    @Override
+    protected void attachBaseContext(Context base)
+    {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mMusicServiceManager = new MusicServiceManager(this);
         sp = getSharedPreferences("userinfo", MODE_PRIVATE);
         editor = sp.edit();
         mContext = this;

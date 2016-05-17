@@ -12,28 +12,11 @@ public class MusicJsonBean
     public class MusicBeanContent
     {
         public int id;
+        public String imgurl;
         public String musicurl;
         public String readingurl;
         public String title;
         public String lrcurl;
-        @Override
-        public String toString()
-        {
-            return "MusicBeanContent{" +
-                    "id=" + id +
-                    ", musicurl='" + musicurl + '\'' +
-                    ", readingurl='" + readingurl + '\'' +
-                    ", title='" + title + '\'' +
-                    ", lrc='" + lrcurl + '\'' +
-                    '}';
-        }
-    }
-    @Override
-    public String toString()
-    {
-        return "MusicJsonBean{" +
-                "retcode=" + retcode +
-                ", data=" + data +
-                '}';
+        public String attr;
     }
 }
