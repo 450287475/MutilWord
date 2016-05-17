@@ -279,8 +279,7 @@ public class MusicActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             PLAYER_CURRENT_STATE = PLAYER_PLAYING;
             showPlayButton(false);
         }
-        else
-        {
+        else {
             Toast.makeText(MusicActivity.this, "T.T无法播放", Toast.LENGTH_SHORT).show();
         }
     }

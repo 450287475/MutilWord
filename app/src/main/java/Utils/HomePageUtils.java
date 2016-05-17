@@ -1,5 +1,6 @@
 package Utils;
 import android.content.res.Resources;
+
 /**
  * Created by MonkeyzZi on 2016/4/19.
  */
