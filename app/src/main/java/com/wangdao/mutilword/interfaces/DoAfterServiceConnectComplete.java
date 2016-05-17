@@ -8,5 +8,5 @@ import com.wangdao.mutilword.service.MusicService;
  */
 public interface DoAfterServiceConnectComplete
 {
-    public void doAfterServiceConnectComplete(MusicService.MusicBinder musicService);
+    void doAfterServiceConnectComplete(MusicService.MusicBinder musicService);
 }
