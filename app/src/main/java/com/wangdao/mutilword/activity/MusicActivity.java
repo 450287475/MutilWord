@@ -163,11 +163,6 @@ public class MusicActivity extends Activity implements DoAfterServiceConnectComp
                     lrcBeanMap.put(index,lb);
                 }
             }
-           /* Set<Map.Entry<Integer,LrcBean>> set = lrcBeanMap.entrySet();
-            for(Map.Entry<Integer,LrcBean> entry:set)
-            {
-                Log.i("lrcBeanMap",entry.getKey()+"  :  "+entry.getValue());
-            }*/
         }
     }
     private  void initButton()
@@ -351,7 +346,7 @@ public class MusicActivity extends Activity implements DoAfterServiceConnectComp
 //        Log.i("onPageSelected","onPageSelected"+position);
         if(curPage!=position)
         {
-            Log.i("onPageSelected","cur page index:  "+curPage+"     onPageSelected   "+position);
+//            Log.i("onPageSelected","cur page index:  "+curPage+"     onPageSelected   "+position);
             lrcPrepare(position);
             mMusicTimer.stopTimer();
             sb_music_time.setProgress(0);
@@ -420,7 +415,7 @@ public class MusicActivity extends Activity implements DoAfterServiceConnectComp
         curPage = pageIndex;
         if (curLoadPager != totalPage && curLoadPager == curPage + 1)
         {
-            Log.i("loadMoreLrc","lrcPrepare   cur load page: "+curLoadPager+"   cur page:  "+curPage);
+//            Log.i("loadMoreLrc","lrcPrepare   cur load page: "+curLoadPager+"   cur page:  "+curPage);
             loadMoreLrc();
             mvpa.notifyDataSetChanged();
         }
